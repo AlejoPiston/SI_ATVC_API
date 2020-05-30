@@ -30,3 +30,5 @@
 ## En caso de tener la Alerta!: Falta el enlace simbólico de almacenamiento
 1. Verificar que exista la carpeta public, caso contrario crearla.
 2. Ejecutar el siguiente comando: `php artisan storage:link`
+
+perrita

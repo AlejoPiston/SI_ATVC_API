@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             ZonaSeeder::class,
             ServicioSeeder::class,
             ValorAdicionalSeeder::class,
+            FichaSeeder::class,
+            MaterialInstalacionSeeder::class,
+            MensualidadSeeder::class,
         ]);
     }
 }

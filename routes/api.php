@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::apiResources([
     'zonas' => 'ZonaController',
     'servicios' => 'ServicioController',
-    'valor_adicionals' => 'ValorAdicionalController'
+    'valor_adicionals' => 'ValorAdicionalController',
+    'fichas' => 'FichaController',
+    'material_instalacions' => 'MaterialInstalacionController',
+    'mensualidads' => 'MensualidadController'    
 ]);
 

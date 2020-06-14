@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Servicio::class, function (Faker $faker) {
     return [
         'Nombre' => $faker->name,
-        'Descripcion' => Str::random(10),    
+        'Descripcion' => $faker->text($maxNbChars = 50),    
         'ValorInscripcion' => $faker->randomDigit,
         'ValorMensualidad' => $faker->randomDigit,
         'AplicaIva' => $faker->boolean,

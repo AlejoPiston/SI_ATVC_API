@@ -1,4 +1,5 @@
 ## Instrucciones de instalación
+
 1. Tener instalado Laragon o las herramientas necesarias para ejecutar un proyecto en Laravel.
 2. Crear una base de datos, de preferencia con el mismo nombre del proyecto.
 3. Configurar, los siguientes parámetros, en el archivo .env:

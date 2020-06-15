@@ -31,4 +31,3 @@
 1. Verificar que exista la carpeta public, caso contrario crearla.
 2. Ejecutar el siguiente comando: `php artisan storage:link`
 
-perrita

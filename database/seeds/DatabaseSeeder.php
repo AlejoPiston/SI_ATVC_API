@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
             OtroIngresoSeeder::class,
             CierreCajaSeeder::class,
             CobroSeeder::class,
+            RetencionSeeder::class,
+            CobroMensualidadSeeder::class,
+            CompromisoPagoSeeder::class,
         ]);
     }
 }

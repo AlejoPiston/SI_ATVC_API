@@ -23,6 +23,8 @@ Route::apiResources([
     'mensualidads' => 'MensualidadController',
     'usuarios' => 'UsuarioController',
     'gastos' => 'UsuarioController',
-    'otro_ingresos' => 'UsuarioController'
+    'otro_ingresos' => 'UsuarioController',
+    'cierre_cajas' => 'CierreCajaController',
+    'cobros' => 'CobroController'
 ]);
 

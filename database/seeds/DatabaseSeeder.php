@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             UsuarioSeeder::class,
             GastoSeeder::class,
             OtroIngresoSeeder::class,
+            CierreCajaSeeder::class,
+            CobroSeeder::class,
         ]);
     }
 }

@@ -20,6 +20,9 @@ Route::apiResources([
     'valor_adicionals' => 'ValorAdicionalController',
     'fichas' => 'FichaController',
     'material_instalacions' => 'MaterialInstalacionController',
-    'mensualidads' => 'MensualidadController'    
+    'mensualidads' => 'MensualidadController',
+    'usuarios' => 'UsuarioController',
+    'gastos' => 'UsuarioController',
+    'otro_ingresos' => 'UsuarioController'
 ]);
 

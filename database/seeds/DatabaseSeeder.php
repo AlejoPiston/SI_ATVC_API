@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             CompromisoPagoSeeder::class,
             CorteReconexionSeeder::class,
             TurnoOrdenTrabajoSeeder::class,
+            OrdenTrabajoSeeder::class,
         ]);
     }
 }

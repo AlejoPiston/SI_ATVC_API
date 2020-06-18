@@ -28,6 +28,8 @@ Route::apiResources([
     'cobros' => 'CobroController',
     'retencions' => 'RetencionController',
     'cobro_mensualidads' => 'CobroMensualidadController',  
-    'compromiso_pagos' => 'CompromisoPagoController'       
+    'compromiso_pagos' => 'CompromisoPagoController',
+    'corte_reconexions' => 'CorteReconexionController',
+    'turno_orden_trabajos' => 'TurnoOrdenTrabajoController'           
 ]);
 

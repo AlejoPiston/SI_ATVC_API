@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             RetencionSeeder::class,
             CobroMensualidadSeeder::class,
             CompromisoPagoSeeder::class,
+            CorteReconexionSeeder::class,
+            TurnoOrdenTrabajoSeeder::class,
         ]);
     }
 }

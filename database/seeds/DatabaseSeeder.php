@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             CorteReconexionSeeder::class,
             TurnoOrdenTrabajoSeeder::class,
             OrdenTrabajoSeeder::class,
+            InstalacionSeeder::class,
         ]);
     }
 }

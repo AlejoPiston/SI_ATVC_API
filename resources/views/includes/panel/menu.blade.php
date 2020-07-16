@@ -10,7 +10,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="examples/icons.html">
+    <a class="nav-link" href="{{ url('/orden_trabajos') }}">
     <i class="ni ni-planet text-orange"></i>
     <span class="nav-link-text">Órdenes de trabajo</span>
     </a>

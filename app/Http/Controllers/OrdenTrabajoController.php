@@ -7,6 +7,26 @@ use Illuminate\Http\Request;
 
 class OrdenTrabajoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
+
+    public function indexweb()
+    {
+        $ordenestrabajos = OrdenTrabajo::paginate(5);
+        return view ('OrdenTrabajo.lista', compact('ordenestrabajos'));
+
+    }
+    public function create()
+    {
+        $ordenestrabajos = OrdenTrabajo::all();
+        return view ('OrdenTrabajo.create', compact('ordenestrabajos'));
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *

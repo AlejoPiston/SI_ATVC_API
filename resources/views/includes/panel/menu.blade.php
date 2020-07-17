@@ -16,6 +16,12 @@
     </a>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="{{ url('/zonas') }}">
+    <i class="ni ni-planet text-orange"></i>
+    <span class="nav-link-text">Zonas</span>
+    </a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="examples/map.html">
     <i class="ni ni-pin-3 text-primary"></i>
     <span class="nav-link-text">Instalaciones</span>

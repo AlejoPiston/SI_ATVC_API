@@ -7,7 +7,24 @@ use Illuminate\Http\Request;
 
 class ZonaController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
+
+    public function indexweb()
+    {
+        $zonas = Zona::paginate(5);
+        return view ('Zona.lista', compact('zonas'));
+
+    }
+    public function create()
+    {
+        $zonas = Zona::all();
+        return view ('Zona.create', compact('zonas'));
+
+    }
 
     /**
      * Display a listing of the resource.

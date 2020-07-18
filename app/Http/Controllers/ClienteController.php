@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
-class TecnicoController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class TecnicoController extends Controller
      */
     public function index()
     {
-        $tecnicos = User::tecnicos()->paginate(5);
-        return view ('Tecnico.lista', compact('tecnicos'));
+        $clientes = User::clientes()->paginate(2);
+        return view ('Cliente.lista', compact('clientes'));
     }
 
     /**

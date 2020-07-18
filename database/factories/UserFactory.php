@@ -16,10 +16,10 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
 
         'Apellidos' => $faker->name,
-        'Cedula' => $faker->randomNumber(10, true), 
+        'Cedula' => $faker->creditCardNumber, 
         'Direccion' => $faker->address, 
         'Telefono' => $faker->PhoneNumber, 
-        'Tipo' => $faker->randomElement(['tecnico','vendedor']), 
+        'Tipo' => $faker->randomElement(['tecnico','cliente','administrador']), 
         'Estado' => $faker->boolean,
     ];
 });

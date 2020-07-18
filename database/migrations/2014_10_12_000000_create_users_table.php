@@ -29,9 +29,6 @@ class CreateUsersTable extends Migration
             $table->boolean('Estado');
 
             $table->timestamps();
-
-           
-            
          
         });
     }

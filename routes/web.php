@@ -27,3 +27,9 @@ Route::delete('/zonas/{zona}', 'ZonaController@destroyweb');
 
 //Técnico
 Route::resource('tecnicos', 'TecnicoController');
+
+//Administrador
+Route::resource('administradores', 'AdministradorController');
+
+//Cliente
+Route::resource('clientes', 'ClienteController');

@@ -28,6 +28,18 @@
     </a>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="{{ url('/administradores') }}">
+    <i class="ni ni-planet text-orange"></i>
+    <span class="nav-link-text">Administradores</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/clientes') }}">
+    <i class="ni ni-planet text-orange"></i>
+    <span class="nav-link-text">Clientes</span>
+    </a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="examples/map.html">
     <i class="ni ni-pin-3 text-primary"></i>
     <span class="nav-link-text">Instalaciones</span>

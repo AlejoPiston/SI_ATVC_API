@@ -25,7 +25,46 @@ class ZonaController extends Controller
         return view ('Zona.create', compact('zonas'));
 
     }
+    public function storeweb(Request $request)
+    {
+        //
+        $rules = [
+            'Nombre' => 'required|min:3'
+        ];
+        $this->validate($request, $rules);
 
+        Zona::create($request->all());
+
+        $notificacion = 'La zona se ha registrado correctamente';
+        return redirect('/zonas')->with(compact('notificacion'));
+
+    }
+    public function updateweb(Request $request, Zona $zona)
+    {
+        $rules = [
+            'Nombre' => 'required|min:3'
+        ];
+        $this->validate($request, $rules);
+        $zona->update($request->all());
+
+        $notificacion = 'La zona se ha actualizado correctamente';
+        return redirect('/zonas')->with(compact('notificacion'));
+
+       
+    }
+    public function edit(Zona $zona)
+    {
+        return view ('Zona.edit', compact('zona'));
+    }
+
+    public function destroyweb(Zona $zona)
+    {
+       $NombreEliminado = $zona->Nombre;
+       $zona->delete();
+
+       $notificacion = 'La zona '.$NombreEliminado.' se ha eliminado correctamente';
+       return redirect('/zonas')->with(compact('notificacion'));
+    }
     /**
      * Display a listing of the resource.
      *

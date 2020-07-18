@@ -18,6 +18,13 @@
         </div>
       </div>
     </div>
+    <div class="card-body">
+      @if (session('notificacion'))
+      <div class="alert alert-success" role="alert">
+        {{ session('notificacion') }}
+      </div> 
+      @endif
+    </div>
     <div class="table-responsive">
       <!-- Projects table -->
       <table class="table align-items-center table-flush">
@@ -40,12 +47,14 @@
                 {{ $zona->Descripcion }}
             </td>
             <td>
-                <a href="{{ url('/zonas/create') }}" class="btn btn-sm btn-primary">
+                <form action="{{ url('/zonas/'.$zona->Id) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <a href="{{ url('/zonas/'.$zona->Id.'/edit') }}" class="btn btn-sm btn-primary">
                     Editar
-                </a>
-                <a href="{{ url('/zonas/create') }}" class="btn btn-sm btn-danger">
-                    Eliminar
-                </a>
+                  </a>
+                  <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                </form>
             </td>
           </tr>
           @endforeach

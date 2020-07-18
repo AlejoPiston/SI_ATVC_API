@@ -19,5 +19,11 @@ Route::post('/orden_trabajos', 'OrdenTrabajoController@storeweb');
 //Zona
 Route::get('/zonas', 'ZonaController@indexweb');
 Route::get('/zonas/create', 'ZonaController@create');
-Route::get('/zonas/{zonas}/edit', 'ZonaController@edit');
+Route::get('/zonas/{zona}/edit', 'ZonaController@edit');
+
 Route::post('/zonas', 'ZonaController@storeweb');
+Route::put('/zonas/{zona}', 'ZonaController@updateweb');
+Route::delete('/zonas/{zona}', 'ZonaController@destroyweb');
+
+//Técnico
+Route::resource('tecnicos', 'TecnicoController');

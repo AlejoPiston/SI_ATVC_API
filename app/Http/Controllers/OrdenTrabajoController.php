@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\OrdenTrabajo;
+use App\Ficha;
 use Illuminate\Http\Request;
 
 class OrdenTrabajoController extends Controller
@@ -21,8 +22,8 @@ class OrdenTrabajoController extends Controller
     }
     public function create()
     {
-        $ordenestrabajos = OrdenTrabajo::all();
-        return view ('OrdenTrabajo.create', compact('ordenestrabajos'));
+        $clientes = Ficha::all();
+        return view ('OrdenTrabajo.create', compact('clientes'));
 
     }
 

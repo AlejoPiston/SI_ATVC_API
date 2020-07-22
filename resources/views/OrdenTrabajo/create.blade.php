@@ -36,6 +36,9 @@
           <label for="Nombre">Cliente</label>
       
       <select name="" id="" class="form-control">
+        @foreach ($clientes as $cliente)
+      <option value="{{ $cliente->Id }}">{{ $cliente->Nombres }}</option>
+        @endforeach
 
       </select>
       </div>

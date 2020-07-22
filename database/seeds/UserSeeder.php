@@ -24,6 +24,18 @@ class UserSeeder extends Seeder
         'Tipo' => 'administrador', 
         'Estado' => 1,
         ]);
+        User::create([
+            'name' => 'Alexander León',
+            'email' => 'alexander@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('12345678'), // password
+            'Apellidos' => 'León',
+            'Cedula' => '1703804628', 
+            'Direccion' => '', 
+            'Telefono' => '', 
+            'Tipo' => 'tecnico', 
+            'Estado' => 1,
+            ]);
 
         factory(User::class, 10)->create();    
     }

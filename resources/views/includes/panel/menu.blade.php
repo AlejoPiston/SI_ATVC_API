@@ -3,6 +3,8 @@
     <span class="docs-normal">Gestionar datos</span>
 </h6>
 <ul class="navbar-nav">
+
+@if (auth()->user()->Tipo == 'administrador')
 <li class="nav-item">
     <a class="nav-link active" href="examples/dashboard.html">
     <i class="ni ni-tv-2 text-primary"></i>
@@ -57,6 +59,18 @@
     <span class="nav-link-text">Notificaciones</span>
     </a>
 </li>
+
+    
+@elseif(auth()->user()->Tipo == 'tecnico')
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/orden_trabajos') }}">
+    <i class="ni ni-planet text-orange"></i>
+    <span class="nav-link-text">Mis órdenes de trabajo</span>
+    </a>
+</li>
+    
+@endif
+
 
 
 </ul>

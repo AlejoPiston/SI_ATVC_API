@@ -6,7 +6,7 @@
 
 @if (auth()->user()->Tipo == 'administrador')
 <li class="nav-item">
-    <a class="nav-link active" href="examples/dashboard.html">
+    <a class="nav-link active" href="{{ route('home') }}">
     <i class="ni ni-tv-2 text-primary"></i>
     <span class="nav-link-text">Dashboard</span>
     </a>
@@ -66,6 +66,23 @@
     <a class="nav-link" href="{{ url('/orden_trabajos') }}">
     <i class="ni ni-planet text-orange"></i>
     <span class="nav-link-text">Mis órdenes de trabajo</span>
+    </a>
+</li>
+
+    
+@else {{-- Cliente --}}
+
+    
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/orden_trabajos') }}">
+    <i class="ni ni-planet text-orange"></i>
+    <span class="nav-link-text">Mis órdenes de trabajo</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/orden_trabajos') }}">
+    <i class="ni ni-planet text-orange"></i>
+    <span class="nav-link-text">Notificaciones</span>
     </a>
 </li>
     

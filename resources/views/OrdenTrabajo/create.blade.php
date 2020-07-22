@@ -47,7 +47,12 @@
     </div>
     <div class="form-group">
       <label for="Descripcion">Fecha</label>
-      <input type="text" name="Descripcion" id="" class="form-control datepicker" required>
+      <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+        </div>
+        <input class="form-control datepicker" placeholder="Seleccionar fecha" type="text" value="06/20/2020">
+    </div>
   </div>
     <button type="submit" class="btn btn-primary">
         Guardar

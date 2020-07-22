@@ -28,12 +28,24 @@ class UserSeeder extends Seeder
             'name' => 'Alexander León',
             'email' => 'alexander@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('12345678'), // password
+            'password' => bcrypt('1234567'), // password
             'Apellidos' => 'León',
             'Cedula' => '1703804628', 
             'Direccion' => '', 
             'Telefono' => '', 
             'Tipo' => 'tecnico', 
+            'Estado' => 1,
+            ]);
+        User::create([
+            'name' => 'Tatiana Cumbal',
+            'email' => 'tatiana@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123456'), // password
+            'Apellidos' => 'León',
+            'Cedula' => '1703804628', 
+            'Direccion' => '', 
+            'Telefono' => '', 
+            'Tipo' => 'cliente', 
             'Estado' => 1,
             ]);
 

@@ -91,6 +91,7 @@
 
 
 </ul>
+@if (auth()->user()->Tipo == 'administrador')
 <!-- Divider -->
 <hr class="my-3">
 <!-- Heading -->
@@ -112,3 +113,6 @@
     </a>
 </li>
 </ul>
+@elseif(auth()->user()->Tipo == 'tecnico')
+@else {{-- Cliente --}}
+@endif

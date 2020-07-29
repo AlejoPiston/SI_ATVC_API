@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\OrdenTrabajo;
 use App\Ficha;
+use App\User;
 use Illuminate\Http\Request;
 
 class OrdenTrabajoController extends Controller
@@ -23,7 +24,22 @@ class OrdenTrabajoController extends Controller
     public function create()
     {
         $clientes = Ficha::all();
-        return view ('OrdenTrabajo.create', compact('clientes'));
+        $tecnicos = User::tecnicos()->get();
+        return view ('OrdenTrabajo.create', compact('clientes', 'tecnicos'));
+
+    }
+    public function storeweb(Request $request)
+    {
+        //
+        $rules = [
+            'Dano' => 'required|min:3'
+        ];
+        $this->validate($request, $rules);
+
+        OrdenTrabajo::create($request->all());
+
+        $notificacion = 'La orden de trabajo se ha registrado correctamente';
+        return redirect('/orden_trabajos')->with(compact('notificacion'));
 
     }
 

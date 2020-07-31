@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             FichaSeeder::class,
             MaterialInstalacionSeeder::class,
             MensualidadSeeder::class,
-            UsuarioSeeder::class,
             GastoSeeder::class,
             OtroIngresoSeeder::class,
             CierreCajaSeeder::class,

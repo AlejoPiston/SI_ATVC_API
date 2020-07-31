@@ -47,7 +47,8 @@
       data-live-search="true" data-style="btn-outline-primary"
       title="Seleccione un Cliente">
         @foreach ($clientes as $cliente)
-      <option value="{{ $cliente->Id }}">{{ $cliente->Nombres }} | {{ $cliente->CedulaRuc }}</option>
+      <option value="{{ $cliente->Id }}"> Nombre:
+        {{ $cliente->Nombres }} | Cédula: {{ $cliente->CedulaRuc }} | Dirección:{{ $cliente->DireccionDomicilio }}</option>
         @endforeach
 
       </select>
@@ -69,7 +70,9 @@
           <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
           </div>
-          <input name="Fecha" class="form-control datepicker" placeholder="Seleccionar fecha" type="text" value="06/20/2020">
+        <input name="Fecha" class="form-control datepicker" placeholder="Seleccionar fecha" 
+        type="text" value="{{ date('Y-m-d') }}" data-date-format="yyyy-mm-dd"
+        data-date-start-date="{{ date('Y-m-d') }}" data-date-end-date="+2d">
       </div>
     </div>
       <div class="form-group">
@@ -77,7 +80,8 @@
         <select name="IdEmpleado" id="IdEmpleado" class="form-control selectpicker" data-live-search="true" data-style="btn-outline-primary"
         title="Seleccione un Técnico">
         @foreach ($tecnicos as $tecnico)
-          <option value="{{ $tecnico->id }}">{{ $tecnico->name }} | {{ $tecnico->Cedula }}</option>
+          <option value="{{ $tecnico->id }}"> 
+            {{ $tecnico->name }} | {{ $tecnico->Cedula }}</option>
          @endforeach
 
         </select>

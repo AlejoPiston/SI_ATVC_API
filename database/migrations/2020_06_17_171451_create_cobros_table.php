@@ -42,7 +42,7 @@ class CreateCobrosTable extends Migration
             $table->unsignedBigInteger('PuntoEmision');
             $table->timestamps();
 
-            $table->foreign('IdUsuario')->references('Id')->on('Usuario');
+            $table->foreign('IdUsuario')->references('id')->on('users');
         });
     }
 

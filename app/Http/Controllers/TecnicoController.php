@@ -25,7 +25,7 @@ class TecnicoController extends Controller
      */
     public function create()
     {
-        //
+        return view ('Tecnico.create');
     }
 
     /**
@@ -36,7 +36,34 @@ class TecnicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required|min:3',
+            'Apellidos' => 'required|min:3',
+            'Direccion' => 'required|min:3',
+            'email' => 'required|email',
+            'Cedula' => 'required|digits:10',
+            'Telefono' => 'required|digits:10',
+            'Estado' => 'nullable|min:3',
+            'Usuario' => 'nullable|min:3'
+            
+        ];
+        $this->validate($request, $rules);
+        User::create(
+            $request->only('name', 
+                           'Apellidos', 
+                           'email', 
+                           'Cedula', 
+                           'Telefono', 
+                           'Direccion', 
+                           'Estado', 
+                           'Usuario')
+            + [
+                'Tipo' => 'tecnico',
+                'password' => bcrypt($request->input('password'))
+            ]
+        );
+        $notificacion = 'El técnico se ha registrado correctamente';
+        return redirect('/tecnicos')->with(compact('notificacion'));
     }
 
     /**
@@ -58,7 +85,8 @@ class TecnicoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tecnico = User::tecnicos()->findOrFail($id);
+        return view ('Tecnico.edit', compact('tecnico'));
     }
 
     /**
@@ -70,17 +98,43 @@ class TecnicoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'name' => 'required|min:3',
+            'Apellidos' => 'required|min:3',
+            'Direccion' => 'required|min:3',
+            'email' => 'required|email',
+            'Cedula' => 'required|digits:10',
+            'Telefono' => 'required|digits:10',
+            'Estado' => 'nullable|min:3',
+            'Usuario' => 'nullable|min:3'
+            
+        ];
+        $this->validate($request, $rules);
+
+        $tecnico = User::tecnicos()->findOrFail($id);
+
+        $data =  $request->only('name', 'Apellidos', 'email', 'Cedula', 'Telefono', 'Direccion', 
+        'Estado', 
+        'Usuario');
+        $password = $request->input('password');
+
+        if($password )
+            $data['password'] = bcrypt($password);
+        
+        $tecnico->fill($data);
+        $tecnico->save();
+        
+        $notificacion = 'La información del técnico se ha actualizado correctamente';
+        return redirect('/tecnicos')->with(compact('notificacion'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+   
+    public function destroy(User $tecnico)
     {
-        //
+        $tecnicoEliminado = $tecnico->name;
+       $tecnico->delete();
+
+       $notificacion = 'El técnico '.$tecnicoEliminado.' se ha eliminado correctamente';
+       return redirect('/tecnicos')->with(compact('notificacion'));
     }
 }

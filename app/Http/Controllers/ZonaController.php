@@ -21,8 +21,7 @@ class ZonaController extends Controller
     }
     public function create()
     {
-        $zonas = Zona::all();
-        return view ('Zona.create', compact('zonas'));
+        return view ('Zona.create');
 
     }
     public function storeweb(Request $request)

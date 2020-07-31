@@ -26,7 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('Direccion', 255);
             $table->string('Telefono', 50);
             $table->string('Tipo', 50);
-            $table->boolean('Estado');
+            $table->boolean('Estado')->nullable();    
+            $table->string('Usuario', 50)->nullable();
 
             $table->timestamps();
          

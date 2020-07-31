@@ -30,7 +30,8 @@
       <table class="table align-items-center table-flush">
         <thead class="thead-light">
           <tr>
-            <th scope="col">Nombre</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
             <th scope="col">E-mail</th>
             <th scope="col">Cédula </th>
             <th scope="col">Opciones</th>
@@ -44,6 +45,9 @@
             <th scope="row">
                 {{ $tecnico->name }}
             </th>
+            <th scope="row">
+              {{ $tecnico->Apellidos }}
+          </th>
             <td>
                 {{ $tecnico->email }}
             </td>
@@ -51,10 +55,10 @@
               {{ $tecnico->Cedula }}
             </td>
             <td>
-                <form action="{{ url('/tecnicos/'.$tecnico->Id) }}" method="POST">
+                <form action="{{ url('/tecnicos/'.$tecnico->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <a href="{{ url('/tecnicos/'.$tecnico->Id.'/edit') }}" class="btn btn-sm btn-primary">
+                  <a href="{{ url('/tecnicos/'.$tecnico->id.'/edit') }}" class="btn btn-sm btn-primary">
                     Editar
                   </a>
                   <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

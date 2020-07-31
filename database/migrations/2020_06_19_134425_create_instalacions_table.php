@@ -29,9 +29,9 @@ class CreateInstalacionsTable extends Migration
             $table->unsignedBigInteger('IdEmpleado');
             $table->timestamps();
 
-            $table->foreign('IdVendedor')->references('Id')->on('Usuario');
+            $table->foreign('IdVendedor')->references('id')->on('users');
             $table->foreign('IdTurno')->references('Id')->on('TurnoOrdenTrabajo');
-            $table->foreign('IdEmpleado')->references('Id')->on('Usuario');
+            $table->foreign('IdEmpleado')->references('id')->on('users');
         });
     }
 

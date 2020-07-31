@@ -21,7 +21,7 @@ class CreateOtroIngresosTable extends Migration
             $table->unsignedBigInteger('IdUsuario');
             $table->timestamps();
 
-            $table->foreign('IdUsuario')->references('Id')->on('Usuario');
+            $table->foreign('IdUsuario')->references('id')->on('users');
         });
     }
 

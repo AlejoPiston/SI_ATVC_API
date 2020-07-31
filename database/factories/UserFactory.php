@@ -20,6 +20,7 @@ $factory->define(User::class, function (Faker $faker) {
         'Direccion' => $faker->address, 
         'Telefono' => $faker->PhoneNumber, 
         'Tipo' => $faker->randomElement(['tecnico','cliente','administrador']), 
+        'Usuario' => $faker->name,
         'Estado' => $faker->boolean,
     ];
 });

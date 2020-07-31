@@ -22,7 +22,7 @@ class CreateCompromisoPagosTable extends Migration
             $table->timestamps();
 
             $table->foreign('IdFicha')->references('Id')->on('Ficha');
-            $table->foreign('IdUsuario')->references('Id')->on('Usuario');
+            $table->foreign('IdUsuario')->references('id')->on('users');
         });
     }
 

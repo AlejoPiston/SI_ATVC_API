@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
         'password' => bcrypt('12345678'), // password
         'Apellidos' => 'Oñate Castillo',
         'Cedula' => '0503804628', 
-        'Direccion' => '', 
-        'Telefono' => '', 
+        'Direccion' => 'Quito', 
+        'Telefono' => '0989808394', 
         'Tipo' => 'administrador', 
         'Usuario' => '', 
         'Estado' => 1,
@@ -32,8 +32,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('1234567'), // password
             'Apellidos' => 'León Albán',
             'Cedula' => '1703804628', 
-            'Direccion' => '', 
-            'Telefono' => '', 
+            'Direccion' => 'Latacunga', 
+            'Telefono' => '0989808394', 
             'Tipo' => 'tecnico', 
             'Usuario' => '', 
             'Estado' => 1,
@@ -45,8 +45,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456'), // password
             'Apellidos' => 'León',
             'Cedula' => '1703804628', 
-            'Direccion' => '', 
-            'Telefono' => '', 
+            'Direccion' => 'Cuenca', 
+            'Telefono' => '0989808394', 
             'Tipo' => 'cliente', 
             'Usuario' => '', 
             'Estado' => 1,

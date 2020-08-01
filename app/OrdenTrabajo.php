@@ -8,7 +8,7 @@ class OrdenTrabajo extends Model
 {
     protected $table = "OrdenTrabajo";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = [ "Fecha", 
                             "Dano", 
                             "Resultado", 
@@ -26,6 +26,6 @@ class OrdenTrabajo extends Model
         return $this->belongsTo('App\TurnoOrdenTrabajo', 'IdTurno');
     }
     public function empleadoordentrabajo(){
-        return $this->belongsTo('App\Usuario', 'IdEmpleado');
+        return $this->belongsTo('App\User', 'IdEmpleado');
     }
 }

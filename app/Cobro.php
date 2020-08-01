@@ -8,7 +8,7 @@ class Cobro extends Model
 {
     protected $table = "Cobro";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = [ "Fecha", 
                             "ValorEfectivo", 
                             "ValorCheque", 
@@ -35,6 +35,6 @@ class Cobro extends Model
                             "PuntoEmision"];
     
     public function usuariocobro(){
-        return $this->belongsTo('App\Usuario', 'IdUsuario');
+        return $this->belongsTo('App\User', 'IdUsuario');
     }
 }

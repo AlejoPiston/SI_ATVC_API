@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrador;
 
 use Illuminate\Http\Request;
 use App\User;
 
-class TecnicoController extends Controller
+use App\Http\Controllers\Controller;
+
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +16,8 @@ class TecnicoController extends Controller
      */
     public function index()
     {
-        $tecnicos = User::tecnicos()->paginate(5);
-        return view ('Tecnico.lista', compact('tecnicos'));
+        $clientes = User::clientes()->paginate(2);
+        return view ('Cliente.lista', compact('clientes'));
     }
 
     /**
@@ -25,7 +27,7 @@ class TecnicoController extends Controller
      */
     public function create()
     {
-        return view ('Tecnico.create');
+        return view ('Cliente.create'); 
     }
 
     /**
@@ -58,12 +60,12 @@ class TecnicoController extends Controller
                            'Estado', 
                            'Usuario')
             + [
-                'Tipo' => 'tecnico',
+                'Tipo' => 'cliente',
                 'password' => bcrypt($request->input('password'))
             ]
         );
-        $notificacion = 'El técnico se ha registrado correctamente';
-        return redirect('/tecnicos')->with(compact('notificacion'));
+        $notificacion = 'El cliente se ha registrado correctamente';
+        return redirect('/clientes')->with(compact('notificacion'));
     }
 
     /**
@@ -77,16 +79,10 @@ class TecnicoController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    
+    public function edit(User $cliente)
     {
-        $tecnico = User::tecnicos()->findOrFail($id);
-        return view ('Tecnico.edit', compact('tecnico'));
+        return view ('Cliente.edit', compact('cliente'));
     }
 
     /**
@@ -111,7 +107,7 @@ class TecnicoController extends Controller
         ];
         $this->validate($request, $rules);
 
-        $tecnico = User::tecnicos()->findOrFail($id);
+        $cliente = User::clientes()->findOrFail($id);
 
         $data =  $request->only('name', 'Apellidos', 'email', 'Cedula', 'Telefono', 'Direccion', 
         'Estado', 
@@ -121,20 +117,20 @@ class TecnicoController extends Controller
         if($password )
             $data['password'] = bcrypt($password);
         
-        $tecnico->fill($data);
-        $tecnico->save();
+        $cliente->fill($data);
+        $cliente->save();
         
-        $notificacion = 'La información del técnico se ha actualizado correctamente';
-        return redirect('/tecnicos')->with(compact('notificacion'));
+        $notificacion = 'La información del cliente se ha actualizado correctamente';
+        return redirect('/clientes')->with(compact('notificacion'));
     }
 
-   
-    public function destroy(User $tecnico)
+    
+    public function destroy(User $cliente)
     {
-        $tecnicoEliminado = $tecnico->name;
-       $tecnico->delete();
+        $clienteEliminado = $cliente->name;
+       $cliente->delete();
 
-       $notificacion = 'El técnico '.$tecnicoEliminado.' se ha eliminado correctamente';
-       return redirect('/tecnicos')->with(compact('notificacion'));
+       $notificacion = 'El cliente '.$clienteEliminado.' se ha eliminado correctamente';
+       return redirect('/clientes')->with(compact('notificacion'));
     }
 }

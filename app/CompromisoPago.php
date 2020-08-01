@@ -8,7 +8,7 @@ class CompromisoPago extends Model
 {
     protected $table = "CompromisoPago";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = ["Fecha", 
                            "Observacion", 
                            "IdFicha",
@@ -18,6 +18,6 @@ class CompromisoPago extends Model
         return $this->belongsTo('App\Ficha', 'IdFicha');
     }
     public function usuariocompromisopago(){
-        return $this->belongsTo('App\Usuario', 'IdUsuario');
+        return $this->belongsTo('App\User', 'IdUsuario');
     }
 }

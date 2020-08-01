@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrador;
 
 use Illuminate\Http\Request;
 use App\User;
 
-class ClienteController extends Controller
+use App\Http\Controllers\Controller;
+
+class AdministradorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +16,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = User::clientes()->paginate(2);
-        return view ('Cliente.lista', compact('clientes'));
+        $administradores = User::administradores()->paginate(2);
+        return view ('Administrador.lista', compact('administradores'));
     }
 
     /**

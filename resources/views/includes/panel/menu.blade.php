@@ -1,7 +1,16 @@
-<!-- Nav items -->
 <h6 class="navbar-heading p-0 text-muted">
-    <span class="docs-normal">Gestionar datos</span>
+@if (auth()->user()->Tipo == 'administrador')
+<span class="docs-normal">Gestionar datos</span>
+@elseif(auth()->user()->Tipo == 'tecnico')
+<span class="docs-normal">Menú</span>
+@else {{-- Cliente --}}
+<span class="docs-normal">Menú</span>
+@endif
 </h6>
+<!-- Nav items -->
+
+    
+
 <ul class="navbar-nav">
 
 @if (auth()->user()->Tipo == 'administrador')
@@ -13,49 +22,49 @@
 </li>
 <li class="nav-item">
     <a class="nav-link" href="{{ url('/orden_trabajos') }}">
-    <i class="ni ni-planet text-orange"></i>
+    <i class="ni ni-delivery-fast text-green"></i>
     <span class="nav-link-text">Órdenes de trabajo</span>
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('/zonas') }}">
-    <i class="ni ni-planet text-orange"></i>
-    <span class="nav-link-text">Zonas</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ url('/tecnicos') }}">
-    <i class="ni ni-planet text-orange"></i>
-    <span class="nav-link-text">Técnicos</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ url('/administradores') }}">
-    <i class="ni ni-planet text-orange"></i>
-    <span class="nav-link-text">Administradores</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ url('/clientes') }}">
-    <i class="ni ni-planet text-orange"></i>
-    <span class="nav-link-text">Clientes</span>
-    </a>
-</li>
-<li class="nav-item">
     <a class="nav-link" href="examples/map.html">
-    <i class="ni ni-pin-3 text-primary"></i>
+    <i class="ni ni-support-16 text-red"></i>
     <span class="nav-link-text">Instalaciones</span>
     </a>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="{{ url('/zonas') }}">
+    <i class="ni ni-square-pin text-blue"></i>
+    <span class="nav-link-text">Zonas</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/administradores') }}">
+    <i class="ni ni-single-02 text-blue"></i>
+    <span class="nav-link-text">Administradores</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/tecnicos') }}">
+    <i class="ni ni-user-run text-orange"></i>
+    <span class="nav-link-text">Técnicos</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/clientes') }}">
+    <i class="ni ni-circle-08 text-pink"></i>
+    <span class="nav-link-text">Clientes</span>
+    </a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="examples/profile.html">
-    <i class="ni ni-single-02 text-yellow"></i>
+    <i class="ni ni-active-40 text-yellow"></i>
     <span class="nav-link-text">Sistema experto</span>
     </a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="examples/tables.html">
-    <i class="ni ni-bullet-list-67 text-default"></i>
+    <i class="ni ni-notification-70 text-purple"></i>
     <span class="nav-link-text">Notificaciones</span>
     </a>
 </li>
@@ -64,7 +73,7 @@
 @elseif(auth()->user()->Tipo == 'tecnico')
 <li class="nav-item">
     <a class="nav-link" href="{{ url('/orden_trabajos') }}">
-    <i class="ni ni-planet text-orange"></i>
+    <i class="ni ni-delivery-fast text-green"></i>
     <span class="nav-link-text">Mis órdenes de trabajo</span>
     </a>
 </li>
@@ -75,17 +84,11 @@
     
 <li class="nav-item">
     <a class="nav-link" href="{{ url('/orden_trabajos') }}">
-    <i class="ni ni-planet text-orange"></i>
-    <span class="nav-link-text">Mis órdenes de trabajo</span>
+    <i class="ni ni-active-40 text-purple"></i>
+    <span class="nav-link-text">Mis daños</span>
     </a>
 </li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ url('/orden_trabajos') }}">
-    <i class="ni ni-planet text-orange"></i>
-    <span class="nav-link-text">Notificaciones</span>
-    </a>
-</li>
-    
+
 @endif
 
 
@@ -102,17 +105,28 @@
 <ul class="navbar-nav mb-md-3">
 <li class="nav-item">
     <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html" target="_blank">
-    <i class="ni ni-spaceship"></i>
+    <i class="ni ni-chart-bar-32"></i>
     <span class="nav-link-text">Frecuencia Órdenes de trabajo</span>
     </a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html" target="_blank">
-    <i class="ni ni-palette"></i>
+    <i class="ni ni-paper-diploma"></i>
     <span class="nav-link-text">Técnicos más activos</span>
     </a>
 </li>
 </ul>
 @elseif(auth()->user()->Tipo == 'tecnico')
 @else {{-- Cliente --}}
+@endif
+
+
+
+
+@if (auth()->user()->Tipo == 'administrador')
+
+@elseif(auth()->user()->Tipo == 'tecnico')
+
+@else {{-- Cliente --}}
+
 @endif

@@ -8,7 +8,7 @@ class Instalacion extends Model
 {
     protected $table = "Instalacion";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = [ "NombreCliente",
                             "Direccion", 
                             "Referencia", 
@@ -23,12 +23,12 @@ class Instalacion extends Model
                             "IdEmpleado"];
     
     public function vendedorinstalacion(){
-        return $this->belongsTo('App\Usuario', 'IdVendedor');
+        return $this->belongsTo('App\User', 'IdVendedor');
     }
     public function turnoinstalacion(){
         return $this->belongsTo('App\TurnoOrdenTrabajo', 'IdTurno');
     }
     public function empleadoinstalacion(){
-        return $this->belongsTo('App\Usuario', 'IdEmpleado');
+        return $this->belongsTo('App\User', 'IdEmpleado');
     }
 }

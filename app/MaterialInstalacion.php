@@ -9,7 +9,7 @@ class MaterialInstalacion extends Model
     protected $table = "MaterialInstalacion";
     protected $primaryKey = ['IdFicha', 'IdValorAdicional'];
     public $incrementing = false;
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = ["IdFicha", "IdValorAdicional", "Cantidad", "CostoUnitario", "Comentario"];
 
     public function fichamaterialinstalacion(){

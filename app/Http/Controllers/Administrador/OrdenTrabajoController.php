@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrador;
 
 use App\OrdenTrabajo;
 use App\Ficha;
 use App\User;
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\Controller;
+
 class OrdenTrabajoController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-    }
 
     public function indexweb()
     {

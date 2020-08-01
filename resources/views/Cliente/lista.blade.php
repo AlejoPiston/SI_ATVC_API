@@ -51,10 +51,10 @@
               {{ $cliente->Cedula }}
             </td>
             <td>
-                <form action="{{ url('/clientes/'.$cliente->Id) }}" method="POST">
+                <form action="{{ url('/clientes/'.$cliente->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <a href="{{ url('/clientes/'.$cliente->Id.'/edit') }}" class="btn btn-sm btn-primary">
+                  <a href="{{ url('/clientes/'.$cliente->id.'/edit') }}" class="btn btn-sm btn-primary">
                     Editar
                   </a>
                   <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

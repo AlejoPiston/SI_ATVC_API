@@ -9,7 +9,7 @@ class Servicio extends Model
     //
     protected $table = "Servicio";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = [ "Nombre", 
                             "Descripcion", 
                             "ValorInscripcion", 

@@ -8,7 +8,7 @@ class CorteReconexion extends Model
 {
     protected $table = "CorteReconexion";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = [ "Fechacorte", 
                             "ObservacionCorte", 
                             "FechaReconexion", 

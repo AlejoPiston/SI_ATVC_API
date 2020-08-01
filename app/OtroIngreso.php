@@ -8,12 +8,12 @@ class OtroIngreso extends Model
 {
     protected $table = "OtroIngreso";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = [ "Fecha", 
                             "Concepto", 
                             "Monto", 
                             "IdUsuario"];
     public function usuariogasto(){
-        return $this->belongsTo('App\Usuario', 'IdUsuario');
+        return $this->belongsTo('App\User', 'IdUsuario');
     }
 }

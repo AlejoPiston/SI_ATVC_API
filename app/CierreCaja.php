@@ -8,7 +8,7 @@ class CierreCaja extends Model
 {
     protected $table = "CierreCaja";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'M j Y h:i:s';
+    protected $dateFormat = 'd-m-Y H:i:s';
     protected $fillable = [ "Fecha", 
                             "ValorCuadrar", 
                             "Faltante", 
@@ -37,6 +37,6 @@ class CierreCaja extends Model
                             "IdUsuario"];
     
     public function usuariocierrecaja(){
-        return $this->belongsTo('App\Usuario', 'IdUsuario');
+        return $this->belongsTo('App\User', 'IdUsuario');
     }
 }

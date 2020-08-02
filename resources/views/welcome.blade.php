@@ -19,7 +19,7 @@
   <meta name="author" content="Creative Tim">
   <title>{{ config('app.name') }} | @yield('titulo')</title>
   <!-- Favicon -->
-  <link rel="icon" href="{{ asset('img/brand/logo.png') }}" type="image/png">
+  <link rel="icon" href="{{ asset('img/brand/atvc_ico.png') }}" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -34,7 +34,7 @@
   <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="/">
-        <img src="{{ asset('img/brand/white.png') }}">
+        <img src="{{ asset('img/brand/atvc.png') }}" class="rounded">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
             <a href="/">
-                <img src="{{ asset('img/brand/blue.png') }}">
+                <img src="{{ asset('img/brand/atvc.png') }}" class="rounded">
               </a>
             </div>
             <div class="col-6 collapse-close">

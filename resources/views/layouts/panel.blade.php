@@ -23,7 +23,7 @@
   <meta name="author" content="Creative Tim">
   <title>{{ config('app.name') }} | @yield('titulo')</title>
   <!-- Favicon -->
-  <link rel="icon" href="{{ asset('img/brand/logo.png') }}" type="image/png">
+  <link rel="icon" href="{{ asset('img/brand/atvc_ico.png') }}" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -42,7 +42,7 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
       <a class="navbar-brand" href="{{ url('/') }}">
-          <img src="{{ asset('img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
+          <img src="{{ asset('img/brand/atvc.png') }}" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">

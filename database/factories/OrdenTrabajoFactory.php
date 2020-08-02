@@ -10,7 +10,7 @@ $factory->define(OrdenTrabajo::class, function (Faker $faker) {
         'Fecha' => $faker->date,
         'Dano' => $faker->text($maxNbChars = 50),
         'Resultado' => $faker->text($maxNbChars = 50),
-        'Activa' => $faker->boolean,
+        'Activa' => $faker->randomElement(['registrada','pendiente','en progreso','atendida','cancelada']), 
         'FechaHoraArrivo' => $faker->date,    
         'FechaHoraSalida' => $faker->date,    
         'IdFicha' => $faker->randomDigitNot(0),

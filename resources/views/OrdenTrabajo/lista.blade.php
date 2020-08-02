@@ -18,67 +18,37 @@
         </div>
       </div>
     </div>
-    <div class="table-responsive">
-      <!-- Projects table -->
-      <table class="table align-items-center table-flush">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">Cliente Ficha</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Daño</th>
-            <th scope="col">Resultado</th>
-            <th scope="col">Técnico</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Fecha/Hora Arrivo</th>
-            <th scope="col">Fecha/Hora Salida</th>
-            <th scope="col">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-            @foreach ($ordenestrabajos as $ordentrabajo)
-                
-            
-          <tr>
-            <th scope="row">
-                {{ $ordentrabajo->IdFicha }}
-            </th>
-            <td>
-                {{ $ordentrabajo->Fecha }}
-            </td>
-            <td>
-                {{ $ordentrabajo->Dano }}
-            </td>
-            <td>
-                {{ $ordentrabajo->Resultado }}
-            </td>
-            <td>
-                {{ $ordentrabajo->IdEmpleado }}
-            </td>
-            <td>
-                {{ $ordentrabajo->Activa }}
-            </td>
-            <td>
-                {{ $ordentrabajo->FechaHoraArrivo }}
-            </td>
-            <td>
-                {{ $ordentrabajo->FechaHoraSalida }}
-            </td>
-            <td>
-                <a href="{{ url('/orden_trabajos/create') }}" class="btn btn-sm btn-primary">
-                    Editar
-                </a>
-                <a href="{{ url('/orden_trabajos/create') }}" class="btn btn-sm btn-danger">
-                    Eliminar
-                </a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
     <div class="card-body">
-        {{ $ordenestrabajos->links() }}
+      @if (session('notificacion'))
+      <div class="alert alert-success" role="alert">
+        {{ session('notificacion') }}
+      </div> 
+      @endif
+
+    
+        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0 active" 
+                data-toggle="tab" 
+                href="#ot_enprogreso" role="tab"  
+                aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Mis órdenes en progreso</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0" 
+                data-toggle="tab" href="#ot_pendientes" role="tab"  
+                aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Órdenes por confirmar</a>
+            </li>
+        </ul>
+    
     </div>
     
+          <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="ot_enprogreso" role="tabpanel">
+                @include('OrdenTrabajo.ot_enprogreso')
+              </div>
+              <div class="tab-pane fade" id="ot_pendientes" role="tabpanel" >
+                  @include('OrdenTrabajo.ot_pendientes')
+              </div>
+          </div>
   </div>     
 @endsection

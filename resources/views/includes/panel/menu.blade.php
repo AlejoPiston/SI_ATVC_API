@@ -33,12 +33,6 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('/zonas') }}">
-    <i class="ni ni-square-pin text-blue"></i>
-    <span class="nav-link-text">Zonas</span>
-    </a>
-</li>
-<li class="nav-item">
     <a class="nav-link" href="{{ url('/administradores') }}">
     <i class="ni ni-single-02 text-blue"></i>
     <span class="nav-link-text">Administradores</span>

@@ -18,17 +18,19 @@ class CreateOrdenTrabajosTable extends Migration
             $table->date('Fecha');
             $table->string('Dano', 255);
             $table->string('Resultado', 255)->nullable();
-            $table->boolean('Activa')->nullable();
+            $table->string('Activa')->nullable(); //Estado
             $table->date('FechaHoraArrivo')->nullable();
             $table->date('FechaHoraSalida')->nullable();
             $table->unsignedBigInteger('IdFicha');
             $table->unsignedBigInteger('IdTurno')->nullable();
             $table->unsignedBigInteger('IdEmpleado');
+            $table->unsignedBigInteger('IdUsuario')->nullable();
             $table->timestamps();
 
             $table->foreign('IdFicha')->references('Id')->on('Ficha');
             $table->foreign('IdTurno')->references('Id')->on('TurnoOrdenTrabajo');
             $table->foreign('IdEmpleado')->references('id')->on('users');
+            $table->foreign('IdUsuario')->references('id')->on('users');
         });
     }
 

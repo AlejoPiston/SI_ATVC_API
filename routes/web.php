@@ -13,21 +13,24 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth', 'administrador'])->namespace('Administrador')->group(function () {
 
-//Técnico
-Route::resource('tecnicos', 'TecnicoController');
+        //Técnico
+        Route::resource('tecnicos', 'TecnicoController');
 
-//Administrador
-Route::resource('administradores', 'AdministradorController');
+        //Administrador
+        Route::resource('administradores', 'AdministradorController');
 
-//Cliente
-Route::resource('clientes', 'ClienteController');
+        //Cliente
+        Route::resource('clientes', 'ClienteController');
 
-// Orden de Trabajo
-Route::get('/orden_trabajos', 'OrdenTrabajoController@indexweb');
-Route::get('/orden_trabajos/create', 'OrdenTrabajoController@create');
-Route::get('/orden_trabajos/{orden_trabajos}/edit', 'OrdenTrabajoController@edit');
-Route::post('/orden_trabajos', 'OrdenTrabajoController@storeweb');
+});
 
+Route::middleware('auth')->group(function () {
+
+         // Orden de Trabajo
+         Route::get('/orden_trabajos', 'OrdenTrabajoController@indexweb');
+         Route::get('/orden_trabajos/create', 'OrdenTrabajoController@create');
+         Route::get('/orden_trabajos/{orden_trabajos}/edit', 'OrdenTrabajoController@edit');
+         Route::post('/orden_trabajos', 'OrdenTrabajoController@storeweb');
 });
 
 

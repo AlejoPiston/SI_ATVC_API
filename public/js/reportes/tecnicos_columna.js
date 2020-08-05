@@ -1,4 +1,4 @@
-const reporte = Highcharts.chart('container', {
+const chart = Highcharts.chart('container', {
     chart: {
         type: 'column'
     },
@@ -12,7 +12,7 @@ const reporte = Highcharts.chart('container', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Órdenes de trabajo atendidas'
+            text: 'ordenes de trabajo atendidas'
         }
     },
     tooltip: {
@@ -29,7 +29,7 @@ const reporte = Highcharts.chart('container', {
             borderWidth: 0
         }
     },
-    series: []
+    series: [ ]
 });
 
 function fetchData(){
@@ -37,13 +37,20 @@ function fetchData(){
          .then(function(response){
              return response.json();
          })
-          .then(function(data){
-              reporte.xAxis[0].setCategories(data.categories);
-              reporte.addSeries(data.series[0]);
-              reporte.addSeries(data.series[1]);
+          .then(function(data){ 
+              //console.log(data); 
+            chart.xAxis[0].setCategories(data.categories);
+
+            if(chart.series.length > 0){
+                chart.series[1].remove();
+                chart.series[0].remove();
+            }
+            chart.addSeries(data.series[0]); //Atendida
+            chart.addSeries(data.series[1]); //Cancelada
           });
 }
-
 $(function(){
     fetchData();
 });
+
+

@@ -35,7 +35,7 @@ class ReporteController extends Controller
     public function tecnicosJson(){
 
         $tecnicos = User::tecnicos()
-            ->select('id', 'name')
+            ->select('name')
             ->withCount([
                 'atendidasOrdenesTrabajo',
                 'canceladasOrdenesTrabajo'])
@@ -45,15 +45,17 @@ class ReporteController extends Controller
             
         $data = [];
         $data['categories'] = $tecnicos->pluck('name');
+        
         $series = [];
 
-        $series1['name'] = 'Citas atendidas';
+        $series1['name'] = 'ordenes de trabajo atendidas';
         $series1['data'] = $tecnicos->pluck('atendidas_ordenes_trabajo_count');
 
-        $series2['name'] = 'Citas canceladas';
+        $series2['name'] = 'ordenes de trabajo canceladas';
         $series2['data'] = $tecnicos->pluck('canceladas_ordenes_trabajo_count');
         $series[] = $series1;
         $series[] = $series2;
+        
         $data['series'] = $series;
 
         return $data;

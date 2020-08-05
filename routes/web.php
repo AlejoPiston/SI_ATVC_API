@@ -30,7 +30,7 @@ Route::middleware(['auth', 'administrador'])->namespace('Administrador')->group(
 });
 Route::middleware(['auth', 'cliente'])->group(function () {
 
-    Route::get('/orden_trabajos/create', 'OrdenTrabajoController@create');
+    
 });
 
 
@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
          Route::post('/orden_trabajos', 'OrdenTrabajoController@storeweb');
 
          Route::get('/orden_trabajos/{orden_trabajos}/edit', 'OrdenTrabajoController@edit');
+
+         Route::get('/orden_trabajos/create', 'OrdenTrabajoController@create');
          
          
          Route::post('/orden_trabajos/{orden_trabajo}/cancelar', 'OrdenTrabajoController@cancelar');

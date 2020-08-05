@@ -22,6 +22,9 @@ Route::middleware(['auth', 'administrador'])->namespace('Administrador')->group(
         //Cliente
         Route::resource('clientes', 'ClienteController');
 
+        //Reportes
+        Route::get('/reportes/ot/linea', 'ReporteController@ordenestrabajoLinea');
+
 });
 Route::middleware(['auth', 'cliente'])->group(function () {
 

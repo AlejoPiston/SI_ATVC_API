@@ -54,4 +54,14 @@ class User extends Authenticatable
     public function scopeClientes($query){
         return $query->where('Tipo', 'cliente');
     }
+
+    public function asTecnicoOrdenesTrabajo(){
+        return $this->hasMany(OrdenTrabajo::class, 'IdEmpleado');
+    }
+    public function atendidasOrdenesTrabajo(){
+        return $this->asTecnicoOrdenesTrabajo()->where('Activa', 'atendida');
+    }
+    public function canceladasOrdenesTrabajo(){
+        return $this->asTecnicoOrdenesTrabajo()->where('Activa', 'cancelada');
+    }
 }

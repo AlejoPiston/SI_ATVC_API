@@ -4,10 +4,14 @@
 
 @section('styles')
 <style>
-    .highcharts-figure, .highcharts-data-table table {
-    min-width: 360px; 
+   .highcharts-figure, .highcharts-data-table table {
+    min-width: 310px; 
     max-width: 800px;
     margin: 1em auto;
+}
+
+#container {
+    height: 400px;
 }
 
 .highcharts-data-table table {
@@ -48,7 +52,7 @@
     <div class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0">Reporte: Frecuencia de órdenes de trabajo</h3>
+          <h3 class="mb-0">Reporte: Técnicos más activos</h3>
         </div>
         
       </div>
@@ -65,40 +69,10 @@
 @endsection
 
 @section('scripts')
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script>
-    Highcharts.chart('container', {
-    chart: {
-        type: 'line'
-    },
-    title: {
-        text: 'Órdenes de trabajo registradas mensualmente'
-    },
-    xAxis: {
-        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-    },
-    yAxis: {
-        title: {
-            text: 'Cantidad de órdenes de trabajo'
-        }
-    },
-    plotOptions: {
-        line: {
-            dataLabels: {
-                enabled: true
-            },
-            enableMouseTracking: false
-        }
-    },
-    series: [{
-        name: 'Órdenes de trabajo registradas',
-        data: @json($contadores)
-    }]
-});
-</script>
+<script src="{{ asset('js\reportes\tecnicos_columna.js') }}"></script>
     
 @endsection

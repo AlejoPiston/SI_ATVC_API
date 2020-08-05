@@ -106,7 +106,7 @@
 </li>
 <li class="nav-item">
     <a class="nav-link" 
-        href="{{ url('/reportes/tecnicos/barra') }}">
+        href="{{ url('/reportes/tecnicos/columna') }}">
     <i class="ni ni-paper-diploma"></i>
     <span class="nav-link-text">Técnicos más activos</span>
     </a>

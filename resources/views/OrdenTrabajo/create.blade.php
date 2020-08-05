@@ -40,19 +40,33 @@
       @csrf
 
       <div class="form-group">
-          <label for="IdFicha">Cliente</label>
+          <label for="IdFicha">Ficha</label>
       
       <select name="IdFicha" id="IdFicha" 
       class="form-control selectpicker" 
       data-live-search="true" data-style="btn-outline-primary"
-      title="Seleccione un Cliente">
-        @foreach ($clientes as $cliente)
-      <option value="{{ $cliente->Id }}"> Nombre:
-        {{ $cliente->Nombres }} | Cédula: {{ $cliente->CedulaRuc }} | Dirección:{{ $cliente->DireccionDomicilio }}</option>
+      title="Seleccione una Ficha">
+        @foreach ($fichas as $ficha)
+      <option value="{{ $ficha->Id }}"> Nombre:
+        {{ $ficha->Nombres }} | Cédula: {{ $ficha->CedulaRuc }} | Dirección:{{ $ficha->DireccionDomicilio }}</option>
         @endforeach
 
       </select>
       </div>
+      <div class="form-group">
+        <label for="IdCliente">Cliente</label>
+    
+        <select name="IdCliente" id="IdCliente" 
+        class="form-control selectpicker" 
+        data-live-search="true" data-style="btn-outline-primary"
+        title="Seleccione un Cliente">
+          @foreach ($clientes as $cliente)
+        <option value="{{ $cliente->id }}"> Nombre:
+          {{ $cliente->name }} | Cédula: {{ $cliente->Cedula }}</option>
+          @endforeach
+
+        </select>
+    </div>
       <div class="form-group">
         <label for="Dano">Daño</label>
 

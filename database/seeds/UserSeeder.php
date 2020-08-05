@@ -39,11 +39,11 @@ class UserSeeder extends Seeder
             'Estado' => 1,
             ]);
         User::create([
-            'name' => 'Tatiana Cumbal',
+            'name' => 'Tatiana Anabel',
             'email' => 'tatiana@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // password
-            'Apellidos' => 'León',
+            'Apellidos' => 'Cumbal Vergara',
             'Cedula' => '1703804628', 
             'Direccion' => 'Cuenca', 
             'Telefono' => '0989808394', 

@@ -18,38 +18,56 @@ class OrdenTrabajoController extends Controller
 
             $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
                 ->paginate(5);
+            $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
+                ->paginate(5);
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
+                ->paginate(5);
+            $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
                 ->paginate(5);
 
         } elseif($Tipo == 'tecnico'){
 
-            $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'pendiente')
+            $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
+                ->where('IdEmpleado', auth()->id())
+                ->paginate(5);
+            $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
+                ->where('IdEmpleado', auth()->id())
+                ->paginate(5);
+            $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
 
         } elseif($Tipo == 'cliente') {
 
             $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
-                ->where('IdUsuario', auth()->id())
+                ->where('IdCliente', auth()->id())
+                ->paginate(5);
+            $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
+                ->where('IdCliente', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
-                ->where('IdUsuario', auth()->id())
+                ->where('IdCliente', auth()->id())
+                ->paginate(5);
+            $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
+                ->where('IdCliente', auth()->id())
                 ->paginate(5);
 
         }
         return view ('OrdenTrabajo.lista',
-             compact('ordenestrabajos_pendientes', 'ordenestrabajos_enprogreso', 'Tipo')
+             compact('ordenestrabajos_pendientes', 'ordenestrabajos_confirmadas', 
+             'ordenestrabajos_enprogreso', 'ordenestrabajos_historial', 'Tipo')
         );
 
     }
     public function create()
     {
-        $clientes = Ficha::all();
+        $fichas = Ficha::all();
         $tecnicos = User::tecnicos()->get();
-        return view ('OrdenTrabajo.create', compact('clientes', 'tecnicos'));
+        $clientes = User::clientes()->get();
+        return view ('OrdenTrabajo.create', compact('fichas', 'tecnicos', 'clientes'));
 
     }
     public function storeweb(Request $request)
@@ -59,7 +77,6 @@ class OrdenTrabajoController extends Controller
             'Dano' => 'required|min:3'
         ];
         $this->validate($request, $rules);
-
 
         $Tipo = auth()->user()->Tipo;
         $idUsuario = auth()->user()->id;
@@ -74,10 +91,11 @@ class OrdenTrabajoController extends Controller
                                'FechaHoraSalida', 
                                'IdFicha',
                                'IdTurno', 
+                               'IdCliente',
                                'IdEmpleado')
                 + [
                     'IdUsuario' => $idUsuario,
-                    'Activa' => 'pendiente'
+                    'Activa' => 'confirmada'
                 ]
             );
 
@@ -91,6 +109,7 @@ class OrdenTrabajoController extends Controller
                                'FechaHoraSalida', 
                                'IdFicha',
                                'IdTurno', 
+                               'IdCliente',
                                'IdEmpleado')
                 + [
                     'IdUsuario' => $idUsuario,
@@ -163,6 +182,25 @@ class OrdenTrabajoController extends Controller
     public function destroy(OrdenTrabajo $ordenTrabajo)
     {
         $ordenTrabajo->delete();
+
+    }
+
+    public function cancelar(OrdenTrabajo $ordenTrabajo)
+    {
+        $ordenTrabajo->Activa = 'cancelada';
+        $ordenTrabajo->save();
+  
+        $notificacion = 'La orden de trabajo se ha cancelado correctamente';
+        return back()->with(compact('notificacion')); 
+
+    }
+    public function confirmar(OrdenTrabajo $ordenTrabajo)
+    {
+        $ordenTrabajo->Activa = 'confirmada';
+        $ordenTrabajo->save();
+  
+        $notificacion = 'La orden de trabajo se ha confirmado correctamente';
+        return back()->with(compact('notificacion')); 
 
     }
 }

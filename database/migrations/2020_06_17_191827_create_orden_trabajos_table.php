@@ -25,12 +25,14 @@ class CreateOrdenTrabajosTable extends Migration
             $table->unsignedBigInteger('IdTurno')->nullable();
             $table->unsignedBigInteger('IdEmpleado');
             $table->unsignedBigInteger('IdUsuario')->nullable();
+            $table->unsignedBigInteger('IdCliente')->nullable();
             $table->timestamps();
 
             $table->foreign('IdFicha')->references('Id')->on('Ficha');
             $table->foreign('IdTurno')->references('Id')->on('TurnoOrdenTrabajo');
             $table->foreign('IdEmpleado')->references('id')->on('users');
             $table->foreign('IdUsuario')->references('id')->on('users');
+            $table->foreign('IdCliente')->references('id')->on('users');
         });
     }
 

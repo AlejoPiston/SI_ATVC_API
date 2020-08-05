@@ -18,6 +18,7 @@ class OrdenTrabajo extends Model
                             "IdFicha",
                             "IdTurno",
                             "IdEmpleado",
+                            "IdCliente",
                             "IdUsuario"];
     
     public function fichaordentrabajo(){
@@ -31,5 +32,8 @@ class OrdenTrabajo extends Model
     }
     public function usuarioordentrabajo(){
         return $this->belongsTo('App\User', 'IdUsuario');
+    }
+    public function clienteordentrabajo(){
+        return $this->belongsTo('App\User', 'IdCliente');
     }
 }

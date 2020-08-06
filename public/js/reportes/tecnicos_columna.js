@@ -37,16 +37,14 @@ function fetchData(){
          .then(function(response){
              return response.json();
          })
-          .then(function(data){ 
-              //console.log(data); 
-            chart.xAxis[0].setCategories(data.categories);
-
+          .then(function(tma){ 
+            chart.xAxis[0].setCategories(tma.categories);
             if(chart.series.length > 0){
                 chart.series[1].remove();
                 chart.series[0].remove();
             }
-            chart.addSeries(data.series[0]); //Atendida
-            chart.addSeries(data.series[1]); //Cancelada
+            chart.addSeries(tma.series[0]); //Atendida
+            chart.addSeries(tma.series[1]); //Cancelada
           });
 }
 $(function(){

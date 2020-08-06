@@ -43,6 +43,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'atendidas_ordenes_trabajo_count' => 'integer',
+        'canceladas_ordenes_trabajo_count' => 'integer' 
+          
     ];
 
     public function scopeTecnicos($query){

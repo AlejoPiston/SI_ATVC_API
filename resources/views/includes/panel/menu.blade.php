@@ -26,12 +26,14 @@
     <span class="nav-link-text">Órdenes de trabajo</span>
     </a>
 </li>
+{{-- 
 <li class="nav-item">
     <a class="nav-link" href="examples/map.html">
     <i class="ni ni-support-16 text-red"></i>
     <span class="nav-link-text">Instalaciones</span>
     </a>
 </li>
+--}}
 <li class="nav-item">
     <a class="nav-link" href="{{ url('/administradores') }}">
     <i class="ni ni-single-02 text-blue"></i>
@@ -50,19 +52,21 @@
     <span class="nav-link-text">Clientes</span>
     </a>
 </li>
+{{-- 
 <li class="nav-item">
     <a class="nav-link" href="examples/profile.html">
     <i class="ni ni-active-40 text-yellow"></i>
     <span class="nav-link-text">Sistema experto</span>
     </a>
 </li>
+
 <li class="nav-item">
     <a class="nav-link" href="examples/tables.html">
     <i class="ni ni-notification-70 text-purple"></i>
     <span class="nav-link-text">Notificaciones</span>
     </a>
 </li>
-
+--}}
     
 @elseif(auth()->user()->Tipo == 'tecnico')
 <li class="nav-item">

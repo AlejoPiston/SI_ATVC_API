@@ -8,7 +8,8 @@ class OrdenTrabajo extends Model
 {
     protected $table = "OrdenTrabajo";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Fecha", 
                             "Dano", 
                             "Resultado", 

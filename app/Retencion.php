@@ -8,7 +8,8 @@ class Retencion extends Model
 {
     protected $table = "Retencion";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "BaseImponibleRenta", 
                             "PorcentajeRenta", 
                             "ValorRenta", 

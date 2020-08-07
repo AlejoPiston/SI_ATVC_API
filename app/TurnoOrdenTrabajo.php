@@ -8,7 +8,8 @@ class TurnoOrdenTrabajo extends Model
 {
     protected $table = "TurnoOrdenTrabajo";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Hora", 
                             "Minuto"];
 }

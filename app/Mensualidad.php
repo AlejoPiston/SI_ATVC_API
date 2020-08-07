@@ -8,7 +8,8 @@ class Mensualidad extends Model
 {
     protected $table = "Mensualidad";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "FechaInicio", 
                             "FechaFin", 
                             "Valor", 

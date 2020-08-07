@@ -8,7 +8,8 @@ class CierreCaja extends Model
 {
     protected $table = "CierreCaja";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Fecha", 
                             "ValorCuadrar", 
                             "Faltante", 

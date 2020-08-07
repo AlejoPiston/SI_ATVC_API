@@ -9,6 +9,7 @@ class ValorAdicional extends Model
     //
     protected $table = "ValorAdicional";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = ["Nombre", "Costo", "Descripcion"];
 }

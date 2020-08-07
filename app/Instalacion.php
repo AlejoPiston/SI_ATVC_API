@@ -8,7 +8,8 @@ class Instalacion extends Model
 {
     protected $table = "Instalacion";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "NombreCliente",
                             "Direccion", 
                             "Referencia", 

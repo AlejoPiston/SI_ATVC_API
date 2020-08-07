@@ -8,7 +8,8 @@ class CompromisoPago extends Model
 {
     protected $table = "CompromisoPago";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = ["Fecha", 
                            "Observacion", 
                            "IdFicha",

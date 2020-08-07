@@ -8,7 +8,8 @@ class Gasto extends Model
 {
     protected $table = "Gasto";
     protected $primaryKey = 'Id';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //Sql server
+    //protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Fecha", 
                             "Concepto", 
                             "Monto", 

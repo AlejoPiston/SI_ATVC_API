@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
   <!-- Argon CSS -->
   <link rel="stylesheet" href="{{ asset('css/argon.css?v=1.2.0') }}" type="text/css">
+  @yield('styles')
 </head>
 
 <body class="bg-default">
@@ -133,8 +134,13 @@
   <script src="{{ asset('vendor/js-cookie/js.cookie.js') }}"></script>
   <script src="{{ asset('vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
   <script src="{{ asset('vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') }}"></script>
+  <!-- Optional JS -->
+  <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
+  @yield('scripts')
   <!-- Argon JS -->
   <script src="{{ asset('js/argon.js?v=1.2.0') }}"></script>
+ 
 </body>
 
 </html>

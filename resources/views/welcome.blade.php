@@ -89,12 +89,6 @@
               <span class="nav-link-inner--text d-lg-none">Facebook</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-icon" href="https://www.instagram.com/creativetimofficial" target="_blank" data-toggle="tooltip" data-original-title="Síguenos en Instagram">
-              <i class="fab fa-instagram"></i>
-              <span class="nav-link-inner--text d-lg-none">Instagram</span>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -140,9 +134,7 @@
             <li class="nav-item">
               <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Template</a>
             </li>
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Acerca de</a>
-            </li>
+            
           </ul>
         </div>
       </div>

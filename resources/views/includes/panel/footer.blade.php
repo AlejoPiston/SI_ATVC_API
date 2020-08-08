@@ -10,9 +10,7 @@
           <li class="nav-item">
             <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Template</a>
           </li>
-          <li class="nav-item">
-            <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Acerca de</a>
-          </li>
+          
         </ul>
       </div>
     </div>

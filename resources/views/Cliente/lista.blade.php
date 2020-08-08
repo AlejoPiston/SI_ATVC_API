@@ -33,6 +33,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">E-mail</th>
             <th scope="col">Cédula </th>
+            <th scope="col">Dirección </th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
@@ -42,13 +43,16 @@
             
           <tr>
             <th scope="row">
-                {{ $cliente->name }}
+                {{ $cliente->name }} {{ $cliente->Apellidos }}
             </th>
             <td>
                 {{ $cliente->email }}
             </td>
             <td>
               {{ $cliente->Cedula }}
+            </td>
+            <td>
+              {{ $cliente->Direccion }}
             </td>
             <td>
                 <form action="{{ url('/clientes/'.$cliente->id) }}" method="POST">

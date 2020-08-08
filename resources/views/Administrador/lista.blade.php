@@ -33,6 +33,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">E-mail</th>
             <th scope="col">Cédula </th>
+            <th scope="col">Dirección </th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
@@ -42,7 +43,7 @@
             
           <tr>
             <th scope="row">
-                {{ $administrador->name }}
+                {{ $administrador->name }} {{ $administrador->Apellidos }}
             </th>
             <td>
                 {{ $administrador->email }}
@@ -51,10 +52,13 @@
               {{ $administrador->Cedula }}
             </td>
             <td>
-                <form action="{{ url('/administradores/'.$administrador->Id) }}" method="POST">
+              {{ $administrador->Direccion }}
+            </td>
+            <td>
+                <form action="{{ url('/administradores/'.$administrador->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <a href="{{ url('/administradores/'.$administrador->Id.'/edit') }}" class="btn btn-sm btn-primary">
+                  <a href="{{ url('/administradores/'.$administrador->id.'/edit') }}" class="btn btn-sm btn-primary">
                     Editar
                   </a>
                   <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

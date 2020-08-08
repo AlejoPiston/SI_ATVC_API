@@ -30,10 +30,10 @@
       <table class="table align-items-center table-flush">
         <thead class="thead-light">
           <tr>
-            <th scope="col">Nombres</th>
-            <th scope="col">Apellidos</th>
+            <th scope="col">Nombre</th>
             <th scope="col">E-mail</th>
             <th scope="col">Cédula </th>
+            <th scope="col">Direección</th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
@@ -43,16 +43,16 @@
             
           <tr>
             <th scope="row">
-                {{ $tecnico->name }}
+                {{ $tecnico->name }} {{ $tecnico->Apellidos }}
             </th>
-            <th scope="row">
-              {{ $tecnico->Apellidos }}
-          </th>
             <td>
                 {{ $tecnico->email }}
             </td>
             <td>
               {{ $tecnico->Cedula }}
+            </td>
+            <td>
+              {{ $tecnico->Direccion }}
             </td>
             <td>
                 <form action="{{ url('/tecnicos/'.$tecnico->id) }}" method="POST">

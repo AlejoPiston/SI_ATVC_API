@@ -26,6 +26,9 @@ Route::middleware(['auth', 'administrador'])->namespace('Administrador')->group(
         Route::get('/reportes/ot/linea', 'ReporteController@ordenestrabajoLinea');
         Route::get('/reportes/tecnicos/columna', 'ReporteController@tecnicosColumna');
         Route::get('/reportes/tecnicos/columna/data', 'ReporteController@tecnicosJson');
+        
+        //FCM
+        Route::post('/fcm/send', 'FirebaseController@sendAll');
 
 });
 Route::middleware(['auth', 'cliente'])->group(function () {

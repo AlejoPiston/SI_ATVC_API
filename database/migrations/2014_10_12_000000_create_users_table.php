@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('Tipo', 50);
             $table->boolean('Estado')->nullable();    
             $table->string('Usuario', 50)->nullable();
+            $table->string('device_token')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

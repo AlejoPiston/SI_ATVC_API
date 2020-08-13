@@ -40,6 +40,7 @@ Route::group([
 ], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signUp');
+    
 
     Route::group([
       'middleware' => 'auth:api'
@@ -49,6 +50,8 @@ Route::group([
 
         Route::get('ordenes_t', 'OrdenesTController@index');
         Route::post('ordenes_t', 'OrdenesTController@store');
+
+        Route::post('fcm/token', 'FirebaseController@postToken');
     });
 });
 

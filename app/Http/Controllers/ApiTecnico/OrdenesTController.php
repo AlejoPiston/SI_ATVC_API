@@ -35,7 +35,5 @@ class OrdenesTController extends Controller
                     "created_at"
                 ]);
         return $ordenest;
-    }
-
-    
+    }   
 }

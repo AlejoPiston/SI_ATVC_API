@@ -21,6 +21,11 @@ class OrdenTrabajo extends Model
                             "IdEmpleado",
                             "IdCliente",
                             "IdUsuario"];
+
+    protected $hidden = [  "IdFicha",
+                            "IdTurno",
+                            "IdCliente",
+                            "IdUsuario"];
     
     public function fichaordentrabajo(){
         return $this->belongsTo('App\Ficha', 'IdFicha');

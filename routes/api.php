@@ -46,6 +46,9 @@ Route::group([
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+
+        Route::get('ordenes_t', 'OrdenesTController@index');
+        Route::post('ordenes_t', 'OrdenesTController@store');
     });
 });
 

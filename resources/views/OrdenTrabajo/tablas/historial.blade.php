@@ -1,3 +1,5 @@
+
+
 <div class="table-responsive">
   <!-- Projects table -->
   <table class="table align-items-center table-flush">
@@ -44,19 +46,18 @@
             {{ $ordentrabajo->FechaHoraSalida }}
         </td>
         <td>
-            <a href="{{ url('/orden_trabajos/create') }}" class="btn btn-sm btn-primary">
-                Editar
-            </a>
-            <a href="{{ url('/orden_trabajos/create') }}" class="btn btn-sm btn-danger">
-                Eliminar
+            <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" class="btn btn-sm btn-primary">
+                Ver
             </a>
         </td>
       </tr>
       @endforeach
     </tbody>
   </table>
+
 </div>
 
 <div class="card-body">
   {{ $ordenestrabajos_historial->links() }}
 </div>
+

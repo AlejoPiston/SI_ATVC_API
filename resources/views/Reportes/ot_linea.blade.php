@@ -2,6 +2,16 @@
 
 @section('titulo', 'Panel')
 
+@section('nav-link Inicio', 'nav-link')
+@section('nav-link OT', 'nav-link')
+@section('nav-link Administradores', 'nav-link')
+@section('nav-link Tecnicos', 'nav-link')
+@section('nav-link Clientes', 'nav-link')
+@section('nav-link MOT', 'nav-link')
+@section('nav-link MD', 'nav-link')
+@section('nav-link FOT', 'nav-link active')
+@section('nav-link TMA', 'nav-link')
+
 @section('styles')
 <style>
     .highcharts-figure, .highcharts-data-table table {

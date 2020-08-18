@@ -1,3 +1,4 @@
+
 <div class="table-responsive">
   <!-- Projects table -->
   <table class="table align-items-center table-flush">
@@ -44,7 +45,10 @@
             {{ $ordentrabajo->FechaHoraSalida }}
         </td>
         <td>
-
+          @if (auth()->user()->Tipo == 'administrador')
+          <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" title="Ver orden de trabajo" class="btn btn-sm btn-primary">
+            Ver
+          </a>
           <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/confirmar') }}" 
             method="POST" class="d-inline-block">
             @csrf
@@ -53,6 +57,7 @@
               <i class="ni ni-check-bold"></i>
             </button>
           </form>
+          @endif
           <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/cancelar') }}" 
             method="POST" class="d-inline-block">
             @csrf

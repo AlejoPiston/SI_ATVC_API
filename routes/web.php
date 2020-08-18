@@ -47,11 +47,16 @@ Route::middleware('auth')->group(function () {
 
          Route::get('/orden_trabajos/{orden_trabajos}/edit', 'OrdenTrabajoController@edit');
 
+         Route::get('/orden_trabajos/ver/{orden_trabajo}', 'OrdenTrabajoController@showweb');
+
          Route::get('/orden_trabajos/create', 'OrdenTrabajoController@create');
          
-         
-         Route::post('/orden_trabajos/{orden_trabajo}/cancelar', 'OrdenTrabajoController@cancelar');
-         Route::post('/orden_trabajos/{orden_trabajo}/confirmar', 'OrdenTrabajoController@confirmar');
+         Route::get('/orden_trabajos/{orden_trabajo}/cancelar', 'OrdenTrabajoController@showCancelForm');
+         Route::post('/orden_trabajos/{orden_trabajo}/cancelar', 'OrdenTrabajoController@postCancel');
+
+         Route::post('/orden_trabajos/{orden_trabajo}/confirmar', 'OrdenTrabajoController@postConfirm');
+
+        
 
          
 });

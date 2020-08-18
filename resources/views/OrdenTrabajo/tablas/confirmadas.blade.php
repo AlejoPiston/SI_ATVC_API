@@ -1,3 +1,5 @@
+
+
 <div class="table-responsive">
   <!-- Projects table -->
   <table class="table align-items-center table-flush">
@@ -44,6 +46,9 @@
             {{ $ordentrabajo->FechaHoraSalida }}
         </td>
         <td>
+          <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" title="Ver orden de trabajo" class="btn btn-sm btn-primary">
+            Ver
+          </a>
           <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/confirmar') }}" 
             method="POST" class="d-inline-block">
             @csrf
@@ -52,14 +57,9 @@
               <i class="ni ni-check-bold"></i>
             </button>
           </form>
-          <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/cancelar') }}" 
-            method="POST" class="d-inline-block">
-            @csrf
-            <button type="submit" class="btn btn-sm btn-danger" 
-            data-toggle="tooltip" title="Cancelar orden de trabajo">
-              <i class="ni ni-fat-delete"></i>
-            </button>
-          </form>
+          <a class="btn btn-sm btn-danger" href="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/cancelar') }}">
+            Cancelar
+          </a>
         </td>
       </tr>
       @endforeach
@@ -67,6 +67,8 @@
   </table>
 </div>
 
+
 <div class="card-body">
   {{ $ordenestrabajos_confirmadas->links() }}
 </div>
+

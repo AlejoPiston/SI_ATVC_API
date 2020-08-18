@@ -2,6 +2,16 @@
 
 @section('titulo', 'Panel')
 
+@section('nav-link Inicio', 'nav-link')
+@section('nav-link OT', 'nav-link active')
+@section('nav-link Administradores', 'nav-link')
+@section('nav-link Tecnicos', 'nav-link')
+@section('nav-link Clientes', 'nav-link')
+@section('nav-link MOT', 'nav-link')
+@section('nav-link MD', 'nav-link')
+@section('nav-link FOT', 'nav-link')
+@section('nav-link TMA', 'nav-link')
+
 @section('styles')
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">

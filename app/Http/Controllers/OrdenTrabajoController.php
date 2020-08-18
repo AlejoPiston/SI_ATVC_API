@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\OrdenTrabajo;
+use App\CancelacionOrdenTrabajo;
 use App\Ficha;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,13 +18,20 @@ class OrdenTrabajoController extends Controller
         if($Tipo == 'administrador'){
 
             $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
-                ->paginate(5);
+                ->paginate(5, ['*'], 'pendientes');
+               //dd($ordenestrabajos_pendientes);
+               //->paginate(5, ['*'], 'pendientes');
+
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
-                ->paginate(5);
+                ->paginate(5, ['*'], 'confirmadas');
+                //dd($ordenestrabajos_confirmadas);
+                //dd($ordenestrabajos_confirmadas->url($ordenestrabajos_confirmadas->currentPage()));
+
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
-                ->paginate(5);
+                ->paginate(5, ['*'], 'enprogreso');
+            
             $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
-                ->paginate(5);
+                ->paginate(5, ['*'], 'historial');
 
         } elseif($Tipo == 'tecnico'){
 
@@ -185,22 +193,51 @@ class OrdenTrabajoController extends Controller
 
     }
 
-    public function cancelar(OrdenTrabajo $ordenTrabajo)
+    public function showCancelForm(OrdenTrabajo $ordenTrabajo)
     {
-        $ordenTrabajo->Activa = 'cancelada';
-        $ordenTrabajo->save();
-  
-        $notificacion = 'La orden de trabajo se ha cancelado correctamente';
-        return back()->with(compact('notificacion')); 
+        if ($ordenTrabajo->Activa == 'confirmada')
+            return view ('OrdenTrabajo.cancelar', compact('ordenTrabajo'));
+
+        return redirect('/orden_trabajos');  
 
     }
-    public function confirmar(OrdenTrabajo $ordenTrabajo)
+
+    public function postCancel(OrdenTrabajo $ordenTrabajo, Request $request)
+    {
+        if ($request->has('Justificacion'))
+            $cancelacion = new CancelacionOrdenTrabajo();
+            $cancelacion->Justificacion = $request->input('Justificacion');
+            $cancelacion->Cancelado_por = auth()->id();
+            $ordenTrabajo->cancelacion()->save($cancelacion);
+
+        $ordenTrabajo->Activa = 'cancelada';
+        $saved = $ordenTrabajo->save();
+
+        if ($saved)
+        $ordenTrabajo->empleadoordentrabajo->sendFCM('Su orden de trabajo se ha cancelado!');
+  
+        $notificacion = 'La orden de trabajo se ha cancelado correctamente';
+        return redirect('/orden_trabajos')->with(compact('notificacion')); 
+
+    }
+    public function postConfirm(OrdenTrabajo $ordenTrabajo)
     {
         $ordenTrabajo->Activa = 'confirmada';
-        $ordenTrabajo->save();
+        $saved = $ordenTrabajo->save();
+
+        if ($saved)
+            $ordenTrabajo->empleadoordentrabajo->sendFCM('Su orden de trabajo se ha confirmado!');
   
         $notificacion = 'La orden de trabajo se ha confirmado correctamente';
         return back()->with(compact('notificacion')); 
+
+    }
+
+
+    public function showweb(OrdenTrabajo $ordenTrabajo)
+    {
+        $Tipo = auth()->user()->Tipo;
+        return view ('OrdenTrabajo.ver', compact('ordenTrabajo', 'Tipo'));
 
     }
 }

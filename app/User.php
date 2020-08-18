@@ -68,4 +68,19 @@ class User extends Authenticatable
     public function canceladasOrdenesTrabajo(){
         return $this->asTecnicoOrdenesTrabajo()->where('Activa', 'cancelada');
     }
+
+    public function sendFCM($message){
+        return fcm()
+        ->to([
+            $this->device_token
+        ]) // $recipients must an array
+        ->notification([
+            'title' => config('app.name'),
+            'body' => $message
+        ])
+    ->send();
+    }
+
+
+    
 }

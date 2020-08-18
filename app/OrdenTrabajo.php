@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class OrdenTrabajo extends Model
 {
     protected $table = "OrdenTrabajo";
@@ -42,4 +43,8 @@ class OrdenTrabajo extends Model
     public function clienteordentrabajo(){
         return $this->belongsTo('App\User', 'IdCliente');
     }
+    public function cancelacion(){
+        return $this->hasOne(CancelacionOrdenTrabajo::class, 'IdOrdenTrabajo');
+    }
+
 }

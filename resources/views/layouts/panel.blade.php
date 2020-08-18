@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
   <!-- Page plugins -->
   <!-- Argon CSS -->
-  <link rel="stylesheet" href="{{ asset('css/argon.css?v=1.2.0') }}" type="text/css">
+  <link rel="stylesheet" href="{{ asset('css/argon.min.css') }}" type="text/css">
   @yield('styles')
 </head>
 
@@ -300,7 +300,7 @@
   <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
   @yield('scripts')
   <!-- Argon JS -->
-  <script src="{{ asset('js/argon.js?v=1.2.0') }}"></script>
+  <script src="{{ asset('js/argon.min.js') }}"></script>
   
 </body>
 

@@ -76,7 +76,8 @@ class AdministradorController extends Controller
      */
     public function show($id)
     {
-        //
+        $administrador = User::administradores()->findOrFail($id);
+        return view ('Administrador.ver', compact('administrador'));
     }
 
     

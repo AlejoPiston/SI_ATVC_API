@@ -72,7 +72,7 @@
           </ul>
         </div>
       @endif
-        <a href="{{ url('orden_trabajos') }}" class="btn btn-sm btn-default">
+        <a href="{{ url()->previous() }}" class="btn btn-sm btn-default">
             Volver
         </a>
     </div>

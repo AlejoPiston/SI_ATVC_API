@@ -76,7 +76,8 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        $cliente = User::clientes()->findOrFail($id);
+        return view ('Cliente.ver', compact('cliente'));
     }
 
     

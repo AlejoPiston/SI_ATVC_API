@@ -76,7 +76,8 @@ class TecnicoController extends Controller
      */
     public function show($id)
     {
-        //
+        $tecnico = User::tecnicos()->findOrFail($id);
+        return view ('Tecnico.ver', compact('tecnico'));
     }
 
     /**

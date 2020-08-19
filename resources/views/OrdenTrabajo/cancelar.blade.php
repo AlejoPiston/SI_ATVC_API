@@ -37,7 +37,7 @@
         </div>
        
         <button class="btn btn-sm btn-danger" type="submit">Cancelar cita</button>
-        <a href="{{ url('orden_trabajos') }}" class="btn btn-sm btn-default">
+        <a href="{{ url()->previous() }}" class="btn btn-sm btn-default">
             Volver al listado de órdenes de trabajo 
         </a>
       </form>

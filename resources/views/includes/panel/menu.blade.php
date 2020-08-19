@@ -1,3 +1,5 @@
+<!-- Divider -->
+<hr class="my-3">
 <h6 class="navbar-heading p-0 text-muted">
 @if (auth()->user()->Tipo == 'administrador')
 <span class="docs-normal">Gestionar datos</span>
@@ -131,13 +133,3 @@
 @else {{-- Cliente --}}
 @endif
 
-
-
-
-@if (auth()->user()->Tipo == 'administrador')
-
-@elseif(auth()->user()->Tipo == 'tecnico')
-
-@else {{-- Cliente --}}
-
-@endif

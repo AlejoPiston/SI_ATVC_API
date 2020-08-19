@@ -18,20 +18,20 @@ class OrdenTrabajoController extends Controller
         if($Tipo == 'administrador'){
 
             $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
-                ->paginate(5, ['*'], 'pendientes');
+                ->paginate(5);
                //dd($ordenestrabajos_pendientes);
                //->paginate(5, ['*'], 'pendientes');
 
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
-                ->paginate(5, ['*'], 'confirmadas');
+                ->paginate(5);
                 //dd($ordenestrabajos_confirmadas);
                 //dd($ordenestrabajos_confirmadas->url($ordenestrabajos_confirmadas->currentPage()));
 
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
-                ->paginate(5, ['*'], 'enprogreso');
+                ->paginate(5);
             
             $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
-                ->paginate(5, ['*'], 'historial');
+                ->paginate(5);
 
         } elseif($Tipo == 'tecnico'){
 

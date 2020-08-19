@@ -82,7 +82,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
-                  <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.</h6>
+                  <h6 class="text-sm text-muted m-0">Tú tienes <strong class="text-primary">13</strong> notificaciones.</h6>
                 </div>
                 <!-- List group -->
                 <div class="list-group list-group-flush">
@@ -90,18 +90,18 @@
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
-                        <img alt="Image placeholder" src="{{ asset('img/theme/team-1.jpg') }}" class="avatar rounded-circle">
+                        <img alt="Image placeholder" src="{{ asset('img/theme/hombre.png') }}" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">Alexandra Cabezas</h4>
                           </div>
                           <div class="text-right text-muted">
-                            <small>2 hrs ago</small>
+                            <small>5 hrs antes</small>
                           </div>
                         </div>
-                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
+                        <p class="text-sm mb-0">Tu orden de trabajo se ha confirmado</p>
                       </div>
                     </div>
                   </a>
@@ -109,18 +109,18 @@
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
-                        <img alt="Image placeholder" src="{{ asset('img/theme/team-2.jpg') }}" class="avatar rounded-circle">
+                        <img alt="Image placeholder" src="{{ asset('img/theme/hombre.png') }}" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">Jhonson Pérez</h4>
                           </div>
                           <div class="text-right text-muted">
-                            <small>3 hrs ago</small>
+                            <small>2 hrs antes</small>
                           </div>
                         </div>
-                        <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
+                        <p class="text-sm mb-0">Tu orden de trabajo fue atendida</p>
                       </div>
                     </div>
                   </a>
@@ -128,62 +128,24 @@
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
-                        <img alt="Image placeholder" src="{{ asset('img/theme/team-3.jpg') }}" class="avatar rounded-circle">
+                        <img alt="Image placeholder" src="{{ asset('img/theme/hombre.png') }}" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">José Castillo</h4>
                           </div>
                           <div class="text-right text-muted">
-                            <small>5 hrs ago</small>
+                            <small>3 hrs antes</small>
                           </div>
                         </div>
-                        <p class="text-sm mb-0">Your posts have been liked a lot.</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="{{ asset('img/theme/team-4.jpg') }}" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>2 hrs ago</small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="{{ asset('img/theme/team-5.jpg') }}" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>3 hrs ago</small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
+                        <p class="text-sm mb-0">Tu orden de trabajo fue cancelada</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <!-- View all -->
-                <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
+                <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">Ver todo</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -196,7 +158,7 @@
                     <span class="shortcut-media avatar rounded-circle bg-gradient-red">
                       <i class="ni ni-calendar-grid-58"></i>
                     </span>
-                    <small>Calendar</small>
+                    <small>Calendario</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
                     <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
@@ -205,28 +167,16 @@
                     <small>Email</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-info">
-                      <i class="ni ni-credit-card"></i>
-                    </span>
-                    <small>Payments</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
                     <span class="shortcut-media avatar rounded-circle bg-gradient-green">
                       <i class="ni ni-books"></i>
                     </span>
-                    <small>Reports</small>
+                    <small>Reportes</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
                     <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
                       <i class="ni ni-pin-3"></i>
                     </span>
-                    <small>Maps</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                      <i class="ni ni-basket"></i>
-                    </span>
-                    <small>Shop</small>
+                    <small>Mapas</small>
                   </a>
                 </div>
               </div>
@@ -240,7 +190,7 @@
                     <img alt="Image placeholder" src="{{ asset('img/theme/hombre.png') }}">
                   </span>
                   <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}</span>
+                    <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }} {{ Auth::user()->Apellidos }}</span>
                   </div>
                 </div>
               </a>

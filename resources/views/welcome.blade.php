@@ -62,7 +62,14 @@
                     @auth
                     <li class="nav-item">
                         <a href="{{ url('/home') }}" class="nav-link">
-                            <span class="nav-link-inner--text">Panel | {{ Auth::user()->name }}</span>
+                          <div class="media align-items-center">
+                            <span class="avatar avatar-sm rounded-circle">
+                              <img alt="Image placeholder" src="{{ asset('img/theme/hombre.png') }}">
+                            </span>
+                            <div class="media-body  ml-2  d-none d-lg-block">
+                              <span class="mb-0 text-sm  font-weight-bold">Panel | {{ Auth::user()->name }} {{ Auth::user()->Apellidos }}</span>
+                            </div>
+                          </div>
                           </a>
                         </li> 
                     @else

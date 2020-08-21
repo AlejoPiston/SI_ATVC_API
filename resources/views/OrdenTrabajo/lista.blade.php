@@ -40,9 +40,12 @@
         </div>
         @if ($Tipo == 'administrador' || $Tipo == 'cliente')
           <div class="col text-right">
-          <a href="{{ url('/orden_trabajos/create') }}" class="btn btn-sm btn-success">
-                Nueva orden de trabajo
-            </a>
+            <a href="{{ url('/orden_trabajos/create') }}" class="btn btn-success" data-toggle="tooltip" 
+            data-placement="top" 
+            title="Registrar nueva orden de trabajo">
+            <span class="btn-inner--icon"><i class="ni ni-delivery-fast"></i></span>
+            <span class="btn-inner--text">Nueva</span>
+          </a>
           </div>
         @endif
         

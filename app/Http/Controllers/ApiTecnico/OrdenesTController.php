@@ -36,4 +36,56 @@ class OrdenesTController extends Controller
                 ]);
         return $ordenest;
     }   
+    public function indexc(Request $request)
+    {    
+        $user = $request->user();
+        $ordenest = $user->asTecnicoOrdenesTrabajo()->whereIn('Activa', 'confirmada')
+            ->with([
+                'fichaordentrabajo' => function ($query) {
+                    $query->select('Id', 'Nombres', 'Apellidos');
+                },
+                  
+                ])
+                ->get([
+                    "Id",
+                    "Fecha",
+                    "Dano",
+                    "Resultado",
+                    "Activa",
+                    "FechaHoraArrivo",
+                    "FechaHoraSalida",
+                    "IdFicha",
+                    "IdTurno",
+                    "IdUsuario",
+                    "IdCliente",
+                    "created_at"
+                ]);
+        return $ordenest;
+    }  
+    public function indexp(Request $request)
+    {    
+        $user = $request->user();
+        $ordenest = $user->asTecnicoOrdenesTrabajo()->whereIn('Activa', 'en progreso')
+            ->with([
+                'fichaordentrabajo' => function ($query) {
+                    $query->select('Id', 'Nombres', 'Apellidos');
+                },
+                  
+                ])
+                ->get([
+                    "Id",
+                    "Fecha",
+                    "Dano",
+                    "Resultado",
+                    "Activa",
+                    "FechaHoraArrivo",
+                    "FechaHoraSalida",
+                    "IdFicha",
+                    "IdTurno",
+                    "IdUsuario",
+                    "IdCliente",
+                    "created_at"
+                ]);
+        return $ordenest;
+    }  
 }

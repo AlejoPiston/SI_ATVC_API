@@ -34,7 +34,6 @@ class OrdenesTController extends Controller
                     "IdCliente",
                     "created_at"
                 ]);
-        dd($ordenest);
         return $ordenest;
     }   
 }

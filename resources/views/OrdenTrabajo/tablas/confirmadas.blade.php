@@ -46,19 +46,27 @@
             {{ $ordentrabajo->FechaHoraSalida }}
         </td>
         <td>
-          <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" title="Ver orden de trabajo" class="btn btn-sm btn-primary">
-            Ver
+          <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" 
+            class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" 
+            title="Ver orden de trabajo">
+            <span class="btn-inner--icon"><i class="ni ni-single-copy-04"></i></span>
+            <span class="btn-inner--text">Ver</span>
           </a>
-          <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/confirmar') }}" 
+          <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/atender') }}" 
             method="POST" class="d-inline-block">
             @csrf
-            <button type="submit" class="btn btn-sm btn-success" 
+            <button type="submit" class="btn btn-sm btn-outline-info" 
             data-toggle="tooltip" title="Atender orden de trabajo">
-              <i class="ni ni-check-bold"></i>
+              <span class="btn-inner--icon"><i class="ni ni-compass-04"></i></span>
+              <span class="btn-inner--text">Atender</span>
             </button>
           </form>
-          <a class="btn btn-sm btn-danger" href="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/cancelar') }}">
-            Cancelar
+          <a class="btn btn-sm btn-outline-danger" 
+          href="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/cancelar') }}" data-toggle="tooltip" 
+          data-placement="top" 
+          title="Cancelar orden de trabajo">
+            <span class="btn-inner--icon"><i class="ni ni-fat-delete"></i></span>
+            <span class="btn-inner--text">Cancelar</span>
           </a>
         </td>
       </tr>

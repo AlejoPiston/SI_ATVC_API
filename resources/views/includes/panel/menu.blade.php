@@ -1,3 +1,18 @@
+@if (auth()->user()->Tipo == 'administrador')
+
+<!-- Navigation -->
+<ul class="navbar-nav mb-md-3">
+    <li class="nav-item">
+        <a class="@yield('nav-link Inicio')" href="{{ route('home') }}">
+        <i class="ni ni-tv-2 text-primary"></i>
+        <span class="nav-link-text">Inicio</span>
+        </a>
+    </li>
+</ul>
+@elseif(auth()->user()->Tipo == 'tecnico')
+@else {{-- Cliente --}}
+@endif
+
 <!-- Divider -->
 <hr class="my-3">
 <h6 class="navbar-heading p-0 text-muted">
@@ -16,12 +31,7 @@
 <ul class="navbar-nav">
 
 @if (auth()->user()->Tipo == 'administrador')
-<li class="nav-item">
-    <a class="@yield('nav-link Inicio')" href="{{ route('home') }}">
-    <i class="ni ni-tv-2 text-primary"></i>
-    <span class="nav-link-text">Inicio</span>
-    </a>
-</li>
+
 <li class="nav-item">
     <a class="@yield('nav-link OT')" href="{{ url('/orden_trabajos') }}">
     <i class="ni ni-delivery-fast text-green"></i>

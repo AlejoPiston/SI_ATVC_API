@@ -46,17 +46,20 @@
             {{ $ordentrabajo->FechaHoraSalida }}
         </td>
         <td>
-          <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/confirmar') }}" 
-            method="POST" class="d-inline-block">
-            @csrf
-            <button type="submit" class="btn btn-sm btn-success" 
-            data-toggle="tooltip" title="Atender orden de trabajo">
-              <i class="ni ni-check-bold"></i>
-            </button>
-          </form>
-          <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" class="btn btn-sm btn-primary">
-            Ver
-        </a>
+          <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" 
+            class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" 
+            title="Ver orden de trabajo">
+            <span class="btn-inner--icon"><i class="ni ni-single-copy-04"></i></span>
+            <span class="btn-inner--text">Ver</span>
+          </a>
+          <a class="btn btn-sm btn-info" 
+          href="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/finalizar') }}" data-toggle="tooltip" 
+          data-placement="top" 
+          title="Finalizar orden de trabajo">
+            <span class="btn-inner--icon"><i class="ni ni-book-bookmark"></i></span>
+            <span class="btn-inner--text">Finalizar</span>
+          </a>
+          
         </td>
       </tr>
       @endforeach

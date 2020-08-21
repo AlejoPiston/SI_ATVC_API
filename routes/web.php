@@ -56,7 +56,10 @@ Route::middleware('auth')->group(function () {
 
          Route::post('/orden_trabajos/{orden_trabajo}/confirmar', 'OrdenTrabajoController@postConfirm');
 
-         
+         Route::post('/orden_trabajos/{orden_trabajo}/atender', 'OrdenTrabajoController@postAtender');
+
+         Route::get('/orden_trabajos/{orden_trabajo}/finalizar', 'OrdenTrabajoController@showFinalizarForm');
+         Route::post('/orden_trabajos/{orden_trabajo}/finalizar', 'OrdenTrabajoController@postFinalizar');
          
         
 

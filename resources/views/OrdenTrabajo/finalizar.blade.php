@@ -18,7 +18,7 @@
     <div class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0">Cancelar orden de trabajo</h3>
+          <h3 class="mb-0">Finalizar orden de trabajo</h3>
         </div>
       </div>
     </div>
@@ -28,15 +28,15 @@
         {{ session('notificacion') }}
       </div> 
       @endif
-      <p>Estás a punto de cancelar tu orden de trabajo confirmada para {{ $ordenTrabajo->Fecha}}:</p>
-      <form action="{{ url('/orden_trabajos/'.$ordenTrabajo->Id.'/cancelar') }}" method="POST">
+      <p>Estás a punto de finalizar tu orden de trabajo confirmada para {{ $ordenTrabajo->Fecha}}:</p>
+      <form action="{{ url('/orden_trabajos/'.$ordenTrabajo->Id.'/finalizar') }}" method="POST">
           @csrf
         <div class="form-group">
-            <label for="Justificacion">Por favor cuéntanos el motivo de la cancelación:</label>
-            <textarea name="Justificacion" rows="5" class="form-control"></textarea>    
+            <label for="Resultado">Por favor detalla el resultado de la atención:</label>
+            <textarea name="Resultado" rows="5" class="form-control"></textarea>    
         </div>
        
-        <button class="btn btn-sm btn-danger" type="submit">Cancelar orden de trabajo</button>
+        <button class="btn btn-sm btn-info" type="submit">Finalizar orden de trabajo</button>
         <a href="{{ url()->previous() }}" class="btn btn-sm btn-default">
             Volver al listado de órdenes de trabajo 
         </a>

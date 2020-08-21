@@ -11,6 +11,24 @@
 @section('nav-link MD', 'nav-link')
 @section('nav-link FOT', 'nav-link')
 @section('nav-link TMA', 'nav-link')
+@section('header')
+<div class="container-fluid">
+  <div class="header-body">
+<div class="row align-items-center py-4">
+  <div class="col-lg-8">
+    <h6 class="h2 text-white d-inline-block mb-0">{{ Auth::user()->Tipo }}</h6>
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+        <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">Gestionar</li>
+        <li class="breadcrumb-item"><a href="{{ url('/clientes') }}">Clientes</a></li>
+      </ol>
+    </nav>
+  </div>  
+</div>
+</div>
+</div>
+@endsection
 
 @section('contenido')
 

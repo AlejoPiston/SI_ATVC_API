@@ -232,12 +232,49 @@ class OrdenTrabajoController extends Controller
         return back()->with(compact('notificacion')); 
 
     }
+    public function postAtender(OrdenTrabajo $ordenTrabajo)
+    {
+        $ordenTrabajo->Activa = 'en progreso';
+        $saved = $ordenTrabajo->save();
+
+        if ($saved)
+            $ordenTrabajo->empleadoordentrabajo->sendFCM('Su orden de trabajo está en progreso!');
+  
+        $notificacion = 'La orden de trabajo se ha puesto en progreso correctamente';
+        return back()->with(compact('notificacion')); 
+
+    }
 
 
     public function showweb(OrdenTrabajo $ordenTrabajo)
     {
         $Tipo = auth()->user()->Tipo;
         return view ('OrdenTrabajo.ver', compact('ordenTrabajo', 'Tipo'));
+
+    }
+
+    public function showFinalizarForm(OrdenTrabajo $ordenTrabajo)
+    {
+        if ($ordenTrabajo->Activa == 'en progreso')
+            return view ('OrdenTrabajo.finalizar', compact('ordenTrabajo'));
+
+        return redirect('/orden_trabajos');  
+
+    }
+
+    public function postFinalizar(OrdenTrabajo $ordenTrabajo, Request $request)
+    {
+        if ($request->has('Resultado'))
+            $ordenTrabajo->Resultado = $request->input('Resultado');
+
+        $ordenTrabajo->Activa = 'atendida';
+        $saved = $ordenTrabajo->save();
+
+        if ($saved)
+            $ordenTrabajo->empleadoordentrabajo->sendFCM('Su orden de trabajo se ha finalizado!');
+  
+        $notificacion = 'La orden de trabajo se ha finalizado correctamente';
+        return redirect('/orden_trabajos')->with(compact('notificacion')); 
 
     }
 }

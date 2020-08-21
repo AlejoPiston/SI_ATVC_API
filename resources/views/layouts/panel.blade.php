@@ -229,7 +229,7 @@
     <!-- Header -->
     <!-- Header -->
     <div class="header bg-primary pb-6">
-      
+      @yield('header')
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6">

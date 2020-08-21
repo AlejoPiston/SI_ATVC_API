@@ -46,8 +46,11 @@
             {{ $ordentrabajo->FechaHoraSalida }}
         </td>
         <td>
-            <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" class="btn btn-sm btn-primary">
-                Ver
+            <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" 
+              class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" 
+              title="Ver orden de trabajo">
+              <span class="btn-inner--icon"><i class="ni ni-single-copy-04"></i></span>
+              <span class="btn-inner--text">Ver</span>
             </a>
         </td>
       </tr>

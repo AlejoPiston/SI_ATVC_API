@@ -68,7 +68,7 @@ class OrdenesTController extends Controller
         $ordenest = $user->asTecnicoOrdenesTrabajo()->where('Activa', 'en progreso')
             ->with([
                 'fichaordentrabajo' => function ($query) {
-                    $query->select('Id', 'Nombres', 'Apellidos');
+                    $query->select('Id', 'Nombres', 'Apellidos', 'DireccionDomicilio', 'TelefonoDomicilio');
                 },
                   
                 ])

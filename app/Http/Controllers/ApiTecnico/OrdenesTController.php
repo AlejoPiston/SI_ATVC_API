@@ -32,7 +32,8 @@ class OrdenesTController extends Controller
                     "IdTurno",
                     "IdUsuario",
                     "IdCliente",
-                    "created_at"
+                    "created_at",
+                    "updated_at"
                 ]);
         return $ordenest;
     }   

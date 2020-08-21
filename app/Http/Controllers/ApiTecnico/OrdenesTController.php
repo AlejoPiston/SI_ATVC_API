@@ -39,7 +39,7 @@ class OrdenesTController extends Controller
     public function indexc(Request $request)
     {    
         $user = $request->user();
-        $ordenest = $user->asTecnicoOrdenesTrabajo()->whereIn('Activa', 'confirmada')
+        $ordenest = $user->asTecnicoOrdenesTrabajo()->where('Activa', 'confirmada')
             ->with([
                 'fichaordentrabajo' => function ($query) {
                     $query->select('Id', 'Nombres', 'Apellidos');
@@ -65,7 +65,7 @@ class OrdenesTController extends Controller
     public function indexp(Request $request)
     {    
         $user = $request->user();
-        $ordenest = $user->asTecnicoOrdenesTrabajo()->whereIn('Activa', 'en progreso')
+        $ordenest = $user->asTecnicoOrdenesTrabajo()->where('Activa', 'en progreso')
             ->with([
                 'fichaordentrabajo' => function ($query) {
                     $query->select('Id', 'Nombres', 'Apellidos');

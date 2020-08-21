@@ -11,9 +11,9 @@ class OrdenesTController extends Controller
 {
 
     public function index(Request $request)
-    {
+    {    
         $user = $request->user();
-        $ordenest = $user->asTecnicoOrdenesTrabajo()
+        $ordenest = $user->whereIn('Activa', ['atendida', 'cancelada'])->asTecnicoOrdenesTrabajo()
             ->with([
                 'fichaordentrabajo' => function ($query) {
                     $query->select('Id', 'Nombres', 'Apellidos');
@@ -34,6 +34,7 @@ class OrdenesTController extends Controller
                     "IdCliente",
                     "created_at"
                 ]);
+        dd($ordenest);
         return $ordenest;
     }   
 }

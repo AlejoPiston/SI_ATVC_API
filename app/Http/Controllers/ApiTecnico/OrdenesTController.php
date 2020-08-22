@@ -43,7 +43,7 @@ class OrdenesTController extends Controller
         $ordenest = $user->asTecnicoOrdenesTrabajo()->where('Activa', 'confirmada')
             ->with([
                 'fichaordentrabajo' => function ($query) {
-                    $query->select('Id', 'Nombres', 'Apellidos');
+                    $query->select('Id', 'Nombres', 'Apellidos', 'DireccionDomicilio', 'TelefonoDomicilio');
                 },
                   
                 ])
@@ -89,4 +89,17 @@ class OrdenesTController extends Controller
                 ]);
         return $ordenest;
     }  
+
+    public function postAtender(OrdenTrabajo $ordenTrabajo)
+    {
+        $ordenTrabajo->Activa = 'en progreso';
+        $saved = $ordenTrabajo->save();
+
+        if ($saved)
+            $ordenTrabajo->empleadoordentrabajo->sendFCM('Su orden de trabajo está en progreso!');
+  
+        $notificacion = 'La orden de trabajo se ha puesto en progreso correctamente';
+        return back()->with(compact('notificacion')); 
+
+    }
 }

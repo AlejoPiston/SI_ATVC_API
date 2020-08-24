@@ -93,7 +93,7 @@ class OrdenesTController extends Controller
     public function storec(OrdenTrabajo $ordenTrabajo)
     {
         $ordenTrabajo->Activa = $request->Activa;
-        $saved = $ordenTrabajo->save();
+        $ordenTrabajo->save();
 
     }
 }

@@ -51,7 +51,8 @@ Route::group([
         Route::get('ordenes_t', 'OrdenesTController@index');
         Route::get('ordenes_tc', 'OrdenesTController@indexc');
         Route::get('ordenes_tp', 'OrdenesTController@indexp');
-        Route::post('ordenes_t', 'OrdenesTController@store');
+
+        Route::post('ordenes_tc', 'OrdenesTController@storec');
 
         Route::post('fcm/token', 'FirebaseController@postToken');
     });

@@ -90,16 +90,10 @@ class OrdenesTController extends Controller
         return $ordenest;
     }  
 
-    public function postAtender(OrdenTrabajo $ordenTrabajo)
+    public function storec(OrdenTrabajo $ordenTrabajo)
     {
-        $ordenTrabajo->Activa = 'en progreso';
+        $ordenTrabajo->Activa = $request->Activa;
         $saved = $ordenTrabajo->save();
-
-        if ($saved)
-            $ordenTrabajo->empleadoordentrabajo->sendFCM('Su orden de trabajo está en progreso!');
-  
-        $notificacion = 'La orden de trabajo se ha puesto en progreso correctamente';
-        return back()->with(compact('notificacion')); 
 
     }
 }

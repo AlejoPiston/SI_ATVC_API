@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiTecnico;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\OrdenTrabajo;
 
 
 
@@ -92,9 +93,13 @@ class OrdenesTController extends Controller
 
     public function storec(Request $request)
     {
-        $ordentc = $request->Id;
-
-        return $ordentc;
+        $ordentrabajo = OrdenTrabajo::findOrFail($request->Id);
+        //$ordentrabajo = OrdenTrabajo::where('Id', $request->Id)->get();
+        
+        $ordentrabajo->Activa = $request->Activa;
+        $ordentrabajo->save();
+        return $ordentrabajo;
+        
 
     }
 }

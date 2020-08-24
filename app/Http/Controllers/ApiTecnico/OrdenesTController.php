@@ -90,10 +90,11 @@ class OrdenesTController extends Controller
         return $ordenest;
     }  
 
-    public function storec(OrdenTrabajo $ordenTrabajo)
+    public function storec(Request $request)
     {
-        $ordenTrabajo->Activa = $request->Activa;
-        $ordenTrabajo->save();
+        $ordentc = $request->Id;
+
+        return $ordentc;
 
     }
 }

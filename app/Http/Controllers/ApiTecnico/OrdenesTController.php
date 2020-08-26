@@ -101,6 +101,7 @@ class OrdenesTController extends Controller
         $ubicacion->Latitud = $request->Latitud;
         $ubicacion->Longitud = $request->Longitud;
         $ubicacion->IdOrdenTrabajo = $ordentrabajo->Id;
+        $ubicacion->save();
         $ordentrabajo->Activa = $request->Activa;
         $ordentrabajo->save();
         return $ordentrabajo;

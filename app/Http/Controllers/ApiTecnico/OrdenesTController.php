@@ -5,6 +5,8 @@ namespace App\Http\Controllers\ApiTecnico;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\OrdenTrabajo;
+use App\UbicacionOrdenTrabajo;
+
 
 
 
@@ -95,11 +97,12 @@ class OrdenesTController extends Controller
     {
         $ordentrabajo = OrdenTrabajo::findOrFail($request->Id);
         //$ordentrabajo = OrdenTrabajo::where('Id', $request->Id)->get();
-        
+        $ubicacion = new UbicacionOrdenTrabajo();
+        $ubicacion->Latitud = $request->Latitud;
+        $ubicacion->Longitud = $request->Longitud;
+        $ubicacion->IdOrdenTrabajo = $ordentrabajo->Id;
         $ordentrabajo->Activa = $request->Activa;
         $ordentrabajo->save();
         return $ordentrabajo;
-        
-
     }
 }

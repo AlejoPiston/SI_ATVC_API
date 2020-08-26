@@ -91,7 +91,7 @@ class OrdenTrabajoController extends Controller
 
         if($Tipo == 'administrador'){
 
-            OrdenTrabajo::create(
+            $ordenTrabajo = OrdenTrabajo::create(
                 $request->only('Fecha', 
                                'Dano', 
                                'Resultado', 
@@ -126,6 +126,10 @@ class OrdenTrabajoController extends Controller
             );
 
         }
+
+        
+
+        $ordenTrabajo->empleadoordentrabajo->sendFCM('Ha recibido una nueva orden de trabajo!');
 
         $notificacion = 'La orden de trabajo se ha registrado correctamente';
         return redirect('/orden_trabajos')->with(compact('notificacion'));

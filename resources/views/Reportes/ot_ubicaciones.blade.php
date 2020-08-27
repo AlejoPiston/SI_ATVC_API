@@ -34,7 +34,7 @@
 @section('styles')
 <style>
   div#map {
-  height: 280px!important;
+  height: 450px!important;
   width: 100%!important;
 }
 </style>

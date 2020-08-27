@@ -52,6 +52,7 @@
             <span class="btn-inner--icon"><i class="ni ni-single-copy-04"></i></span>
             <span class="btn-inner--text">Ver</span>
           </a>
+          @if (auth()->user()->Tipo == 'administrador' || auth()->user()->Tipo == 'tecnico')
           <a class="btn btn-sm btn-info" 
           href="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/finalizar') }}" data-toggle="tooltip" 
           data-placement="top" 
@@ -59,6 +60,7 @@
             <span class="btn-inner--icon"><i class="ni ni-book-bookmark"></i></span>
             <span class="btn-inner--text">Finalizar</span>
           </a>
+          @endif
           
         </td>
       </tr>

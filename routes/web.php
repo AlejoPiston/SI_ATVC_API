@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
          Route::post('/orden_trabajos/{orden_trabajo}/confirmar', 'OrdenTrabajoController@postConfirm');
 
          Route::post('/orden_trabajos/{orden_trabajo}/atender', 'OrdenTrabajoController@postAtender');
+         Route::post('/orden_trabajos/{orden_trabajo}/solucionar', 'OrdenTrabajoController@postSolucionar');
 
          Route::get('/orden_trabajos/{orden_trabajo}/finalizar', 'OrdenTrabajoController@showFinalizarForm');
          Route::post('/orden_trabajos/{orden_trabajo}/finalizar', 'OrdenTrabajoController@postFinalizar');
@@ -67,8 +68,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/orden_trabajos/pendientes', 'OrdenTrabajoController@indexweb');
         Route::get('/orden_trabajos/confirmadas', 'OrdenTrabajoController@indexweb');
+        Route::get('/orden_trabajos/encamino', 'OrdenTrabajoController@indexweb');
         Route::get('/orden_trabajos/enprogreso', 'OrdenTrabajoController@indexweb');
         Route::get('/orden_trabajos/historial', 'OrdenTrabajoController@indexweb');
+        
 
          
 });

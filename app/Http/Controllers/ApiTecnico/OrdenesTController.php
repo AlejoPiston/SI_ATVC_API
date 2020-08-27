@@ -66,6 +66,32 @@ class OrdenesTController extends Controller
                 ]);
         return $ordenest;
     }  
+    public function indexca(Request $request)
+    {    
+        $user = $request->user();
+        $ordenest = $user->asTecnicoOrdenesTrabajo()->where('Activa', 'en camino')
+            ->with([
+                'fichaordentrabajo' => function ($query) {
+                    $query->select('Id', 'Nombres', 'Apellidos', 'DireccionDomicilio', 'TelefonoDomicilio');
+                },
+                  
+                ])
+                ->get([
+                    "Id",
+                    "Fecha",
+                    "Dano",
+                    "Resultado",
+                    "Activa",
+                    "FechaHoraArrivo",
+                    "FechaHoraSalida",
+                    "IdFicha",
+                    "IdTurno",
+                    "IdUsuario",
+                    "IdCliente",
+                    "created_at"
+                ]);
+        return $ordenest;
+    }  
     public function indexp(Request $request)
     {    
         $user = $request->user();

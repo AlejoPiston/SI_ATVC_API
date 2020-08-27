@@ -52,15 +52,17 @@
             <span class="btn-inner--icon"><i class="ni ni-single-copy-04"></i></span>
             <span class="btn-inner--text">Ver</span>
           </a>
+          @if (auth()->user()->Tipo == 'administrador' || auth()->user()->Tipo == 'tecnico')
           <form action="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/atender') }}" 
             method="POST" class="d-inline-block">
             @csrf
             <button type="submit" class="btn btn-sm btn-outline-info" 
             data-toggle="tooltip" title="Atender orden de trabajo">
-              <span class="btn-inner--icon"><i class="ni ni-compass-04"></i></span>
+              <span class="btn-inner--icon"><i class="ni ni-bus-front-12"></i></span>
               <span class="btn-inner--text">Atender</span>
             </button>
           </form>
+          @endif
           <a class="btn btn-sm btn-outline-danger" 
           href="{{ url('/orden_trabajos/'.$ordentrabajo->Id.'/cancelar') }}" data-toggle="tooltip" 
           data-placement="top" 

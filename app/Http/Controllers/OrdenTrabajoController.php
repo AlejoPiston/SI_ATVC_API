@@ -24,6 +24,9 @@ class OrdenTrabajoController extends Controller
 
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
                 ->paginate(5);
+            
+            $ordenestrabajos_encamino = OrdenTrabajo::where('Activa', 'en camino')
+                ->paginate(5);
                 //dd($ordenestrabajos_confirmadas);
                 //dd($ordenestrabajos_confirmadas->url($ordenestrabajos_confirmadas->currentPage()));
 
@@ -41,6 +44,10 @@ class OrdenTrabajoController extends Controller
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
+            
+            $ordenestrabajos_encamino = OrdenTrabajo::where('Activa', 'en camino')
+                ->where('IdEmpleado', auth()->id())
+                ->paginate(5);
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
@@ -56,6 +63,9 @@ class OrdenTrabajoController extends Controller
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
                 ->where('IdCliente', auth()->id())
                 ->paginate(5);
+            $ordenestrabajos_encamino = OrdenTrabajo::where('Activa', 'en camino')
+                ->where('IdCliente', auth()->id())
+                ->paginate(5);
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
                 ->where('IdCliente', auth()->id())
                 ->paginate(5);
@@ -65,7 +75,7 @@ class OrdenTrabajoController extends Controller
 
         }
         return view ('OrdenTrabajo.lista',
-             compact('ordenestrabajos_pendientes', 'ordenestrabajos_confirmadas', 
+             compact('ordenestrabajos_pendientes', 'ordenestrabajos_confirmadas', 'ordenestrabajos_encamino', 
              'ordenestrabajos_enprogreso', 'ordenestrabajos_historial', 'Tipo')
         );
 
@@ -109,7 +119,7 @@ class OrdenTrabajoController extends Controller
 
         } elseif($Tipo == 'cliente') {
 
-            OrdenTrabajo::create(
+            $ordenTrabajo = OrdenTrabajo::create(
                 $request->only('Fecha', 
                                'Dano', 
                                'Resultado', 
@@ -237,6 +247,18 @@ class OrdenTrabajoController extends Controller
 
     }
     public function postAtender(OrdenTrabajo $ordenTrabajo)
+    {
+        $ordenTrabajo->Activa = 'en camino';
+        $saved = $ordenTrabajo->save();
+
+        if ($saved)
+            $ordenTrabajo->empleadoordentrabajo->sendFCM('Su orden de trabajo está en camino!');
+  
+        $notificacion = 'La orden de trabajo se ha puesto en camino correctamente';
+        return back()->with(compact('notificacion')); 
+
+    }
+    public function postSolucionar(OrdenTrabajo $ordenTrabajo)
     {
         $ordenTrabajo->Activa = 'en progreso';
         $saved = $ordenTrabajo->save();

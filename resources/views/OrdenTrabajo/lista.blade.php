@@ -77,6 +77,13 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
+          href="{{ url('/orden_trabajos/encamino') }}" role="tab" 
+          aria-selected="{{ (request()->is('orden_trabajos/encamino')) ? 'true' : '' }}">
+            <i class="ni ni-bus-front-12 mr-2"></i>Órdenes en camino
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/enprogreso')) ? 'active' : '' }}" 
           href="{{ url('/orden_trabajos/enprogreso') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/enprogreso')) ? 'true' : '' }}">
@@ -98,6 +105,13 @@
             href="{{ url('/orden_trabajos/confirmadas') }}" role="tab" 
             aria-selected="{{ (request()->is('orden_trabajos/confirmadas')) ? 'true' : '' }}">
             <i class="ni ni-check-bold mr-2"></i>Órdenes confirmadas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
+            href="{{ url('/orden_trabajos/encamino') }}" role="tab" 
+            aria-selected="{{ (request()->is('orden_trabajos/encamino')) ? 'true' : '' }}">
+            <i class="ni ni-bus-front-12 mr-2"></i>Órdenes en camino
           </a>
         </li>
         <li class="nav-item">
@@ -128,6 +142,13 @@
           href="{{ url('/orden_trabajos/pendientes') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/pendientes')) ? 'true' : '' }}">
             <i class="ni ni-ui-04 mr-2"></i>Órdenes por confirmar
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
+            href="{{ url('/orden_trabajos/encamino') }}" role="tab" 
+            aria-selected="{{ (request()->is('orden_trabajos/encamino')) ? 'true' : '' }}">
+            <i class="ni ni-bus-front-12 mr-2"></i>Órdenes en camino
           </a>
         </li>
         <li class="nav-item">
@@ -163,6 +184,11 @@
         @include('OrdenTrabajo.tablas.pendientes')
         
       </div>
+      <div class="tab-pane fade {{ (request()->is('orden_trabajos/encamino')) ? 'show' : '' }} 
+        {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
+        id="{{ url('/orden_trabajos/encamino') }}" role="tabpanel">
+        @include('OrdenTrabajo.tablas.encamino')
+      </div>
       <div class="tab-pane fade {{ (request()->is('orden_trabajos/enprogreso')) ? 'show' : '' }} 
         {{ (request()->is('orden_trabajos/enprogreso')) ? 'active' : '' }}" 
         id="{{ url('/orden_trabajos/enprogreso') }}" role="tabpanel">
@@ -180,6 +206,11 @@
         {{ (request()->is('orden_trabajos/confirmadas')) ? 'active' : '' }}" 
         id="{{ url('/orden_trabajos/confirmadas') }}" role="tabpanel">
         @include('OrdenTrabajo.tablas.confirmadas')
+      </div>
+      <div class="tab-pane fade {{ (request()->is('orden_trabajos/encamino')) ? 'show' : '' }} 
+        {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
+        id="{{ url('/orden_trabajos/encamino') }}" role="tabpanel">
+        @include('OrdenTrabajo.tablas.encamino')
       </div>
       <div class="tab-pane fade {{ (request()->is('orden_trabajos/enprogreso')) ? 'show' : '' }} 
         {{ (request()->is('orden_trabajos/enprogreso')) ? 'active' : '' }}" 
@@ -203,6 +234,11 @@
         id="{{ url('/orden_trabajos/pendientes') }}" role="tabpanel">
         @include('OrdenTrabajo.tablas.pendientes')
         
+      </div>
+      <div class="tab-pane fade {{ (request()->is('orden_trabajos/encamino')) ? 'show' : '' }} 
+        {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
+        id="{{ url('/orden_trabajos/encamino') }}" role="tabpanel">
+        @include('OrdenTrabajo.tablas.encamino')
       </div>
       <div class="tab-pane fade {{ (request()->is('orden_trabajos/enprogreso')) ? 'show' : '' }} 
         {{ (request()->is('orden_trabajos/enprogreso')) ? 'active' : '' }}" 

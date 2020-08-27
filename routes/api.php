@@ -50,6 +50,7 @@ Route::group([
 
         Route::get('ordenes_t', 'OrdenesTController@index');
         Route::get('ordenes_tc', 'OrdenesTController@indexc');
+        Route::get('ordenes_tca', 'OrdenesTController@indexca');
         Route::get('ordenes_tp', 'OrdenesTController@indexp');
 
         Route::post('ordenes_tcon', 'OrdenesTController@storec');

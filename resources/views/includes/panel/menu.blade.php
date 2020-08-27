@@ -124,6 +124,12 @@
 </h6>
 <!-- Navigation -->
 <ul class="navbar-nav mb-md-3">
+    <li class="nav-item">
+        <a class="@yield('nav-link Ubi')" href="{{ url('/reportes/ot/ubicaciones') }}">
+          <i class="ni ni-pin-3"></i>
+          <span class="nav-link-text">Ubicaciones</span>
+        </a>
+      </li>
 <li class="nav-item">
     <a class="@yield('nav-link FOT')" 
         href="{{ url('/reportes/ot/linea') }}">

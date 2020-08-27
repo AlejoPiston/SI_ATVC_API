@@ -24,6 +24,8 @@ Route::middleware(['auth', 'administrador'])->namespace('Administrador')->group(
 
         //Reportes
         Route::get('/reportes/ot/linea', 'ReporteController@ordenestrabajoLinea');
+        Route::get('/reportes/ot/ubicaciones', 'ReporteController@ordenestrabajoUbicaciones');
+        Route::get('/reportes/ot/ubicaciones/data', 'ReporteController@mapMarker');
         Route::get('/reportes/tecnicos/columna', 'ReporteController@tecnicosColumna');
         Route::get('/reportes/tecnicos/columna/data', 'ReporteController@tecnicosJson');
         

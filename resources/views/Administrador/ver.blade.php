@@ -11,6 +11,7 @@
 @section('nav-link MD', 'nav-link')
 @section('nav-link FOT', 'nav-link')
 @section('nav-link TMA', 'nav-link')
+@section('nav-link Ubi', 'nav-link')
 
 @section('contenido')
 

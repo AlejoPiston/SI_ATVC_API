@@ -9,6 +9,7 @@
 @section('nav-link Clientes', 'nav-link')
 @section('nav-link MOT', 'nav-link')
 @section('nav-link MD', 'nav-link')
+@section('nav-link Ubi', 'nav-link')
 @section('nav-link FOT', 'nav-link')
 @section('nav-link TMA', 'nav-link')
 

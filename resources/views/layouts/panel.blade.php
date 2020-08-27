@@ -238,6 +238,7 @@
       @include('includes.panel.footer')
     </div>
   </div>
+
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
@@ -251,6 +252,7 @@
   @yield('scripts')
   <!-- Argon JS -->
   <script src="{{ asset('js/argon.min.js') }}"></script>
+
   
 </body>
 

@@ -772,7 +772,7 @@ var FormControl = (function() {
 //
 // Google maps
 //
-
+/*
 var $map = $('#map-default'),
     map,
     lat,
@@ -817,6 +817,7 @@ function initMap() {
 if($map.length) {
     google.maps.event.addDomListener(window, 'load', initMap);
 }
+*/
 
 //
 // Bars chart

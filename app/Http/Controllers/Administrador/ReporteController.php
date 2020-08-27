@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\OrdenTrabajo;
+use App\UbicacionOrdenTrabajo;
 use App\User;
 use DB;
 
@@ -26,6 +27,26 @@ class ReporteController extends Controller
             $contadores[$index] = (int)$cm['count'];
         }
         return view('Reportes.ot_linea', compact('contadores'));
+    }
+    public function ordenestrabajoUbicaciones(){
+        
+        return view('Reportes.ot_ubicaciones');
+    }
+    public function mapMarker(){
+        
+        $locations = UbicacionOrdenTrabajo::all();
+        $map_markes = array ();
+        foreach ($locations as $key => $location) { 
+            $map_markes[] = (object)array(
+                'Latitud' => (float)$location->Latitud,
+                'Longitud' => (float)$location->Longitud,
+                'IdOrdenTrabajo' => $location->IdOrdenTrabajo,
+                'EstadoOrdenTrabajo' => $location->ordentrabajoubicacion->Activa,
+                'TecnicoNombres' => $location->ordentrabajoubicacion->empleadoordentrabajo->name,
+                'TecnicoApellidos' => $location->ordentrabajoubicacion->empleadoordentrabajo->Apellidos,
+            );
+        }
+        return response()->json($map_markes);
     }
 
     public function tecnicosColumna(){

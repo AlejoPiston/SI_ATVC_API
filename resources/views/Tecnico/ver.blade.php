@@ -7,6 +7,7 @@
 @section('nav-link Administradores', 'nav-link')
 @section('nav-link Tecnicos', 'nav-link active')
 @section('nav-link Clientes', 'nav-link')
+@section('nav-link Ubi', 'nav-link')
 @section('nav-link MOT', 'nav-link')
 @section('nav-link MD', 'nav-link')
 @section('nav-link FOT', 'nav-link')

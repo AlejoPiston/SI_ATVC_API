@@ -17,6 +17,7 @@ class CreateUbicacionOrdenTrabajosTable extends Migration
             $table->id('Id');
             $table->string('Latitud')->nullable();
             $table->string('Longitud')->nullable();
+            $table->string('EstadoOrdenTrabajo')->nullable();
             $table->unsignedBigInteger('IdOrdenTrabajo')->nullable();
             $table->timestamps();
             $table->foreign('IdOrdenTrabajo')->references('Id')->on('OrdenTrabajo');

@@ -41,7 +41,7 @@ class ReporteController extends Controller
                 'Latitud' => (float)$location->Latitud,
                 'Longitud' => (float)$location->Longitud,
                 'IdOrdenTrabajo' => $location->IdOrdenTrabajo,
-                'EstadoOrdenTrabajo' => $location->ordentrabajoubicacion->Activa,
+                'EstadoOrdenTrabajo' => $location->EstadoOrdenTrabajo,
                 'TecnicoNombres' => $location->ordentrabajoubicacion->empleadoordentrabajo->name,
                 'TecnicoApellidos' => $location->ordentrabajoubicacion->empleadoordentrabajo->Apellidos,
             );

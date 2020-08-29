@@ -12,6 +12,6 @@ class MensualidadSeeder extends Seeder
      */
     public function run()
     {
-        factory(Mensualidad::class, 10)->create();
+        
     }
 }

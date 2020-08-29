@@ -12,7 +12,7 @@ class OtroIngresoSeeder extends Seeder
      */
     public function run()
     {
-        factory(OtroIngreso::class, 10)->create();    
+        
 
     }
 }

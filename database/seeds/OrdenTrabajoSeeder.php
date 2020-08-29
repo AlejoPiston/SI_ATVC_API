@@ -12,7 +12,7 @@ class OrdenTrabajoSeeder extends Seeder
      */
     public function run()
     {
-        factory(OrdenTrabajo::class, 10)->create();
+        
 
     }
 }

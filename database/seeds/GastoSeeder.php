@@ -12,7 +12,6 @@ class GastoSeeder extends Seeder
      */
     public function run()
     {
-        factory(Gasto::class, 10)->create();
 
     }
 }

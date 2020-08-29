@@ -12,6 +12,5 @@ class InstalacionSeeder extends Seeder
      */
     public function run()
     {
-        factory(Instalacion::class, 10)->create();    
     }
 }

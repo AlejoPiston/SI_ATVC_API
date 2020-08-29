@@ -12,7 +12,7 @@ class RetencionSeeder extends Seeder
      */
     public function run()
     {
-        factory(Retencion::class, 10)->create();    
+        
 
     }
 }

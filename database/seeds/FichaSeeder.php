@@ -43,6 +43,6 @@ class FichaSeeder extends Seeder
             'IdZona' => 1,
             'IdServicio' => 2,
             ]);
-        factory(Ficha::class, 10)->create();    
+           
     }
 }

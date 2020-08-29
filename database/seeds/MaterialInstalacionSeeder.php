@@ -12,6 +12,5 @@ class MaterialInstalacionSeeder extends Seeder
      */
     public function run()
     {
-        factory(MaterialInstalacion::class, 2)->create();
     }
 }

@@ -12,7 +12,6 @@ class CobroMensualidadSeeder extends Seeder
      */
     public function run()
     {
-        factory(CobroMensualidad::class, 10)->create();    
 
     }
 }

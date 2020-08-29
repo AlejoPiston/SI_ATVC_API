@@ -12,7 +12,6 @@ class CobroSeeder extends Seeder
      */
     public function run()
     {
-        factory(Cobro::class, 10)->create();    
 
     }
 }

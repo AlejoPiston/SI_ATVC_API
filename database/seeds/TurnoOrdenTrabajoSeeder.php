@@ -13,6 +13,5 @@ class TurnoOrdenTrabajoSeeder extends Seeder
      */
     public function run()
     {
-        factory(TurnoOrdenTrabajo::class, 10)->create();
     }
 }

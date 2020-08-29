@@ -12,6 +12,5 @@ class CompromisoPagoSeeder extends Seeder
      */
     public function run()
     {
-        factory(CompromisoPago::class, 10)->create();    
     }
 }

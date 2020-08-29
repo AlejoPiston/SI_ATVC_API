@@ -12,6 +12,5 @@ class CorteReconexionSeeder extends Seeder
      */
     public function run()
     {
-        factory(CorteReconexion::class, 10)->create();    
     }
 }

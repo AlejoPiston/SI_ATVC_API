@@ -12,6 +12,6 @@ class ValorAdicionalSeeder extends Seeder
      */
     public function run()
     {
-        factory(ValorAdicional::class, 10)->create(); 
+        
     }
 }

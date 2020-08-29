@@ -12,7 +12,6 @@ class CierreCajaSeeder extends Seeder
      */
     public function run()
     {
-        factory(CierreCaja::class, 10)->create();    
 
     }
 }

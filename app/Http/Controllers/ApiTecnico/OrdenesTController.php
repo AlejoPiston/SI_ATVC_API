@@ -131,6 +131,7 @@ class OrdenesTController extends Controller
         $ubicacion->IdOrdenTrabajo = $ordentrabajo->Id;
         $ubicacion->save();
         $ordentrabajo->Activa = $request->Activa;
+        $ordentrabajo->Resultado = $request->Resultado;
         $ordentrabajo->save();
         return $ordentrabajo;
     }

@@ -149,7 +149,7 @@ class OrdenesTController extends Controller
         $cancelacion = new CancelacionOrdenTrabajo();
 
         $cancelacion->Justificacion = $request->Justificacion;
-        $cancelacion->Cancelado_por = $request->user()->id();
+        $cancelacion->Cancelado_por = $request->user()->id;
         $ordentrabajo->cancelacion()->save($cancelacion);
         $ordentrabajo->Activa = $request->Activa;
         $ordentrabajo->save();

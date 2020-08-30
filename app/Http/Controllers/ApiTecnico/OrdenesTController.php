@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\OrdenTrabajo;
 use App\UbicacionOrdenTrabajo;
 use App\CancelacionOrdenTrabajo;
+use Carbon\Carbon;
 
 class OrdenesTController extends Controller
 {
@@ -36,6 +37,8 @@ class OrdenesTController extends Controller
                     "created_at",
                     "updated_at"
                 ]);
+                //Carbon::parse($ordenest->created_at)->toDateTimeString();
+                //\Carbon\Carbon::parse($ordenest->created_at)->format('d/m/Y');
         return $ordenest;
     }   
     public function indexc(Request $request)

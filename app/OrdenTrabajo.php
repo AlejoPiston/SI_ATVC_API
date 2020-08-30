@@ -48,8 +48,8 @@ class OrdenTrabajo extends Model
     }
 
     protected $casts = [
-        'created_at' => 'datetime:d/m/Y H:00', // Change your format
-        'updated_at' => 'datetime:d/m/Y H:00',
+        'created_at' => 'datetime:d/m/Y H:i:s', // Change your format
+        'updated_at' => 'datetime:d/m/Y H:i:s',
     ];
 
 }

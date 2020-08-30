@@ -47,9 +47,4 @@ class OrdenTrabajo extends Model
         return $this->hasOne(CancelacionOrdenTrabajo::class, 'IdOrdenTrabajo');
     }
 
-    protected $casts = [
-        'created_at' => 'datetime:d/m/Y H:i:s', // Change your format
-        'updated_at' => 'datetime:d/m/Y H:i:s',
-    ];
-
 }

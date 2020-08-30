@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\OrdenTrabajo;
 use App\UbicacionOrdenTrabajo;
-
-
-
+use App\CancelacionOrdenTrabajo;
 
 class OrdenesTController extends Controller
 {
@@ -132,6 +130,28 @@ class OrdenesTController extends Controller
         $ubicacion->save();
         $ordentrabajo->Activa = $request->Activa;
         $ordentrabajo->Resultado = $request->Resultado;
+        $ordentrabajo->save();
+        return $ordentrabajo;
+    }
+    public function storecan(Request $request)
+    {
+        $ordentrabajo = OrdenTrabajo::findOrFail($request->Id);
+
+        //$ordentrabajo = OrdenTrabajo::where('Id', $request->Id)->get();
+        $ubicacion = new UbicacionOrdenTrabajo();
+
+        $ubicacion->Latitud = $request->Latitud;
+        $ubicacion->Longitud = $request->Longitud;
+        $ubicacion->EstadoOrdenTrabajo = $request->Activa;
+        $ubicacion->IdOrdenTrabajo = $ordentrabajo->Id;
+        $ubicacion->save();
+
+        $cancelacion = new CancelacionOrdenTrabajo();
+
+        $cancelacion->Justificacion = $request->Justificacion;
+        $cancelacion->Cancelado_por = $request->user()->id();
+        $ordentrabajo->cancelacion()->save($cancelacion);
+        $ordentrabajo->Activa = $request->Activa;
         $ordentrabajo->save();
         return $ordentrabajo;
     }

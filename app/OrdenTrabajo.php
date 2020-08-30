@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DateTimeInterface;
 
 
 class OrdenTrabajo extends Model
@@ -45,6 +46,18 @@ class OrdenTrabajo extends Model
     }
     public function cancelacion(){
         return $this->hasOne(CancelacionOrdenTrabajo::class, 'IdOrdenTrabajo');
+    }
+    
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('d/m/Y g:i:s A');
     }
 
 }

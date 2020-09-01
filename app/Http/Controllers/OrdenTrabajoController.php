@@ -92,7 +92,10 @@ class OrdenTrabajoController extends Controller
     {
         //
         $rules = [
-            'Dano' => 'required|min:3'
+            'Dano' => 'required',
+            'IdFicha' => 'required',
+            'Fecha' => 'required',
+            'IdEmpleado' => 'required'
         ];
         $this->validate($request, $rules);
 
@@ -301,6 +304,13 @@ class OrdenTrabajoController extends Controller
   
         $notificacion = 'La orden de trabajo se ha finalizado correctamente';
         return redirect('/orden_trabajos')->with(compact('notificacion')); 
+
+    }
+    
+    public function getficha($id)
+    {
+        $ficha = Ficha::findOrFail($id);
+        return $ficha;
 
     }
 }

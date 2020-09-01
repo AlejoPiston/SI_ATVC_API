@@ -57,7 +57,7 @@
             @csrf
 
             <div class="form-group">
-                <label for="Ficha">Ficha</label>
+                <label for="Ficha">Cliente ficha</label>
             
             <select name="IdFicha" id="Ficha" 
             class="form-control selectpicker" 
@@ -70,17 +70,12 @@
             </select>
             </div>
             <div class="form-group">
-              <label for="Cliente">Cliente</label>
-          
-              <select name="IdCliente" id="Cliente" 
-              class="form-control selectpicker" 
-              data-live-search="true" data-style="btn-outline-primary"
-              title="Seleccione un Cliente">
-                @foreach ($clientes as $cliente)
-              <option value="{{ $cliente->id }}">{{ $cliente->name }} {{ $cliente->Apellidos }} | {{ $cliente->Cedula }}</option>
-                @endforeach
-
-              </select>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Usuario</span>
+                </div>
+                <input type="text" name="IdCliente" id="Cliente" class="form-control" value="{{ old('IdCliente') }}" disabled>
+            </div>
           </div>
             <div class="form-group">
               <label for="Dano">Daño</label>
@@ -204,6 +199,7 @@
       $('#servicioFicha').html(client.IdServicio)
       $('#direccionFicha').html(client.DireccionDomicilio)
       $('#telefonoFicha').html(client.TelefonoDomicilio)
+      $('#Cliente').val(client.IdUsuario)
       
       console.log(client.Nombres);
       

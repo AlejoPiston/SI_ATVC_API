@@ -44,10 +44,12 @@ class CreateFichasTable extends Migration
             $table->boolean('EquipoRetirado');
             $table->unsignedBigInteger('IdZona');
             $table->unsignedBigInteger('IdServicio');
+            $table->unsignedBigInteger('IdUsuario')->nullable();
             $table->timestamps();
 
             $table->foreign('IdZona')->references('Id')->on('Zona');
             $table->foreign('IdServicio')->references('Id')->on('Servicio');
+            $table->foreign('IdUsuario')->references('id')->on('users');
 
             
         }); 

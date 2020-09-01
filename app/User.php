@@ -81,6 +81,10 @@ class User extends Authenticatable
     ->send();
     }
 
+    public function ficha(){
+        return $this->hasOne(Ficha::class, 'IdUsuario');
+    }
+
 
     
 }

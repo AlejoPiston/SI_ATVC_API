@@ -73,6 +73,7 @@ class FichaSeeder extends Seeder
             'EquipoRetirado' => 1,
             'IdZona' => 3,
             'IdServicio' => 2,
+            'IdUsuario' => 9,
             ]);
 
            

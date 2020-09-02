@@ -106,7 +106,7 @@
               title="Seleccione un Técnico">
               @foreach ($tecnicos as $tecnico)
                 <option value="{{ $tecnico->id }}"> 
-                  {{ $tecnico->name }} | {{ $tecnico->Cedula }}</option>
+                  {{ $tecnico->name }} {{ $tecnico->Apellidos }} | {{ $tecnico->Cedula }}</option>
               @endforeach
 
               </select>

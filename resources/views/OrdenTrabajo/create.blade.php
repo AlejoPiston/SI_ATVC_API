@@ -57,7 +57,7 @@
             @csrf
 
             <div class="form-group">
-                <label for="Ficha">Cliente ficha</label>
+                <label for="Ficha">Cliente</label>
             
             <select name="IdFicha" id="Ficha" 
             class="form-control selectpicker" 
@@ -72,9 +72,10 @@
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Usuario</span>
+                    <span class="input-group-text">Cuenta de usuario</span>
                 </div>
-                <input type="text" name="IdCliente" id="Cliente" class="form-control" value="{{ old('IdCliente') }}" disabled>
+                <input type="text" id="tieneCliente" class="form-control" value="{{ old('IdCliente') }}" disabled>
+                <input type="hidden" name="IdCliente" id="Cliente">
             </div>
           </div>
             <div class="form-group">
@@ -124,7 +125,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-3 order-lg-2">
             <div class="card-profile-image">
-              <a href="#">
+              <a>
                 <img src="{{ asset('img/theme/hombre.png') }}" class="rounded-circle">
               </a>
             </div>
@@ -199,11 +200,15 @@
       $('#servicioFicha').html(client.IdServicio)
       $('#direccionFicha').html(client.DireccionDomicilio)
       $('#telefonoFicha').html(client.TelefonoDomicilio)
-      $('#Cliente').val(client.IdUsuario)
+      if (client.IdUsuario == null) {
+        $('#tieneCliente').val("No")
+        $('#Cliente').val(client.IdUsuario)
+      } else {
+        $('#tieneCliente').val("Si")
+        $('#Cliente').val(client.IdUsuario)
+      }
       
       console.log(client.Nombres);
-      
-     
     }
 </script>
 @endsection

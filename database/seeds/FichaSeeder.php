@@ -31,7 +31,7 @@ class FichaSeeder extends Seeder
             'ValorMensual' => 22,    
             'FechaCobro' => '2020/05/05',
             'Observacion' => '$faker->text($maxNbChars = 50)',
-            'Estado' => 1,
+            'Estado' => 0,
             'TvAdicional' => 2,
             'Filtro' => 1,
             'MensualidadesPendientes' => 2,
@@ -41,7 +41,7 @@ class FichaSeeder extends Seeder
             'NumSerieEquipo' => 'Str::random(10)',
             'EquipoRetirado' => 1,
             'IdZona' => 1,
-            'IdServicio' => 1,
+            'IdServicio' => 4,
             ]);
         Ficha::create([
             'Nombres' => 'Tatiana Anabel',
@@ -72,7 +72,7 @@ class FichaSeeder extends Seeder
             'NumSerieEquipo' => 'Str::random(10)',
             'EquipoRetirado' => 1,
             'IdZona' => 3,
-            'IdServicio' => 2,
+            'IdServicio' => 3,
             'IdUsuario' => 9,
             ]);
 

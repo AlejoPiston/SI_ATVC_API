@@ -309,7 +309,20 @@ class OrdenTrabajoController extends Controller
     
     public function getficha($id)
     {
-        $ficha = Ficha::findOrFail($id);
+        $ficha = Ficha::where('Id', $id)->with([
+            'zonaficha' => function ($query) {
+                $query->select('Id', 'Nombre');
+            },
+            'servicioficha' => function ($query) {
+                $query->select('Id', 'Nombre');
+            },
+            'usuarioficha' => function ($query) {
+                $query->select('id', 'name');
+            },
+              
+            ])
+            ->first();
+        
         return $ficha;
 
     }

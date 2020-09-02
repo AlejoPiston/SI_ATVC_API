@@ -81,7 +81,7 @@
             <div class="form-group">
               <label for="Dano">Daño</label>
 
-              <select name="Dano" id="Dano" 
+              <select name="Dano" id="ordentrabajoDano" 
               class="form-control selectpicker" 
               data-style="btn-outline-primary" title="Seleccione uno o más daños" multiple>
                 <option value="Internet">Internet</option>
@@ -95,7 +95,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                 </div>
-              <input name="Fecha" class="form-control datepicker" placeholder="Seleccionar fecha" 
+              <input id="date" name="Fecha" class="form-control datepicker" placeholder="Seleccionar fecha" 
               type="text" value="{{ date('Y-m-d') }}" data-date-format="yyyy-mm-dd"
               data-date-start-date="{{ date('Y-m-d') }}" data-date-end-date="+2d">
             </div>
@@ -149,13 +149,14 @@
                   <span class="description">Zona</span>
                 </div>
                 <div>
-                  <span class="heading" id="servicioFicha"></span>
-                  <span class="description">Servicio</span>
+                  <span class="heading" id="estadoFicha"></span>
+                  <span class="description">Estado</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="text-center">
+            <p id="servicioFicha"></p>
             <h5 class="h3" id="nombresFicha">
             </h5>
             <div class="h5 font-weight-300">
@@ -180,35 +181,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 <script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-<script>
-      $(function () {
-      $ficha = $('#Ficha');
-      
-
-      $ficha.change(() => {
-        const fichaId = $ficha.val();
-        const url = `/orden_trabajos/${fichaId}/ficha`;
-        $.getJSON(url, onClienteLoaded);
-      });
-    });    
-
-    function onClienteLoaded(client) {
-      $('#nombresFicha').html(client.Nombres+' '+client.Apellidos);
-      $('#cedulaFicha').html(client.CedulaRuc);
-      $('#cuotaFicha').html('$'+client.ValorMensual)
-      $('#zonaFicha').html(client.IdZona)
-      $('#servicioFicha').html(client.IdServicio)
-      $('#direccionFicha').html(client.DireccionDomicilio)
-      $('#telefonoFicha').html(client.TelefonoDomicilio)
-      if (client.IdUsuario == null) {
-        $('#tieneCliente').val("No")
-        $('#Cliente').val(client.IdUsuario)
-      } else {
-        $('#tieneCliente').val("Si")
-        $('#Cliente').val(client.IdUsuario)
-      }
-      
-      console.log(client.Nombres);
-    }
-</script>
+<script src="{{ asset('/js/ordentrabajo/create.js') }}"></script>
 @endsection

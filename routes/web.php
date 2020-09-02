@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/orden_trabajos/historial', 'OrdenTrabajoController@indexweb');
         
         Route::get('/orden_trabajos/{id}/ficha', 'OrdenTrabajoController@getficha');
+        Route::get('/orden_trabajos/tecnico/se', 'SistemaExpertoController@gettecnico');
         
 
          

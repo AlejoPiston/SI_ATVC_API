@@ -46,4 +46,7 @@ class Ficha extends Model
     public function servicioficha(){
         return $this->belongsTo('App\Servicio', 'IdServicio');
     }
+    public function usuarioficha(){
+        return $this->belongsTo('App\User', 'IdUsuario');
+    }
 }

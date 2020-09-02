@@ -14,27 +14,27 @@ class ZonaSeeder extends Seeder
     {
         //
         Zona::create([
-            'Nombre' => 'Zona F',
+            'Nombre' => 'F',
             'Descripcion' => 'Desde Pastocalle hasta Sigchos',
             ]);
         Zona::create([
-            'Nombre' => 'Zona E',
+            'Nombre' => 'E',
             'Descripcion' => 'Desde Guaytacama hasta Pastocalle',
             ]);
         Zona::create([
-            'Nombre' => 'Zona D',
+            'Nombre' => 'D',
             'Descripcion' => 'Desde San buena aventura hasta José guango bajo',
             ]);
         Zona::create([
-            'Nombre' => 'Zona C',
+            'Nombre' => 'C',
             'Descripcion' => 'Desde Pujilí hasta San Felipe de Latacunga',
             ]);
         Zona::create([
-            'Nombre' => 'Zona B',
+            'Nombre' => 'B',
             'Descripcion' => 'Desde Saquisilí hasta el norte de Latacunga',
             ]);
         Zona::create([
-            'Nombre' => 'Zona A',
+            'Nombre' => 'A',
             'Descripcion' => 'Desde Salcedo hasta el sur de Latacunga',
             ]);
     }

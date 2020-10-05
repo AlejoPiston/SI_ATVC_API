@@ -6,6 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -74,6 +75,8 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/orden_trabajos/{id}/ficha', 'OrdenTrabajoController@getficha');
         Route::get('/orden_trabajos/tecnico/se', 'SistemaExpertoController@gettecnico');
+        Route::get('/orden_trabajos/tecnico/se/prolog', 'SistemaExpertoController@gettecnicoprolog');
+        Route::post('/orden_trabajos/tecnico/se/prolog', 'SistemaExpertoController@gettecnicoprolog');
         
 
          

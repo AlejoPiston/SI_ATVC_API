@@ -27,7 +27,59 @@
 
 @section('contenido')
 <div class="row">
-   
+  <div class="col-xl-4 order-xl-2">
+    <div class="card card-profile">
+      <img src="{{ asset('img/theme/img-1-1000x600.jpg') }}" alt="Image placeholder" class="card-img-top">
+      <div class="row justify-content-center">
+        <div class="col-lg-3 order-lg-2">
+          <div class="card-profile-image">
+            <a>
+              <img src="{{ asset('img/theme/hombre.png') }}" class="rounded-circle">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+        <div class="d-flex justify-content-between">
+          
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col">
+            <div class="card-profile-stats d-flex justify-content-center">
+              <div>
+                <span class="heading" id="cuotaFicha"></span>
+                <span class="description">Cuota</span>
+              </div>
+              <div>
+                <span class="heading" id="zonaFicha"></span>
+                <span class="description">Zona</span>
+              </div>
+              <div>
+                <span class="heading" id="estadoFicha"></span>
+                <span class="description">Estado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <p id="servicioFicha"></p>
+          <h5 class="h3" id="nombresFicha">
+          </h5>
+          <div class="h5 font-weight-300">
+            <i class="ni location_pin mr-2" id="cedulaFicha"></i>
+          </div>
+          <div class="h5 mt-4" id="direccionFicha">
+            <i class="ni business_briefcase-24 mr-2"></i>
+          </div>
+          <div id="telefonoFicha">
+            <i class="ni education_hat mr-2"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
     <div class="col-xl-8 order-xl-1">
       <div class="card">
         <div class="card-header border-0">
@@ -102,14 +154,26 @@
           </div>
             <div class="form-group">
               <label for="IdEmpleado">Técnico</label>
-              <select name="IdEmpleado" id="IdEmpleado" class="form-control selectpicker" data-live-search="true" data-style="btn-outline-primary"
-              title="Seleccione un Técnico">
-              @foreach ($tecnicos as $tecnico)
-                <option value="{{ $tecnico->id }}"> 
-                  {{ $tecnico->name }} {{ $tecnico->Apellidos }} | {{ $tecnico->Cedula }}</option>
-              @endforeach
-
-              </select>
+              <div class="row">
+                <div class="col">
+                  <a href="{{ url('/orden_trabajos/tecnico/se/prolog') }}" class="btn btn-block btn-default" data-toggle="tooltip" 
+                    data-placement="top" 
+                  title="Seleccionar técnico con sistema experto">
+                    <span class="btn-inner--icon"><i class="ni ni-atom"></i></span>
+                    <span class="btn-inner--text">Emplear SE</span>
+                  </a>
+                </div>
+                <div class="col">
+                    <select name="IdEmpleado" id="IdEmpleado" class="form-control selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Seleccione un Técnico cualquiera">
+                        @foreach ($tecnicos as $tecnico)
+                        <option value="{{ $tecnico->id }}">
+                            {{ $tecnico->name }} {{ $tecnico->Apellidos }} | {{ $tecnico->Cedula }}</option>
+                        @endforeach
+            
+                    </select>
+                </div>
+            </div>
+              
           </div>
           <button type="submit" class="btn btn-primary">
               Guardar
@@ -119,61 +183,13 @@
         
       </div>   
     </div>   
-    <div class="col-xl-4 order-xl-2">
-      <div class="card card-profile">
-        <img src="{{ asset('img/theme/img-1-1000x600.jpg') }}" alt="Image placeholder" class="card-img-top">
-        <div class="row justify-content-center">
-          <div class="col-lg-3 order-lg-2">
-            <div class="card-profile-image">
-              <a>
-                <img src="{{ asset('img/theme/hombre.png') }}" class="rounded-circle">
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-          <div class="d-flex justify-content-between">
-            
-          </div>
-        </div>
-        <div class="card-body pt-0">
-          <div class="row">
-            <div class="col">
-              <div class="card-profile-stats d-flex justify-content-center">
-                <div>
-                  <span class="heading" id="cuotaFicha"></span>
-                  <span class="description">Cuota</span>
-                </div>
-                <div>
-                  <span class="heading" id="zonaFicha"></span>
-                  <span class="description">Zona</span>
-                </div>
-                <div>
-                  <span class="heading" id="estadoFicha"></span>
-                  <span class="description">Estado</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center">
-            <p id="servicioFicha"></p>
-            <h5 class="h3" id="nombresFicha">
-            </h5>
-            <div class="h5 font-weight-300">
-              <i class="ni location_pin mr-2" id="cedulaFicha"></i>
-            </div>
-            <div class="h5 mt-4" id="direccionFicha">
-              <i class="ni business_briefcase-24 mr-2"></i>
-            </div>
-            <div id="telefonoFicha">
-              <i class="ni education_hat mr-2"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> 
+    
 </div>       
-  
+
+
+
+
+
 @endsection
 @section('scripts')
 
@@ -183,3 +199,7 @@
 <script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('/js/ordentrabajo/create.js') }}"></script>
 @endsection
+
+
+
+

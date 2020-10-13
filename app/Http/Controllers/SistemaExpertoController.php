@@ -136,6 +136,15 @@ class SistemaExpertoController extends Controller
                 $se_distancia_tecnicos[$contTecnicos] = 'distancia('.$tecnico->id.','.$distancia[$contTecnicos].').' . PHP_EOL;
                 $se_tiempo_ots_tecnicos[$contTecnicos] = 'tiempo_ots('.$tecnico->id.','.$añade_tiempo_minutos[$contTecnicos].').' . PHP_EOL;
                 
+                //Almacenando datos en una variable para enviar a excel
+                $datos_aexcel[$contTecnicos] = ['IdTecnico' => $tecnico->id, 
+                                                'Nombre' => ''.$tecnico->name.' '.$tecnico->Apellidos.'',
+                                                'Num_OT' => $num_ordenestrabajo[$contTecnicos],
+                                                'Meses_Tra' => $meses_ordenestrabajo[$contTecnicos],
+                                                'Distancia' => $distancia[$contTecnicos],
+                                                'Tiempo_OTS' => $añade_tiempo_minutos[$contTecnicos]
+                                                ];
+
                 $contTecnicos = $contTecnicos +1;
                 
             }   
@@ -182,7 +191,11 @@ class SistemaExpertoController extends Controller
             // Generando el archivo .pl con todos los hechos y reglas
             file_put_contents('sistema_experto.pl', $sistema_experto);
 
-        return $sistema_experto;
+            //Exportando a excel
+            $export = $this->export_excel($datos_aexcel);
+
+
+        return $datos_aexcel;
     }
     public function gettecnicoprolog(Request $request)
     {
@@ -208,5 +221,33 @@ class SistemaExpertoController extends Controller
                 $distance =  $degrees * 59.97662; // 1 grado = 59.97662 millas naúticas, basándose en el diametro promedio de la Tierra (6,876.3 millas naúticas)
         }
         return round($distance, $decimals);
+    }
+
+    protected function export_excel($datos) {
+
+        $fecha_actual = Carbon::now();
+        $filename = 'SistemaExperto_' . $fecha_actual . '.xls'; 
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+
+        
+        $isPrintHeader = false;
+
+        foreach ($datos as $row) {
+
+            if (! $isPrintHeader ) {
+
+                echo implode("\t", array_keys($row)) . "\n";
+                $isPrintHeader = true;
+
+            }
+
+            echo implode("\t", array_values($row)) . "\n";
+
+        }
+
+        exit();
+
     }
 }

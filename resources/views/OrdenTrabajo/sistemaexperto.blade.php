@@ -37,7 +37,7 @@
   <div class="card-header border-0">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="mb-0">Seleccionar técnico</h3>
+        <h3 class="mb-0">Consultar técnico</h3>
       </div>
       <div class="col text-right">
       <a href="{{ url('/orden_trabajos/create') }}" class="btn btn-sm btn-default">
@@ -48,20 +48,24 @@
   </div>
   <div class="card-body">
   <?php
-      $defaultMain = 'persona(maria).' . PHP_EOL
-          . 'persona(pepe).' . PHP_EOL
+      $defaultMain = 'tecnico(alexander).' . PHP_EOL
+          . 'tecnico(stalin).' . PHP_EOL
           . PHP_EOL
-          . 'edad(pepe, 22).' . PHP_EOL
-          . 'edad(maria, 23).' . PHP_EOL
+          . 'edad(stalin, 22).' . PHP_EOL
+          . 'edad(alexander, 23).' . PHP_EOL
+          . 'ubicacion(alexander, cerca).' . PHP_EOL
+          . 'ubicacion(stalin, lejos).' . PHP_EOL
+          . 'carga_trabajo(alexander, leve).' . PHP_EOL
+          . 'carga_trabajo(stalin, fuerte).' . PHP_EOL
           . PHP_EOL
-          . "escribeEdades([]) :- write('No hay mas información sobre edades.'), nl." . PHP_EOL
-          . 'escribeEdades([Primera|Personas]) :-' . PHP_EOL
-          . " edad(Primera, X), write(Primera), write(' tiene de edad '), write(X), nl, escribeEdades(Personas)." . PHP_EOL
+          . "escribeUbicaciones([]) :- write('No hay mas información sobre ubicaciones.'), nl." . PHP_EOL
+          . 'escribeUbicaciones([Primera|Tecnicos]) :-' . PHP_EOL
+          . " ubicacion(Primera, X), write(Primera), write(' está '), write(X), nl, escribeUbicaciones(Tecnicos)." . PHP_EOL
           . '' . PHP_EOL
           . 'main :-' . PHP_EOL
-          . " write('¡Hola Mundo!'), nl," . PHP_EOL
-          . ' findall(X, persona(X), Personas),' . PHP_EOL
-          . ' escribeEdades(Personas).' . PHP_EOL;
+          . " write('Ejemplo de Ubicaciones'), nl," . PHP_EOL
+          . ' findall(X, tecnico(X), Tecnicos),' . PHP_EOL
+          . ' escribeUbicaciones(Tecnicos).' . PHP_EOL;
 
       // If intializing..
       if (!file_exists('index.pl')) {
@@ -106,9 +110,11 @@
           ?- <input type="text" style="width: 75%;" name="query">
           <input type="submit" value="Consultar"><br>
           <small>Por ejemplo:<br>
-              ¿Pepe es una persona? <strong>persona(pepe).</strong><br>
-              ¿Cuál es la edad de pepe? <strong>edad(pepe, X), write(X).</strong><br>
-              ¿Cuáles son todas las personas? <strong>findall(X, persona(X), Personas), write(Personas).</strong></small>
+              ¿Alexander es un técnico? <strong>tecnico(alexander).</strong><br>
+              ¿Cuál es la edad de Alexander? <strong>edad(alexander, X), write(X).</strong><br>
+              ¿Cuál es la ubicación de Alexander hacia el daño? <strong>ubicacion(alexander, X), write(X).</strong><br>
+              ¿Cuál es el nivel de carga de trabajo de Alexander? <strong>carga_trabajo(alexander, X), write(X).</strong><br>
+              ¿Cuáles son todos los técnicos? <strong>findall(X, tecnico(X), Tecnicos), write(Tecnicos).</strong></small>
       </form>
 
       <h2>Programa completo</h2>

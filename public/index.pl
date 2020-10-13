@@ -1,14 +1,18 @@
-persona(maria).
-persona(pepe).
+tecnico(alexander).
+tecnico(stalin).
 
-edad(pepe, 22).
-edad(maria, 23).
+edad(stalin, 22).
+edad(alexander, 23).
+ubicacion(alexander, cerca).
+ubicacion(stalin, lejos).
+carga_trabajo(alexander, leve).
+carga_trabajo(stalin, fuerte).
 
-escribeEdades([]) :- write('No hay mas información sobre edades.'), nl.
-escribeEdades([Primera|Personas]) :-
- edad(Primera, X), write(Primera), write(' tiene de edad '), write(X), nl, escribeEdades(Personas).
+escribeUbicaciones([]) :- write('No hay mas información sobre ubicaciones.'), nl.
+escribeUbicaciones([Primera|Tecnicos]) :-
+ ubicacion(Primera, X), write(Primera), write(' está '), write(X), nl, escribeUbicaciones(Tecnicos).
 
 main :-
- write('¡Hola Mundo!'), nl,
- findall(X, persona(X), Personas),
- escribeEdades(Personas).
+ write('Ejemplo de Ubicaciones'), nl,
+ findall(X, tecnico(X), Tecnicos),
+ escribeUbicaciones(Tecnicos).

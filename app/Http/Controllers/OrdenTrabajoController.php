@@ -6,6 +6,7 @@ use App\OrdenTrabajo;
 use App\CancelacionOrdenTrabajo;
 use App\Ficha;
 use App\User;
+use App\UbicacionOrdenTrabajo;
 use Illuminate\Http\Request;
 
 class OrdenTrabajoController extends Controller
@@ -120,6 +121,13 @@ class OrdenTrabajoController extends Controller
                 ]
             );
 
+            $ubicacion = new UbicacionOrdenTrabajo();
+            $ubicacion->Latitud ='pendiente';
+            $ubicacion->Longitud ='pendiente';
+            $ubicacion->EstadoOrdenTrabajo = $ordenTrabajo->Activa;
+            $ubicacion->IdOrdenTrabajo = $ordenTrabajo->Id;
+            $ubicacion->save();
+
         } elseif($Tipo == 'cliente') {
 
             $ordenTrabajo = OrdenTrabajo::create(
@@ -137,7 +145,12 @@ class OrdenTrabajoController extends Controller
                     'Activa' => 'registrada'
                 ]
             );
-
+            $ubicacion = new UbicacionOrdenTrabajo();
+            $ubicacion->Latitud ='pendiente';
+            $ubicacion->Longitud ='pendiente';
+            $ubicacion->EstadoOrdenTrabajo = $ordenTrabajo->Activa;
+            $ubicacion->IdOrdenTrabajo = $ordenTrabajo->Id;
+            $ubicacion->save();
         }
 
         

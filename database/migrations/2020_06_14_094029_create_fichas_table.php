@@ -42,6 +42,10 @@ class CreateFichasTable extends Migration
             $table->date('PagadoHasta');
             $table->string('NumSerieEquipo', 50);
             $table->boolean('EquipoRetirado');
+            //Campos aumentados para ficha
+            $table->string('Latitud')->nullable();
+            $table->string('Longitud')->nullable();
+
             $table->unsignedBigInteger('IdZona');
             $table->unsignedBigInteger('IdServicio');
             $table->unsignedBigInteger('IdUsuario')->nullable();

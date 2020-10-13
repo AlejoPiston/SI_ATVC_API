@@ -135,9 +135,19 @@
 
               <select name="Dano" id="ordentrabajoDano" 
               class="form-control selectpicker" 
-              data-style="btn-outline-primary" title="Seleccione uno o más daños" multiple>
-                <option value="Internet">Internet</option>
-                <option value="Televisión">Televisión</option>
+              data-style="btn-outline-primary" title="Seleccione uno o más daños">
+                <optgroup label="Internet">
+                  <option value="Lentitud">Lentitud</option>
+                  <option value="Foco rojo">Foco rojo</option>
+                  <option value="Intermitencia">Intermitencia</option>
+                  <option value="Cambio de cable">Cambio de cable</option>
+                  <option value="Rotura de fibra">Rotura de fibra</option>
+                  <option value="Configuración de equipos">Configuración de equipos</option>
+                </optgroup>
+                <optgroup label="Televisión">
+                  <option value="Canales">Canales</option>
+                  <option value="Antena">Antena</option>
+                </optgroup>
               </select>
               
             </div>

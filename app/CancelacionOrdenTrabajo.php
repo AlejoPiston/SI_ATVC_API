@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class CancelacionOrdenTrabajo extends Model
 {
     protected $table = "CancelacionOrdenTrabajo";
+    //Sql server
+    protected $dateFormat = 'd-m-Y H:i:s';
 
     protected $fillable = [ "Justificacion", 
     "IdOrdenTrabajo", 

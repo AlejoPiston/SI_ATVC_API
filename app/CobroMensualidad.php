@@ -9,7 +9,7 @@ class CobroMensualidad extends Model
     protected $table = "CobroMensualidad";
     public $incrementing = false;
     //Sql server
-    //protected $dateFormat = 'd-m-Y H:i:s'; 
+    protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = ["IdCobro", 
                            "IdMensualidad", 
                            "Valor"];

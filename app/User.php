@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
     //Sql server
-    //protected $dateFormat = 'd-m-Y H:i:s';   
+    protected $dateFormat = 'd-m-Y H:i:s';   
 
 
     /**

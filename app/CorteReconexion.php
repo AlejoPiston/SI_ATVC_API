@@ -9,7 +9,7 @@ class CorteReconexion extends Model
     protected $table = "CorteReconexion";
     protected $primaryKey = 'Id';
     //Sql server
-    //protected $dateFormat = 'd-m-Y H:i:s'; 
+    protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Fechacorte", 
                             "ObservacionCorte", 
                             "FechaReconexion", 

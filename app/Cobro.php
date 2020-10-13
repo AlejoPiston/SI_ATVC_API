@@ -9,7 +9,7 @@ class Cobro extends Model
     protected $table = "Cobro";
     protected $primaryKey = 'Id';
     //Sql server
-    //protected $dateFormat = 'd-m-Y H:i:s'; 
+    protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Fecha", 
                             "ValorEfectivo", 
                             "ValorCheque", 

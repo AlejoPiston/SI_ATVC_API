@@ -10,7 +10,7 @@ class Servicio extends Model
     protected $table = "Servicio";
     protected $primaryKey = 'Id';
     //Sql server
-    //protected $dateFormat = 'd-m-Y H:i:s'; 
+    protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Nombre", 
                             "Descripcion", 
                             "ValorInscripcion", 

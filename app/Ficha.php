@@ -9,7 +9,7 @@ class Ficha extends Model
     protected $table = "Ficha";
     protected $primaryKey = 'Id';
     //Sql server
-    //protected $dateFormat = 'd-m-Y H:i:s'; 
+    protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Nombres", 
                             "Apellidos", 
                             "CedulaRuc", 

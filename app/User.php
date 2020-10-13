@@ -10,9 +10,9 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
+
     //Sql server
     protected $dateFormat = 'd-m-Y H:i:s';   
-
 
     /**
      * The attributes that are mass assignable.

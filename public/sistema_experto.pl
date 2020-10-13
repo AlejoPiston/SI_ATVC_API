@@ -3,7 +3,7 @@ id_tecnico(3).
 id_tecnico(4).
 id_tecnico(5).
 id_tecnico(6).
-fallo(medio).
+fallo(alto).
 num_ot(2,0).
 num_ot(3,0).
 num_ot(4,1).

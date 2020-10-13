@@ -59,22 +59,27 @@ class SistemaExpertoController extends Controller
                 ->whereIn('Activa', ['confirmada', 'en camino', 'en progreso'])
                 //->join('UbicacionOrdenTrabajo', 'volcanos.observatorio_id', '=', 'observatories.id')
                 ->get();
-            //Ordenes de Trabajo ordenadas
-            foreach ($ordenes_trabajo as $ot) {
-                if ($ot->Dano == 'Lentitud') {
-                    $ot_ordenadas[] = collect($ot)
-                                  ->merge(['tiempo' => 30]);
-                } elseif ($ot->Dano == 'Intermitencia' || $ot->Dano == 'Cambio de cable' || $ot->Dano == 'Canales') {
-                    $ot_ordenadas[] = collect($ot)
-                                  ->merge(['tiempo' => 60]);
-                }else { 
-                    $ot_ordenadas[] = collect($ot)
-                                  ->merge(['tiempo' => 80]);
-                }
-            }
-           
             
+            if ($ordenes_trabajo->collect([])->isEmpty()) {
+                $ot_ordenadas[] = 'ninguna';
+            } else {
+                //Ordenes de Trabajo ordenadas
+                foreach ($ordenes_trabajo as $ot) {
 
+                    if ($ot->Dano == 'Lentitud') {
+                        $ot_ordenadas[] = collect($ot)
+                                    ->merge(['tiempo' => 30]);
+                    } elseif ($ot->Dano == 'Intermitencia' || $ot->Dano == 'Cambio de cable' || $ot->Dano == 'Canales') {
+                        $ot_ordenadas[] = collect($ot)
+                                    ->merge(['tiempo' => 60]);
+                    }else { 
+                        $ot_ordenadas[] = collect($ot)
+                                    ->merge(['tiempo' => 80]);
+                    } 
+                }
+                
+            }
+            
 
             //Ubicaciones de órdenes de trabajo de los técnicos
             $ubicaciones = DB::table('UbicacionOrdenTrabajo')
@@ -84,70 +89,84 @@ class SistemaExpertoController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get()->unique('IdEmpleado');
 
-            //Ubicaciones ordenadas
-            foreach ($ubicaciones as $ubic) {
-                $ubicaciones_ordenadas[] = $ubic;
-            }
-            
-            //contador
-            
-            $contTecnicos=0;
-            
-            foreach ($tecnicos as $tecnico) {
-                
-                //Tiempo estimado de solución a lista de ordenes de trabajo
-                $añade_tiempo_minutos[$contTecnicos] = collect($ot_ordenadas)
-                                                  ->where('id', $tecnico->id)
-                                                  ->sum('tiempo');
-    
-                //Número de órdenes de trabajo de los técnicos
-                $num_ordenestrabajo[$contTecnicos] = $tecnico->asTecnicoOrdenesTrabajo()
-                                ->whereIn('Activa', ['confirmada', 'en camino', 'en progreso'])
-                                ->get()
-                                ->count();
-                //Meses de trabajo de los técnicos
-                $fecha_registro_tecnico = $tecnico->created_at;
-                $fecha_actual = Carbon::now();
-                $meses_ordenestrabajo[$contTecnicos] = $fecha_registro_tecnico->diffInMonths($fecha_actual);
-                
-                
-                $ubicacion_tecnico[$contTecnicos] = collect($ubicaciones_ordenadas)->where('IdEmpleado', $tecnico->id)->first();
-
-                if ($ubicacion_tecnico[$contTecnicos] == null) {
-                    $distancia[$contTecnicos] = 0;
+                if ($ubicaciones->collect([])->isEmpty()) {
+                    $ubicaciones_ordenadas[] = 'ninguna';
                 } else {
-                    if ($ubicacion_tecnico[$contTecnicos]->Latitud == 'pendiente') {
-                        $distancia[$contTecnicos] = 'pendiente';
-                    } else {
-                        //Distancia entre ubicación del técnico y domicilio cliente
-                        $distancia[$contTecnicos] = $this->distanceCalculation(
-                        (Double)$ubicacion_tecnico[$contTecnicos]->Latitud,
-                        (Double)$ubicacion_tecnico[$contTecnicos]->Longitud,
-                        $ficha->Latitud,
-                        $ficha->Longitud);
+                    //Ubicaciones ordenadas
+                    foreach ($ubicaciones as $ubic) {
+                        $ubicaciones_ordenadas[] = $ubic;
                     }
                 }
-                
+            
+            //contador
+            $contTecnicos=0;
 
-                //Almacenando datos en variables con lenguaje prolog
-                $se_id_tecnicos[$contTecnicos] = 'id_tecnico('.$tecnico->id.').' . PHP_EOL;
-                $se_numot_tecnicos[$contTecnicos] = 'num_ot('.$tecnico->id.','.$num_ordenestrabajo[$contTecnicos].').' . PHP_EOL;
-                $se_mesestrabajo_tecnicos[$contTecnicos] = 'meses_trabajo('.$tecnico->id.','.$meses_ordenestrabajo[$contTecnicos].').' . PHP_EOL;
-                $se_distancia_tecnicos[$contTecnicos] = 'distancia('.$tecnico->id.','.$distancia[$contTecnicos].').' . PHP_EOL;
-                $se_tiempo_ots_tecnicos[$contTecnicos] = 'tiempo_ots('.$tecnico->id.','.$añade_tiempo_minutos[$contTecnicos].').' . PHP_EOL;
-                
-                //Almacenando datos en una variable para enviar a excel
-                $datos_aexcel[$contTecnicos] = ['IdTecnico' => $tecnico->id, 
-                                                'Nombre' => ''.$tecnico->name.' '.$tecnico->Apellidos.'',
-                                                'Num_OT' => $num_ordenestrabajo[$contTecnicos],
-                                                'Meses_Tra' => $meses_ordenestrabajo[$contTecnicos],
-                                                'Distancia' => $distancia[$contTecnicos],
-                                                'Tiempo_OTS' => $añade_tiempo_minutos[$contTecnicos]
-                                                ];
+            if ($tecnicos->collect([])->isEmpty()) {
+                $se_id_tecnicos[] = 'ninguna';
+                $se_numot_tecnicos[] = 'ninguna';
+                $se_mesestrabajo_tecnicos[] = 'ninguna';
+                $se_distancia_tecnicos[] = 'ninguna';
+                $se_tiempo_ots_tecnicos[] = 'ninguna';
 
-                $contTecnicos = $contTecnicos +1;
+            } else {
+                foreach ($tecnicos as $tecnico) {
                 
-            }   
+                    //Tiempo estimado de solución a lista de ordenes de trabajo
+                    $añade_tiempo_minutos[$contTecnicos] = collect($ot_ordenadas)
+                                                      ->where('id', $tecnico->id)
+                                                      ->sum('tiempo');
+        
+                    //Número de órdenes de trabajo de los técnicos
+                    $num_ordenestrabajo[$contTecnicos] = $tecnico->asTecnicoOrdenesTrabajo()
+                                    ->whereIn('Activa', ['confirmada', 'en camino', 'en progreso'])
+                                    ->get()
+                                    ->count();
+                    //Meses de trabajo de los técnicos
+                    $fecha_registro_tecnico = $tecnico->created_at;
+                    $fecha_actual = Carbon::now();
+                    $meses_ordenestrabajo[$contTecnicos] = $fecha_registro_tecnico->diffInMonths($fecha_actual);
+                    
+                    
+                    $ubicacion_tecnico[$contTecnicos] = collect($ubicaciones_ordenadas)->where('IdEmpleado', $tecnico->id)->first();
+    
+                    if ($ubicacion_tecnico[$contTecnicos] == null) {
+                        $distancia[$contTecnicos] = 0;
+                    } else {
+                        if ($ubicacion_tecnico[$contTecnicos]->Latitud == 'pendiente') {
+                            $distancia[$contTecnicos] = 'pendiente';
+                        } else {
+                            //Distancia entre ubicación del técnico y domicilio cliente
+                            $distancia[$contTecnicos] = $this->distanceCalculation(
+                            (Double)$ubicacion_tecnico[$contTecnicos]->Latitud,
+                            (Double)$ubicacion_tecnico[$contTecnicos]->Longitud,
+                            $ficha->Latitud,
+                            $ficha->Longitud);
+                        }
+                    }
+                    
+    
+                    //Almacenando datos en variables con lenguaje prolog
+                    $se_id_tecnicos[$contTecnicos] = 'id_tecnico('.$tecnico->id.').' . PHP_EOL;
+                    $se_numot_tecnicos[$contTecnicos] = 'num_ot('.$tecnico->id.','.$num_ordenestrabajo[$contTecnicos].').' . PHP_EOL;
+                    $se_mesestrabajo_tecnicos[$contTecnicos] = 'meses_trabajo('.$tecnico->id.','.$meses_ordenestrabajo[$contTecnicos].').' . PHP_EOL;
+                    $se_distancia_tecnicos[$contTecnicos] = 'distancia('.$tecnico->id.','.$distancia[$contTecnicos].').' . PHP_EOL;
+                    $se_tiempo_ots_tecnicos[$contTecnicos] = 'tiempo_ots('.$tecnico->id.','.$añade_tiempo_minutos[$contTecnicos].').' . PHP_EOL;
+                    
+                    //Almacenando datos en una variable para enviar a excel
+                    $datos_aexcel[$contTecnicos] = ['IdTecnico' => $tecnico->id, 
+                                                    'Nombre' => ''.$tecnico->name.' '.$tecnico->Apellidos.'',
+                                                    'Num_OT' => $num_ordenestrabajo[$contTecnicos],
+                                                    'Meses_Tra' => $meses_ordenestrabajo[$contTecnicos],
+                                                    'Distancia' => $distancia[$contTecnicos],
+                                                    'Tiempo_OTS' => $añade_tiempo_minutos[$contTecnicos]
+                                                    ];
+    
+                    $contTecnicos = $contTecnicos +1;
+                    
+                }
+            }
+            
+               
             //Almacenando datos en variables con lenguaje prolog
             $se_daño = 'fallo('.$tipo_daño.').' . PHP_EOL;
 
@@ -192,10 +211,10 @@ class SistemaExpertoController extends Controller
             file_put_contents('sistema_experto.pl', $sistema_experto);
 
             //Exportando a excel
-            $export = $this->export_excel($datos_aexcel);
+            //$export = $this->export_excel($datos_aexcel);
 
 
-        return $datos_aexcel;
+        return $sistema_experto;
     }
     public function gettecnicoprolog(Request $request)
     {

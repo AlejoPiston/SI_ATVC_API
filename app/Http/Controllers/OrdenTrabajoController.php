@@ -19,58 +19,73 @@ class OrdenTrabajoController extends Controller
         if($Tipo == 'administrador'){
 
             $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
+            ->where('Tipo', 'fallo')
                 ->paginate(5);
                //dd($ordenestrabajos_pendientes);
                //->paginate(5, ['*'], 'pendientes');
 
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
+            ->where('Tipo', 'fallo')
                 ->paginate(5);
             
             $ordenestrabajos_encamino = OrdenTrabajo::where('Activa', 'en camino')
+            ->where('Tipo', 'fallo')
                 ->paginate(5);
                 //dd($ordenestrabajos_confirmadas);
                 //dd($ordenestrabajos_confirmadas->url($ordenestrabajos_confirmadas->currentPage()));
 
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
+            ->where('Tipo', 'fallo')
                 ->paginate(5);
             
             $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
+            ->where('Tipo', 'fallo')
                 ->paginate(5);
 
         } elseif($Tipo == 'tecnico'){
 
             $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
+            ->where('Tipo', 'fallo')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
+            ->where('Tipo', 'fallo')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
             
             $ordenestrabajos_encamino = OrdenTrabajo::where('Activa', 'en camino')
+            ->where('Tipo', 'fallo')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
+            ->where('Tipo', 'fallo')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
+            ->where('Tipo', 'fallo')
                 ->where('IdEmpleado', auth()->id())
                 ->paginate(5);
 
         } elseif($Tipo == 'cliente') {
 
             $ordenestrabajos_pendientes = OrdenTrabajo::where('Activa', 'registrada')
+            ->where('Tipo', 'fallo')
                 ->where('IdCliente', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_confirmadas = OrdenTrabajo::where('Activa', 'confirmada')
+            ->where('Tipo', 'fallo')
                 ->where('IdCliente', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_encamino = OrdenTrabajo::where('Activa', 'en camino')
+            ->where('Tipo', 'fallo')
                 ->where('IdCliente', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_enprogreso = OrdenTrabajo::where('Activa', 'en progreso')
+            ->where('Tipo', 'fallo')
                 ->where('IdCliente', auth()->id())
                 ->paginate(5);
             $ordenestrabajos_historial = OrdenTrabajo::whereIn('Activa', ['atendida', 'cancelada'])
+            ->where('Tipo', 'fallo')
                 ->where('IdCliente', auth()->id())
                 ->paginate(5);
 
@@ -108,7 +123,6 @@ class OrdenTrabajoController extends Controller
             $ordenTrabajo = OrdenTrabajo::create(
                 $request->only('Fecha', 
                                'Dano', 
-                               'Resultado', 
                                'FechaHoraArrivo', 
                                'FechaHoraSalida', 
                                'IdFicha',
@@ -117,7 +131,9 @@ class OrdenTrabajoController extends Controller
                                'IdEmpleado')
                 + [
                     'IdUsuario' => $idUsuario,
-                    'Activa' => 'confirmada'
+                    'Activa' => 'confirmada',
+                    'Resultado' => 'ninguno',
+                    'Tipo' => 'fallo'
                 ]
             );
 
@@ -133,7 +149,6 @@ class OrdenTrabajoController extends Controller
             $ordenTrabajo = OrdenTrabajo::create(
                 $request->only('Fecha', 
                                'Dano', 
-                               'Resultado', 
                                'FechaHoraArrivo', 
                                'FechaHoraSalida', 
                                'IdFicha',
@@ -142,7 +157,9 @@ class OrdenTrabajoController extends Controller
                                'IdEmpleado')
                 + [
                     'IdUsuario' => $idUsuario,
-                    'Activa' => 'registrada'
+                    'Activa' => 'registrada',
+                    'Resultado' => 'ninguno',
+                    'Tipo' => 'fallo'
                 ]
             );
             $ubicacion = new UbicacionOrdenTrabajo();
@@ -225,7 +242,7 @@ class OrdenTrabajoController extends Controller
 
     public function showCancelForm(OrdenTrabajo $ordenTrabajo)
     {
-        if ($ordenTrabajo->Activa == 'confirmada')
+        if ($ordenTrabajo->Activa == 'confirmada' || $ordenTrabajo->Activa == 'en camino')
             return view ('OrdenTrabajo.cancelar', compact('ordenTrabajo'));
 
         return redirect('/orden_trabajos');  
@@ -286,8 +303,6 @@ class OrdenTrabajoController extends Controller
         return back()->with(compact('notificacion')); 
 
     }
-
-
     public function showweb(OrdenTrabajo $ordenTrabajo)
     {
         $Tipo = auth()->user()->Tipo;

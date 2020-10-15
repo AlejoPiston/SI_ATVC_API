@@ -14,6 +14,12 @@ class OrdenTrabajo extends Model
     protected $dateFormat = 'd-m-Y H:i:s'; 
     protected $fillable = [ "Fecha", 
                             "Dano", 
+                            "NombreCliente",
+                            "Direccion",
+                            "Telefono",
+                            "Referencia",
+                            "Tipo",
+                            "IdVendedor",
                             "Resultado", 
                             "Activa",
                             "FechaHoraArrivo", 

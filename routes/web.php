@@ -77,6 +77,30 @@ Route::middleware('auth')->group(function () {
         Route::get('/orden_trabajos/tecnico/se', 'SistemaExpertoController@gettecnico');
         Route::get('/orden_trabajos/tecnico/se/prolog', 'SistemaExpertoController@gettecnicoprolog');
         Route::post('/orden_trabajos/tecnico/se/prolog', 'SistemaExpertoController@gettecnicoprolog');
+
+
+        // Instalaciones
+        Route::get('/instalaciones', 'InstalacionController@indexweb');
+        Route::get('/instalaciones/pendientes', 'InstalacionController@indexweb');
+        Route::get('/instalaciones/confirmadas', 'InstalacionController@indexweb');
+        Route::get('/instalaciones/encamino', 'InstalacionController@indexweb');
+        Route::get('/instalaciones/enprogreso', 'InstalacionController@indexweb');
+        Route::get('/instalaciones/historial', 'InstalacionController@indexweb');
+
+        Route::get('/instalaciones/create', 'InstalacionController@create');
+        Route::post('/instalaciones', 'InstalacionController@storeweb');
+        Route::get('/instalaciones/ver/{orden_trabajo}', 'InstalacionController@showweb');
+        Route::post('/instalaciones/{orden_trabajo}/atender', 'InstalacionController@postAtender');
+        Route::get('/instalaciones/{orden_trabajo}/cancelar', 'InstalacionController@showCancelForm');
+        Route::post('/instalaciones/{orden_trabajo}/cancelar', 'InstalacionController@postCancel');
+        Route::post('/instalaciones/{orden_trabajo}/solucionar', 'InstalacionController@postSolucionar');
+        Route::get('/instalaciones/{orden_trabajo}/finalizar', 'InstalacionController@showFinalizarForm');
+        Route::post('/instalaciones/{orden_trabajo}/finalizar', 'InstalacionController@postFinalizar');
+
+
+
+
+
         
 
          

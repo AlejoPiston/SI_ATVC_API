@@ -211,7 +211,7 @@ class SistemaExpertoController extends Controller
             file_put_contents('sistema_experto.pl', $sistema_experto);
 
             //Exportando a excel
-            //$export = $this->export_excel($datos_aexcel);
+            $export = $this->export_excel($datos_aexcel);
 
 
         return $sistema_experto;

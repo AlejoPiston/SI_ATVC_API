@@ -3,8 +3,8 @@
 @section('titulo', 'Panel')
 
 @section('nav-link Inicio', 'nav-link')
-@section('nav-link OT', 'nav-link active')
-@section('nav-link IN', 'nav-link')
+@section('nav-link OT', 'nav-link')
+@section('nav-link IN', 'nav-link active')
 @section('nav-link Administradores', 'nav-link')
 @section('nav-link Tecnicos', 'nav-link')
 @section('nav-link Clientes', 'nav-link')
@@ -20,7 +20,7 @@
     <div class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0">Órdenes de Trabajo #{{ $ordenTrabajo->Id }}</h3>
+          <h3 class="mb-0">Orden de trabajo Nº{{ $ordenTrabajo->Id }}</h3>
         </div>
       </div>
     </div>
@@ -30,10 +30,19 @@
                 <strong>Fecha:</strong> {{ $ordenTrabajo->Fecha}}
             </li>
             <li>
-                <strong>Resultado:</strong> {{ $ordenTrabajo->Resultado}}
-            </li>
+              <strong>Cliente:</strong> {{ $ordenTrabajo->NombreCliente}}
+          </li>
+          <li>
+            <strong>Dirección:</strong> {{ $ordenTrabajo->Direccion}}
+        </li>
             <li>
-                <strong>Daño:</strong> {{ $ordenTrabajo->Dano}}
+              <strong>Referencia:</strong> {{ $ordenTrabajo->Referencia}}
+          </li>
+          <li>
+            <strong>Telefono:</strong> {{ $ordenTrabajo->Telefono}}
+        </li>
+            <li>
+                <strong>Resultado:</strong> {{ $ordenTrabajo->Resultado}}
             </li>
             <li>
                 <strong>Técnico:</strong> {{ $ordenTrabajo->empleadoordentrabajo->name }} {{ $ordenTrabajo->empleadoordentrabajo->Apellidos }}

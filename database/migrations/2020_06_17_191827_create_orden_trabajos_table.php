@@ -16,12 +16,23 @@ class CreateOrdenTrabajosTable extends Migration
         Schema::create('OrdenTrabajo', function (Blueprint $table) {
             $table->id('Id');
             $table->date('Fecha');
-            $table->string('Dano', 255);
+            $table->string('Dano', 255)->nullable();
             $table->string('Resultado', 255)->nullable();
-            $table->string('Activa')->nullable(); //Estado
+            //Estado de una orde de trabajo [registrada, confirmada, en camino, en progreso, atendida, cancelada]
+            $table->string('Activa')->nullable(); 
+            //Tipo de una orde de trabajo [fallo, instalacion]
+            $table->string('Tipo')->nullable(); 
+
             $table->date('FechaHoraArrivo')->nullable();
             $table->date('FechaHoraSalida')->nullable();
-            $table->unsignedBigInteger('IdFicha');
+            //Campos para instalaciones 
+            $table->string('NombreCliente', 255)->nullable();
+            $table->string('Referencia', 255)->nullable();
+            $table->string('Direccion', 255)->nullable();
+            $table->string('Telefono', 255)->nullable();
+            $table->unsignedBigInteger('IdVendedor')->nullable();
+
+            $table->unsignedBigInteger('IdFicha')->nullable();
             $table->unsignedBigInteger('IdTurno')->nullable();
             $table->unsignedBigInteger('IdEmpleado');
             $table->unsignedBigInteger('IdUsuario')->nullable();
@@ -31,6 +42,7 @@ class CreateOrdenTrabajosTable extends Migration
             $table->foreign('IdFicha')->references('Id')->on('Ficha');
             $table->foreign('IdTurno')->references('Id')->on('TurnoOrdenTrabajo');
             $table->foreign('IdEmpleado')->references('id')->on('users');
+            $table->foreign('IdVendedor')->references('id')->on('users');
             $table->foreign('IdUsuario')->references('id')->on('users');
             $table->foreign('IdCliente')->references('id')->on('users');
         });

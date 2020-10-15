@@ -28,6 +28,11 @@ class OrdenesTController extends Controller
                     "Id",
                     "Fecha",
                     "Dano",
+                    "Tipo",
+                    "NombreCliente",
+                    "Referencia",
+                    "Direccion",
+                    "Telefono",
                     "Resultado",
                     "Activa",
                     "FechaHoraArrivo",
@@ -45,6 +50,7 @@ class OrdenesTController extends Controller
     public function indexc(Request $request)
     {    
         $user = $request->user();
+
         $ordenest = $user->asTecnicoOrdenesTrabajo()->where('Activa', 'confirmada')
             ->with([
                 'fichaordentrabajo' => function ($query) {
@@ -56,6 +62,11 @@ class OrdenesTController extends Controller
                     "Id",
                     "Fecha",
                     "Dano",
+                    "Tipo",
+                    "NombreCliente",
+                    "Referencia",
+                    "Direccion",
+                    "Telefono",
                     "Resultado",
                     "Activa",
                     "FechaHoraArrivo",
@@ -66,6 +77,7 @@ class OrdenesTController extends Controller
                     "IdCliente",
                     "created_at"
                 ]);
+                
         return $ordenest;
     }  
     public function indexca(Request $request)
@@ -82,6 +94,11 @@ class OrdenesTController extends Controller
                     "Id",
                     "Fecha",
                     "Dano",
+                    "Tipo",
+                    "NombreCliente",
+                    "Referencia",
+                    "Direccion",
+                    "Telefono",
                     "Resultado",
                     "Activa",
                     "FechaHoraArrivo",
@@ -108,6 +125,11 @@ class OrdenesTController extends Controller
                     "Id",
                     "Fecha",
                     "Dano",
+                    "Tipo",
+                    "NombreCliente",
+                    "Referencia",
+                    "Direccion",
+                    "Telefono",
                     "Resultado",
                     "Activa",
                     "FechaHoraArrivo",

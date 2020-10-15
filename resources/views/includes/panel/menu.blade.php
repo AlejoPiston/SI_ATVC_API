@@ -38,6 +38,12 @@
     <span class="nav-link-text">Órdenes de trabajo</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="@yield('nav-link IN')" href="{{ url('/instalaciones') }}">
+    <i class="ni ni-paper-diploma text-info"></i>
+    <span class="nav-link-text">Instalaciones</span>
+    </a>
+</li>
 {{-- 
 <li class="nav-item">
     <a class="nav-link" href="examples/map.html">

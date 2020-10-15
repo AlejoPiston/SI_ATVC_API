@@ -4,6 +4,7 @@
 
 @section('nav-link Inicio', 'nav-link')
 @section('nav-link OT', 'nav-link active')
+@section('nav-link IN', 'nav-link')
 @section('nav-link Administradores', 'nav-link')
 @section('nav-link Tecnicos', 'nav-link')
 @section('nav-link Clientes', 'nav-link')
@@ -66,28 +67,28 @@
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/confirmadas')) ? 'active' : '' }}" 
             href="{{ url('/orden_trabajos/confirmadas') }}" role="tab" 
             aria-selected="{{ (request()->is('orden_trabajos/confirmadas')) ? 'true' : '' }}">
-            <i class="ni ni-check-bold mr-2"></i>Órdenes confirmadas
+            <i class="ni ni-check-bold mr-2"></i>Confirmadas
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/pendientes')) ? 'active' : '' }}" 
           href="{{ url('/orden_trabajos/pendientes') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/pendientes')) ? 'true' : '' }}">
-            <i class="ni ni-ui-04 mr-2"></i>Órdenes por confirmar
+            <i class="ni ni-ui-04 mr-2"></i>Por confirmar
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
           href="{{ url('/orden_trabajos/encamino') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/encamino')) ? 'true' : '' }}">
-            <i class="ni ni-bus-front-12 mr-2"></i>Órdenes en camino
+            <i class="ni ni-bus-front-12 mr-2"></i>En camino
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/enprogreso')) ? 'active' : '' }}" 
           href="{{ url('/orden_trabajos/enprogreso') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/enprogreso')) ? 'true' : '' }}">
-            <i class="ni ni-compass-04 mr-2"></i>Órdenes en progreso
+            <i class="ni ni-compass-04 mr-2"></i>En progreso
           </a>
         </li>
         <li class="nav-item">
@@ -104,21 +105,21 @@
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/confirmadas')) ? 'active' : '' }}" 
             href="{{ url('/orden_trabajos/confirmadas') }}" role="tab" 
             aria-selected="{{ (request()->is('orden_trabajos/confirmadas')) ? 'true' : '' }}">
-            <i class="ni ni-check-bold mr-2"></i>Órdenes confirmadas
+            <i class="ni ni-check-bold mr-2"></i>Confirmadas
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
             href="{{ url('/orden_trabajos/encamino') }}" role="tab" 
             aria-selected="{{ (request()->is('orden_trabajos/encamino')) ? 'true' : '' }}">
-            <i class="ni ni-bus-front-12 mr-2"></i>Órdenes en camino
+            <i class="ni ni-bus-front-12 mr-2"></i>En camino
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/enprogreso')) ? 'active' : '' }}" 
           href="{{ url('/orden_trabajos/enprogreso') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/enprogreso')) ? 'true' : '' }}">
-            <i class="ni ni-compass-04 mr-2"></i>Órdenes en progreso
+            <i class="ni ni-compass-04 mr-2"></i>En progreso
           </a>
         </li>
         <li class="nav-item">
@@ -134,28 +135,28 @@
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/confirmadas')) ? 'active' : '' }}" 
             href="{{ url('/orden_trabajos/confirmadas') }}" role="tab" 
             aria-selected="{{ (request()->is('orden_trabajos/confirmadas')) ? 'true' : '' }}">
-            <i class="ni ni-check-bold mr-2"></i>Órdenes confirmadas
+            <i class="ni ni-check-bold mr-2"></i>Confirmadas
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/pendientes')) ? 'active' : '' }}" 
           href="{{ url('/orden_trabajos/pendientes') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/pendientes')) ? 'true' : '' }}">
-            <i class="ni ni-ui-04 mr-2"></i>Órdenes por confirmar
+            <i class="ni ni-ui-04 mr-2"></i>Por confirmar
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/encamino')) ? 'active' : '' }}" 
             href="{{ url('/orden_trabajos/encamino') }}" role="tab" 
             aria-selected="{{ (request()->is('orden_trabajos/encamino')) ? 'true' : '' }}">
-            <i class="ni ni-bus-front-12 mr-2"></i>Órdenes en camino
+            <i class="ni ni-bus-front-12 mr-2"></i>En camino
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link mb-sm-3 mb-md-0 {{ (request()->is('orden_trabajos/enprogreso')) ? 'active' : '' }}" 
           href="{{ url('/orden_trabajos/enprogreso') }}" role="tab" 
           aria-selected="{{ (request()->is('orden_trabajos/enprogreso')) ? 'true' : '' }}">
-            <i class="ni ni-compass-04 mr-2"></i>Órdenes en progreso
+            <i class="ni ni-compass-04 mr-2"></i>En progreso
           </a>
         </li>
         <li class="nav-item">

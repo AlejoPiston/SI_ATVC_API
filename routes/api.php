@@ -31,8 +31,7 @@ Route::apiResources([
     'compromiso_pagos' => 'CompromisoPagoController',
     'corte_reconexions' => 'CorteReconexionController',
     'turno_orden_trabajos' => 'TurnoOrdenTrabajoController',
-    'orden_trabajos' => 'OrdenTrabajoController',
-    'instalacions' => 'InstalacionController'   
+    'orden_trabajos' => 'OrdenTrabajoController'  
 ]);
 
 Route::group([

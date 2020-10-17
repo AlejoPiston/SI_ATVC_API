@@ -18,18 +18,22 @@ class SistemaExpertoController extends Controller
         //Base de hechos
             //Datos de entrada
             $date = $request->input('date');
-            $daño = $request->input('dano');
+            if ($request->has('dano')){
+                $daño = $request->input('dano');
+                //Tipo de Daño
+                if ($daño == 'Lentitud') {
+                    $tipo_daño = 'bajo';
+                }elseif ($daño == 'Intermitencia' || $daño == 'Cambio de cable' || $daño == 'Canales') {
+                    $tipo_daño = 'medio';
+
+                }else { 
+                    $tipo_daño = 'alto';
+                }
+            }
+
             $idficha = $request->input('ficha');
 
-            //Tipo de Daño
-            if ($daño == 'Lentitud') {
-                $tipo_daño = 'bajo';
-            }elseif ($daño == 'Intermitencia' || $daño == 'Cambio de cable' || $daño == 'Canales') {
-                $tipo_daño = 'medio';
-
-            }else { 
-                $tipo_daño = 'alto';
-            }
+            
             
             //Consulta en la base de datos
             //Ficha

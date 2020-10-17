@@ -82,7 +82,11 @@ class SistemaExpertoController extends Controller
                     } elseif ($ot->Dano == 'Intermitencia' || $ot->Dano == 'Cambio de cable' || $ot->Dano == 'Canales') {
                         $ot_ordenadas[] = collect($ot)
                                     ->merge(['tiempo' => 60]);
-                    }else { 
+                    }elseif (($ot->Dano == null)&&($ot->Tipo == 'instalacion')){
+                        $ot_ordenadas[] = collect($ot)
+                                    ->merge(['tiempo' => 40]);
+                    }
+                    else { 
                         $ot_ordenadas[] = collect($ot)
                                     ->merge(['tiempo' => 80]);
                     } 

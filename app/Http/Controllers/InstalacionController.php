@@ -6,6 +6,7 @@ use App\Instalacion;
 use Illuminate\Http\Request;
 use App\OrdenTrabajo;
 use App\UbicacionOrdenTrabajo;
+use App\Ficha;
 use App\User; 
 use App\CancelacionOrdenTrabajo;
 
@@ -105,6 +106,16 @@ class InstalacionController extends Controller
     }
     public function storeweb(Request $request)
     {
+        $ficha = new Ficha();
+        $ficha->Nombres = $request->input('NombreCliente');
+        $ficha->DireccionDomicilio = $request->input('Direccion');
+        $ficha->TelefonoDomicilio = $request->input('Telefono');
+        $ficha->FechaInscripcion = $request->input('Fecha');
+        $ficha->Latitud = $request->input('Latitud');
+        $ficha->Longitud = $request->input('Longitud');
+        $ficha->Referencia = $request->input('Referencia');
+
+        $ficha->save();
         //
         $rules = [
             'NombreCliente' => 'required|min:3',
@@ -133,6 +144,7 @@ class InstalacionController extends Controller
                                'IdEmpleado')
                 + [
                     'IdUsuario' => $idUsuario,
+                    'IdFicha' => $ficha->Id,
                     'Activa' => 'confirmada',
                     'Resultado' => 'ninguno',
                     'Tipo' => 'instalacion'

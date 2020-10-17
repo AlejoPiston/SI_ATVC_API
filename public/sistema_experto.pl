@@ -6,7 +6,7 @@ id_tecnico(6).
 fallo(bajo).
 num_ot(2,0).
 num_ot(3,0).
-num_ot(4,2).
+num_ot(4,4).
 num_ot(5,0).
 num_ot(6,0).
 meses_trabajo(2,0).
@@ -16,12 +16,12 @@ meses_trabajo(5,0).
 meses_trabajo(6,0).
 distancia(2,0).
 distancia(3,0).
-distancia(4,8707.75).
+distancia(4,pendiente).
 distancia(5,0).
 distancia(6,0).
 tiempo_ots(2,0).
 tiempo_ots(3,0).
-tiempo_ots(4,160).
+tiempo_ots(4,320).
 tiempo_ots(5,0).
 tiempo_ots(6,0).
 carga_trabajo_ninguna(X) :- num_ot(X,Y), Y = 0.

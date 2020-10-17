@@ -29,31 +29,37 @@ class SistemaExpertoController extends Controller
                 }else { 
                     $tipo_daño = 'alto';
                 }
+                //Almacenando datos en variables con lenguaje prolog
+                $se_daño = 'fallo('.$tipo_daño.').' . PHP_EOL;
+            }else{
+                //Almacenando datos en variables con lenguaje prolog
+                $se_daño = 'fallo(instalacion).' . PHP_EOL;
             }
-
-            $idficha = $request->input('ficha');
-
+            if ($request->has('ficha')){
+                $idficha = $request->input('ficha');
+                //Consulta en la base de datos
+                //Ficha
+                $ficha = Ficha::where('Id', $idficha)->with([
+                    'zonaficha' => function ($query) {
+                        $query->select('Id', 'Nombre');
+                    },
+                    'servicioficha' => function ($query) {
+                        $query->select('Id', 'Nombre');
+                    },
+                    'usuarioficha' => function ($query) {
+                        $query->select('id', 'name');
+                    },
+                    
+                    ])
+                    ->first();
+                //Latidud y longitud de la ficha; estos campos deben estar llenos obligatoriamente
+                $latitud_cli = $ficha->Latitud;
+                $longitud_cli = $ficha->Longitud; 
+            }else{
+                $latitud_cli = $request->input('Latitud');
+                $longitud_cli = $request->input('Longitud');
+            }
             
-            
-            //Consulta en la base de datos
-            //Ficha
-            $ficha = Ficha::where('Id', $idficha)->with([
-                'zonaficha' => function ($query) {
-                    $query->select('Id', 'Nombre');
-                },
-                'servicioficha' => function ($query) {
-                    $query->select('Id', 'Nombre');
-                },
-                'usuarioficha' => function ($query) {
-                    $query->select('id', 'name');
-                },
-                  
-                ])
-                ->first();
-            //Latidud y longitud de la ficha; estos campos deben estar llenos obligatoriamente
-             $ficha->Latitud;
-             $ficha->Longitud;       
-
             //Técnicos
             $tecnicos = User::tecnicos()->get();
             //Ordenes de Trabajo
@@ -143,8 +149,8 @@ class SistemaExpertoController extends Controller
                             $distancia[$contTecnicos] = $this->distanceCalculation(
                             (Double)$ubicacion_tecnico[$contTecnicos]->Latitud,
                             (Double)$ubicacion_tecnico[$contTecnicos]->Longitud,
-                            $ficha->Latitud,
-                            $ficha->Longitud);
+                            $latitud_cli,
+                            $longitud_cli);
                         }
                     }
                     
@@ -170,10 +176,6 @@ class SistemaExpertoController extends Controller
                 }
             }
             
-               
-            //Almacenando datos en variables con lenguaje prolog
-            $se_daño = 'fallo('.$tipo_daño.').' . PHP_EOL;
-
              //Categorizacion de datos
             $categorizacion_num_ot = 'carga_trabajo_ninguna(X) :- num_ot(X,Y), Y = 0.' . PHP_EOL
                         . 'carga_trabajo_leve(X) :- num_ot(X,Y), Y > 0, Y =< 2.' . PHP_EOL
@@ -215,17 +217,10 @@ class SistemaExpertoController extends Controller
             file_put_contents('sistema_experto.pl', $sistema_experto);
 
             //Exportando a excel
-            $export = $this->export_excel($datos_aexcel);
+            //$export = $this->export_excel($datos_aexcel);
 
 
         return $sistema_experto;
-    }
-    public function gettecnicoprolog(Request $request)
-    {
-        
-        return view ('OrdenTrabajo.sistemaexperto');
-        
-
     }
       
     protected function distanceCalculation($point1_lat, $point1_long, $point2_lat, $point2_long, $unit = 'km', $decimals = 2) {

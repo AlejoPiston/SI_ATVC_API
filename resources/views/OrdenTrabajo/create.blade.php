@@ -112,7 +112,7 @@
             <div class="form-group">
                 <label for="Ficha">Cliente</label>
             
-            <select name="IdFicha" id="Ficha" 
+            <select onchange="activar_btn_SE()" name="IdFicha" id="Ficha" 
             class="form-control selectpicker" 
             data-live-search="true" data-style="btn-outline-primary"
             title="Seleccione una Ficha">
@@ -134,7 +134,7 @@
             <div class="form-group">
               <label for="Dano">Daño</label>
 
-              <select name="Dano" id="ordentrabajoDano" 
+              <select onchange="activar_btn_SE()" name="Dano" id="ordentrabajoDano" 
               class="form-control selectpicker" 
               data-style="btn-outline-primary" title="Seleccione uno o más daños">
                 <optgroup label="Internet">
@@ -167,15 +167,18 @@
               <label for="IdEmpleado">Técnico</label>
               <div class="row">
                 <div class="col">
-                  <a href="{{ url('/orden_trabajos/tecnico/se/prolog') }}" class="btn btn-block btn-default" data-toggle="tooltip" 
-                    data-placement="top" 
-                  title="Seleccionar técnico con sistema experto">
-                    <span class="btn-inner--icon"><i class="ni ni-atom"></i></span>
-                    <span class="btn-inner--text">Emplear SE</span>
-                  </a>
+                  
+                <button onclick="onTecnicosLoaded()" type="button" class="btn btn-block btn-default mb-3" id="btn_SE" disabled>
+                    <span data-toggle="tooltip" data-placement="top" title="Seleccionar técnico con sistema experto">
+                        <span class="btn-inner--icon"><i class="ni ni-atom"></i></span>
+                              <span class="btn-inner--text">Emplear SE</span>
+                      </span>
+                </button>
                 </div>
                 <div class="col">
-                    <select name="IdEmpleado" id="IdEmpleado" class="form-control selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Seleccione un Técnico cualquiera">
+                    <select onchange="activar_btn_Guardar()" name="IdEmpleado" id="IdEmpleado" 
+                    class="form-control selectpicker" data-live-search="true" 
+                    data-style="btn-outline-primary" title="Seleccione un Técnico cualquiera" disabled>
                         @foreach ($tecnicos as $tecnico)
                         <option value="{{ $tecnico->id }}">
                             {{ $tecnico->name }} {{ $tecnico->Apellidos }} | {{ $tecnico->Cedula }}</option>
@@ -186,7 +189,7 @@
             </div>
               
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button id="btn_Guardar" type="submit" class="btn btn-primary" disabled>
               Guardar
           </button>
         </form>

@@ -162,7 +162,7 @@
               <label for="IdEmpleado">Técnico:</label>
               <div class="row">
                 <div class="col">
-                  <button type="button" class="btn btn-block btn-default mb-3" id="btn_SE" disabled>
+                  <button onclick="onTecnicosLoaded()" type="button" class="btn btn-block btn-default mb-3" id="btn_SE" disabled>
                       <span data-toggle="tooltip" data-placement="top" title="Seleccionar técnico con sistema experto">
                           <span class="btn-inner--icon"><i class="ni ni-atom"></i></span>
                                 <span class="btn-inner--text">Emplear SE</span>

@@ -15,16 +15,43 @@ $(function () {
   });    
 
   function onClienteLoaded(client) {
-    $('#nombresFicha').html(client.Nombres+' '+client.Apellidos);
-    $('#cedulaFicha').html(client.CedulaRuc);
-    $('#cuotaFicha').html('$'+client.ValorMensual);
-    $('#zonaFicha').html(client.zonaficha.Nombre);
+    
+    if((client.Nombres != null)&&(client.Apellidos !=null)){
+      $('#nombresFicha').html(client.Nombres+' '+client.Apellidos);
+    }else{
+      $('#nombresFicha').html(client.Nombres);
+    }
+
+    if(client.CedulaRuc != null){
+      $('#cedulaFicha').html(client.CedulaRuc);
+    }else{
+      $('#cedulaFicha').html('-------------');
+    }
+    
+    if(client.ValorMensual != null){
+      $('#cuotaFicha').html('$'+client.ValorMensual);
+    }else{
+      $('#cuotaFicha').html('-');
+    }
+    
+    if(client.zonaficha != null){
+      $('#zonaFicha').html(client.zonaficha.Nombre);
+    }else{
+      $('#zonaFicha').html("-");
+    }
+    
     if (client.Estado == 1) {
       $('#estadoFicha').html("✓");
-    } else {
+    } else if(client.Estado == 0) {
       $('#estadoFicha').html("✗");
+    }else if(client.Estado == null) {
+      $('#estadoFicha').html("-");
     }
-    $('#servicioFicha').html(client.servicioficha.Nombre);
+    if(client.servicioficha != null){
+      $('#servicioFicha').html(client.servicioficha.Nombre);
+    }else{
+      $('#servicioFicha').html('--------');
+    }
     $('#direccionFicha').html(client.DireccionDomicilio);
     $('#telefonoFicha').html(client.TelefonoDomicilio);
     if (client.IdUsuario == null) {
@@ -45,4 +72,34 @@ $(function () {
   }
   function displayTecnicos(data) {
     console.log(data);
+  }
+
+  function activar_btn_SE(){
+
+    let Ficha = document.getElementById("Ficha");
+    let Daño = document.getElementById("ordentrabajoDano");
+    var Sistema_E = document.getElementById("btn_SE");
+    let Tecnico = document.getElementById("IdEmpleado");
+
+    if ((Ficha.value!=null)&&(Ficha.value!='')&&(Daño.value!=null)&&(Daño.value!='')) {
+      Sistema_E.disabled = false;  
+      Tecnico.disabled = false;
+      $('.selectpicker').prop('disabled', false);
+      $('.selectpicker').selectpicker('refresh');
+    } else {
+      Sistema_E.disabled = true;  
+      Tecnico.disabled = true;
+    }
+  }
+  function activar_btn_Guardar(){
+
+    var Sistema_E = document.getElementById("btn_SE");
+    var Guardar = document.getElementById("btn_Guardar");
+    let Tecnico = document.getElementById("IdEmpleado");
+
+    if ((Tecnico.value!=null)&&(Tecnico.value!='')&&(Sistema_E.disabled==false)) {
+      Guardar.disabled = false;  
+    } else {
+      Guardar.disabled = true;  
+    }
   }

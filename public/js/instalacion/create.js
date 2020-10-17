@@ -73,11 +73,24 @@ function activar_btn_Ubicacion(){
     var Guardar = document.getElementById("btn_Guardar");
     let Tecnico = document.getElementById("IdEmpleado");
 
-
-
     if ((Tecnico.value!=null)&&(Tecnico.value!='')&&(Sistema_E.disabled==false)) {
       Guardar.disabled = false;  
     } else {
       Guardar.disabled = true;  
     }
+  }
+
+  function onTecnicosLoaded() {
+    let $fecha;
+    $fecha = $('#date');
+    $lat = $('#Latitud');
+    $lon = $('#Longitud');
+    const selectedFecha = $fecha.val();
+    const instalacion_lati = $lat.val();
+    const instalacion_long = $lon.val();
+    const url = `/orden_trabajos/tecnico/se?Latitud=${instalacion_lati}&Longitu=${instalacion_long}&date=${selectedFecha}`;
+    $.getJSON(url, displayTecnicos);
+  }
+  function displayTecnicos(data) {
+    console.log(data);
   }

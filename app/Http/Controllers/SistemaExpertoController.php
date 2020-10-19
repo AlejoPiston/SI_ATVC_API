@@ -65,7 +65,7 @@ class SistemaExpertoController extends Controller
             //Ordenes de Trabajo
             $ordenes_trabajo = DB::table('users')
                 ->join('OrdenTrabajo', 'OrdenTrabajo.IdEmpleado', '=', 'users.id')
-                ->select('OrdenTrabajo.Id', 'users.id', 'OrdenTrabajo.Dano')
+                ->select('OrdenTrabajo.Id', 'users.id', 'OrdenTrabajo.Dano', 'OrdenTrabajo.Tipo')
                 ->whereIn('Activa', ['confirmada', 'en camino', 'en progreso'])
                 //->join('UbicacionOrdenTrabajo', 'volcanos.observatorio_id', '=', 'observatories.id')
                 ->get();
@@ -144,7 +144,7 @@ class SistemaExpertoController extends Controller
                     $ubicacion_tecnico[$contTecnicos] = collect($ubicaciones_ordenadas)->where('IdEmpleado', $tecnico->id)->first();
     
                     if ($ubicacion_tecnico[$contTecnicos] == null) {
-                        $distancia[$contTecnicos] = 0;
+                        $distancia[$contTecnicos] = 'sin_ubicaciones';
                     } else {
                         if ($ubicacion_tecnico[$contTecnicos]->Latitud == 'pendiente') {
                             $distancia[$contTecnicos] = 'pendiente';
@@ -190,19 +190,34 @@ class SistemaExpertoController extends Controller
                         . 'experiencia_senior(X) :- meses_trabajo(X,Y), Y > 5, Y =< 8.' . PHP_EOL
                         . 'experiencia_master(X) :- meses_trabajo(X,Y), Y > 8, Y =< 11.' . PHP_EOL
                         . 'experiencia_profesional(X) :- meses_trabajo(X,Y), Y > 11.' . PHP_EOL;
-            $categorizacion_distancia = 'distancia_muycorta(X) :- distancia(X,Y), Y >= 0, Y =< 2.' . PHP_EOL
+            $categorizacion_distancia = 'distancia_ninguna(X) :- distancia(X,Y), Y = sin_ubicaciones.' . PHP_EOL
+                        . 'distancia_pendiente(X) :- distancia(X,Y), Y = pendiente.' . PHP_EOL
+                        . 'distancia_muycorta(X) :- distancia(X,Y), Y >= 0, Y =< 2.' . PHP_EOL
                         . 'distancia_corta(X) :- distancia(X,Y), Y > 2, Y =< 10.' . PHP_EOL
                         . 'distancia_mediana(X) :- distancia(X,Y), Y > 10, Y =< 20.' . PHP_EOL
                         . 'distancia_larga(X) :- distancia(X,Y), Y > 20, Y =< 35.' . PHP_EOL
-                        . 'distancia_muylarga(X) :- distancia(X,Y), Y > 35.' . PHP_EOL
-                        . 'distancia_pendiente(X) :- distancia(X,Y), Y = pendiente.' . PHP_EOL;   
+                        . 'distancia_muylarga(X) :- distancia(X,Y), Y > 35.' . PHP_EOL;     
             $categorizacion_tiempo_ots = 'tiempo_ots_ninguno(X) :- tiempo_ots(X,Y), Y = 0.' . PHP_EOL
                         . 'tiempo_ots_muycorto(X) :- tiempo_ots(X,Y), Y > 0, Y =< 30.' . PHP_EOL
                         . 'tiempo_ots_corto(X) :- tiempo_ots(X,Y), Y > 30, Y =< 60.' . PHP_EOL
                         . 'tiempo_ots_medio(X) :- tiempo_ots(X,Y), Y > 60, Y =< 180.' . PHP_EOL
                         . 'tiempo_ots_largo(X) :- tiempo_ots(X,Y), Y > 180, Y =< 300.' . PHP_EOL   
                         . 'tiempo_ots_muylargo(X) :- tiempo_ots(X,Y), Y > 300.' . PHP_EOL;   
-
+            $reglas = 'mas_optimo(X):- carga_trabajo_ninguna(X),
+                                       (experiencia_profesional(X);experiencia_master(X);experiencia_senior(X);experiencia_junior(X);experiencia_ninguna(X)),
+                                       distancia_ninguna(X),
+                                       tiempo_ots_ninguno(X),
+                                       (fallo(bajo);fallo(medio);fallo(alto);fallo(instalacion)).' . PHP_EOL
+                        . 'optimo(X):- (carga_trabajo_ninguna(X); carga_trabajo_leve(X)),
+                                       (experiencia_profesional(X);experiencia_master(X) ),
+                                       (distancia_pendiente(X); distancia_muycorta(X)),
+                                       (tiempo_ots_ninguno(X); tiempo_ots_muycorto(X)).' . PHP_EOL
+                        . 'medianamente_optimo(X):- carga_trabajo_normal(X),
+                                                    (distancia_corta(X); distancia_mediana(X)),
+                                                    (tiempo_ots_corto(X); tiempo_ots_medio(X)).' . PHP_EOL
+                        . 'menos_optimo(X):- carga_trabajo_fuerte(X),
+                                             (distancia_muylarga(X);distancia_larga(X)),
+                                             (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).' . PHP_EOL;
 
             //Almacenando todos los hechos y reglas en una sola variable 
             $sistema_experto = [
@@ -215,7 +230,8 @@ class SistemaExpertoController extends Controller
                                 $categorizacion_num_ot,
                                 $categorizacion_meses_trabajo,
                                 $categorizacion_distancia,
-                                $categorizacion_tiempo_ots
+                                $categorizacion_tiempo_ots,
+                                $reglas
                                 ];
             // Generando el archivo .pl con todos los hechos y reglas
             file_put_contents('sistema_experto.pl', $sistema_experto);

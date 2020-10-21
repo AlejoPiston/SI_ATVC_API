@@ -5,25 +5,25 @@ id_tecnico(5).
 id_tecnico(6).
 fallo(bajo).
 num_ot(2,0).
-num_ot(3,2).
-num_ot(4,4).
-num_ot(5,3).
-num_ot(6,3).
+num_ot(3,0).
+num_ot(4,0).
+num_ot(5,0).
+num_ot(6,0).
 meses_trabajo(2,0).
 meses_trabajo(3,0).
 meses_trabajo(4,0).
 meses_trabajo(5,0).
 meses_trabajo(6,0).
-distancia(2,-2).
-distancia(3,-2).
-distancia(4,-2).
-distancia(5,-2).
-distancia(6,-2).
+distancia(2,-1).
+distancia(3,-1).
+distancia(4,-1).
+distancia(5,-1).
+distancia(6,-1).
 tiempo_ots(2,0).
-tiempo_ots(3,120).
-tiempo_ots(4,180).
-tiempo_ots(5,160).
-tiempo_ots(6,200).
+tiempo_ots(3,0).
+tiempo_ots(4,0).
+tiempo_ots(5,0).
+tiempo_ots(6,0).
 carga_trabajo_ninguna(X) :- num_ot(X,Y), Y = 0.
 carga_trabajo_leve(X) :- num_ot(X,Y), Y > 0, Y =< 2.
 carga_trabajo_normal(X) :- num_ot(X,Y), Y > 2, Y =< 5.

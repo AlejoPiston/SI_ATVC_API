@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\OrdenTrabajo;
+use DB;
 
 
 class HomeController extends Controller
@@ -25,7 +27,35 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $dias_seman = collect(['0','0','0','0','0','0','0']);
+        $ordenes_trabajo_por_dia = OrdenTrabajo::select([
+            DB::raw('DATEPART(dw,Fecha) as dia'), 
+            DB::raw('COUNT(*) as num')
+            ])->groupBy(DB::raw('Fecha'))
+            ->where('Activa', 'confirmada')
+            ->get();
+           
+           // dd($ordenes_trabajo_por_dia->toArray());
+        foreach ($ordenes_trabajo_por_dia as $ot_dia) {
+            
+            if ($ot_dia->dia == '0'){
+                $ots_por_dia = $dias_seman->put(0, $ot_dia->num);
+            }if($ot_dia->dia == '1'){
+                $ots_por_dia = $dias_seman->put(1, $ot_dia->num);
+            }if($ot_dia->dia == '2'){
+                $ots_por_dia = $dias_seman->put(2, $ot_dia->num);
+            }if($ot_dia->dia == '3'){
+                $ots_por_dia = $dias_seman->put(3, $ot_dia->num);
+            }if($ot_dia->dia == '4'){
+                $ots_por_dia = $dias_seman->put(4, $ot_dia->num);
+            }if($ot_dia->dia == '5'){
+                $ots_por_dia = $dias_seman->put(5, $ot_dia->num);
+            }if($ot_dia->dia == '6'){
+                $ots_por_dia = $dias_seman->put(6, $ot_dia->num);
+            } 
+            
+        }
+        return view('home', compact('ots_por_dia'));
     }
 
 

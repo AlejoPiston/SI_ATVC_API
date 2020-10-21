@@ -3,10 +3,10 @@ id_tecnico(3).
 id_tecnico(4).
 id_tecnico(5).
 id_tecnico(6).
-fallo(instalacion).
+fallo(bajo).
 num_ot(2,0).
 num_ot(3,2).
-num_ot(4,2).
+num_ot(4,4).
 num_ot(5,3).
 num_ot(6,3).
 meses_trabajo(2,0).
@@ -21,7 +21,7 @@ distancia(5,-2).
 distancia(6,-2).
 tiempo_ots(2,0).
 tiempo_ots(3,120).
-tiempo_ots(4,120).
+tiempo_ots(4,180).
 tiempo_ots(5,160).
 tiempo_ots(6,200).
 carga_trabajo_ninguna(X) :- num_ot(X,Y), Y = 0.

@@ -219,6 +219,10 @@
 
 <script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('/js/ordentrabajo/create.js') }}"></script>
+<script>
+ $.fn.selectpicker.Constructor.DEFAULTS.noneResultsText ='No hay coincidencias{0}';
+</script>
+
 @endsection
 
 

@@ -213,6 +213,10 @@
 <script src="{{ asset('/js/instalacion/maps.js') }}"></script>
 <script src="{{ asset('/js/instalacion/create.js') }}"></script>
 
+<script>
+  $.fn.selectpicker.Constructor.DEFAULTS.noneResultsText ='No hay coincidencias{0}';
+ </script>
+
 @endsection
 
 

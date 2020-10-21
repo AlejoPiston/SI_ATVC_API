@@ -111,9 +111,11 @@
           </div>
         @endif
 </div>
+@endsection
 
-
-  
-
-    
+@section('scripts')
+<script>
+  const ots_por_dia = @json($ots_por_dia);
+</script>
+<script type="text/javascript" src="{{ asset('js\reportes\home.js') }}"></script>
 @endsection

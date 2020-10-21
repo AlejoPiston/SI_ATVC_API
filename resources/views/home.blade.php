@@ -50,7 +50,7 @@
                     </div>
                 @endif
 
-                Bienvenido! Por favor selecciona una opción del menú lateral izquierdo. 
+                Bienvenido! Este es el panel de órdenes de trabajo. 
             </div>
         </div>
     </div>

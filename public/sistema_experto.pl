@@ -3,38 +3,38 @@ id_tecnico(3).
 id_tecnico(4).
 id_tecnico(5).
 id_tecnico(6).
-fallo(bajo).
+fallo(instalacion).
 num_ot(2,0).
-num_ot(3,0).
-num_ot(4,0).
-num_ot(5,0).
-num_ot(6,0).
+num_ot(3,2).
+num_ot(4,2).
+num_ot(5,3).
+num_ot(6,3).
 meses_trabajo(2,0).
 meses_trabajo(3,0).
 meses_trabajo(4,0).
 meses_trabajo(5,0).
 meses_trabajo(6,0).
-distancia(2,sin_ubicaciones).
-distancia(3,sin_ubicaciones).
-distancia(4,sin_ubicaciones).
-distancia(5,sin_ubicaciones).
-distancia(6,sin_ubicaciones).
+distancia(2,-2).
+distancia(3,-2).
+distancia(4,-2).
+distancia(5,-2).
+distancia(6,-2).
 tiempo_ots(2,0).
-tiempo_ots(3,0).
-tiempo_ots(4,0).
-tiempo_ots(5,0).
-tiempo_ots(6,0).
+tiempo_ots(3,120).
+tiempo_ots(4,120).
+tiempo_ots(5,160).
+tiempo_ots(6,200).
 carga_trabajo_ninguna(X) :- num_ot(X,Y), Y = 0.
 carga_trabajo_leve(X) :- num_ot(X,Y), Y > 0, Y =< 2.
 carga_trabajo_normal(X) :- num_ot(X,Y), Y > 2, Y =< 5.
 carga_trabajo_fuerte(X) :- num_ot(X,Y), Y > 5, Y =< 20.
-experiencia_ninguna(X) :- meses_trabajo(X,Y),  Y > 0, Y =< 2.
+experiencia_ninguna(X) :- meses_trabajo(X,Y),  Y >= 0, Y =< 2.
 experiencia_junior(X) :- meses_trabajo(X,Y), Y > 2, Y =< 5.
 experiencia_senior(X) :- meses_trabajo(X,Y), Y > 5, Y =< 8.
 experiencia_master(X) :- meses_trabajo(X,Y), Y > 8, Y =< 11.
 experiencia_profesional(X) :- meses_trabajo(X,Y), Y > 11.
-distancia_ninguna(X) :- distancia(X,Y), Y = sin_ubicaciones.
-distancia_pendiente(X) :- distancia(X,Y), Y = pendiente.
+distancia_ninguna(X) :- distancia(X,Y), Y = -1.
+distancia_pendiente(X) :- distancia(X,Y), Y = -2.
 distancia_muycorta(X) :- distancia(X,Y), Y >= 0, Y =< 2.
 distancia_corta(X) :- distancia(X,Y), Y > 2, Y =< 10.
 distancia_mediana(X) :- distancia(X,Y), Y > 10, Y =< 20.
@@ -46,18 +46,55 @@ tiempo_ots_corto(X) :- tiempo_ots(X,Y), Y > 30, Y =< 60.
 tiempo_ots_medio(X) :- tiempo_ots(X,Y), Y > 60, Y =< 180.
 tiempo_ots_largo(X) :- tiempo_ots(X,Y), Y > 180, Y =< 300.
 tiempo_ots_muylargo(X) :- tiempo_ots(X,Y), Y > 300.
-mas_optimo(X):- carga_trabajo_ninguna(X),
-                                       (experiencia_profesional(X);experiencia_master(X);experiencia_senior(X);experiencia_junior(X);experiencia_ninguna(X)),
-                                       distancia_ninguna(X),
-                                       tiempo_ots_ninguno(X),
-                                       (fallo(bajo);fallo(medio);fallo(alto);fallo(instalacion)).
-optimo(X):- (carga_trabajo_ninguna(X); carga_trabajo_leve(X)),
-                                       (experiencia_profesional(X);experiencia_master(X) ),
-                                       (distancia_pendiente(X); distancia_muycorta(X)),
-                                       (tiempo_ots_ninguno(X); tiempo_ots_muycorto(X)).
-medianamente_optimo(X):- carga_trabajo_normal(X),
-                                                    (distancia_corta(X); distancia_mediana(X)),
-                                                    (tiempo_ots_corto(X); tiempo_ots_medio(X)).
-menos_optimo(X):- carga_trabajo_fuerte(X),
-                                             (distancia_muylarga(X);distancia_larga(X)),
-                                             (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).
+optimo1(X):- carga_trabajo_ninguna(X),distancia_ninguna(X).
+optimo2(X):- carga_trabajo_leve(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       (tiempo_ots_muycorto(X);tiempo_ots_corto(X)).
+optimo3(X):- carga_trabajo_leve(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       tiempo_ots_medio(X).
+optimo4(X):- carga_trabajo_leve(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       (tiempo_ots_muycorto(X);tiempo_ots_corto(X)).
+optimo5(X):- carga_trabajo_leve(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       tiempo_ots_medio(X).
+optimo6(X):- carga_trabajo_normal(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       tiempo_ots_medio(X).
+optimo7(X):- carga_trabajo_normal(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).
+optimo8(X):- carga_trabajo_normal(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       tiempo_ots_medio(X).
+optimo9(X):- carga_trabajo_normal(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).
+optimo10(X):- carga_trabajo_fuerte(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       tiempo_ots_medio(X).
+optimo11(X):- carga_trabajo_fuerte(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).
+optimo12(X):- carga_trabajo_fuerte(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       tiempo_ots_medio(X).
+optimo13(X):- carga_trabajo_fuerte(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).
+escribeOptimos([]):- write("").
+escribeOptimos([Primera|Personas]):- num_ot(Primera, NO),meses_trabajo(Primera, MT),distancia(Primera, D),tiempo_ots(Primera, TOTS),write(Primera),write(","),write(NO),write(","),write(MT),write(","),write(D),write(","),write(TOTS), nl,escribeOptimos(Personas).
+consulta_1:- findall(X, optimo1(X), Personas),escribeOptimos(Personas).
+consulta_2:- findall(X, optimo2(X), Personas),escribeOptimos(Personas).
+consulta_3:- findall(X, optimo3(X), Personas),escribeOptimos(Personas).
+consulta_4:- findall(X, optimo4(X), Personas),escribeOptimos(Personas).
+consulta_5:- findall(X, optimo5(X), Personas),escribeOptimos(Personas).
+consulta_6:- findall(X, optimo6(X), Personas),escribeOptimos(Personas).
+consulta_7:- findall(X, optimo7(X), Personas),escribeOptimos(Personas).
+consulta_8:- findall(X, optimo8(X), Personas),escribeOptimos(Personas).
+consulta_9:- findall(X, optimo9(X), Personas),escribeOptimos(Personas).
+consulta_10:- findall(X, optimo10(X), Personas),escribeOptimos(Personas).
+consulta_11:- findall(X, optimo11(X), Personas),escribeOptimos(Personas).
+consulta_12:- findall(X, optimo12(X), Personas),escribeOptimos(Personas).
+consulta_13:- findall(X, optimo13(X), Personas),escribeOptimos(Personas).

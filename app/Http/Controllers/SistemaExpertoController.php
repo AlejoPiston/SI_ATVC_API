@@ -91,7 +91,6 @@ class SistemaExpertoController extends Controller
                                     ->merge(['tiempo' => 80]);
                     } 
                 }
-                
             }
             
 
@@ -144,10 +143,10 @@ class SistemaExpertoController extends Controller
                     $ubicacion_tecnico[$contTecnicos] = collect($ubicaciones_ordenadas)->where('IdEmpleado', $tecnico->id)->first();
     
                     if ($ubicacion_tecnico[$contTecnicos] == null) {
-                        $distancia[$contTecnicos] = 'sin_ubicaciones';
+                        $distancia[$contTecnicos] = -1;//sin_ubicaciones
                     } else {
                         if ($ubicacion_tecnico[$contTecnicos]->Latitud == 'pendiente') {
-                            $distancia[$contTecnicos] = 'pendiente';
+                            $distancia[$contTecnicos] = -2;//pendiente
                         } else {
                             //Distancia entre ubicación del técnico y domicilio cliente
                             $distancia[$contTecnicos] = $this->distanceCalculation(
@@ -185,13 +184,13 @@ class SistemaExpertoController extends Controller
                         . 'carga_trabajo_leve(X) :- num_ot(X,Y), Y > 0, Y =< 2.' . PHP_EOL
                         . 'carga_trabajo_normal(X) :- num_ot(X,Y), Y > 2, Y =< 5.' . PHP_EOL
                         . 'carga_trabajo_fuerte(X) :- num_ot(X,Y), Y > 5, Y =< 20.' . PHP_EOL;
-            $categorizacion_meses_trabajo = 'experiencia_ninguna(X) :- meses_trabajo(X,Y),  Y > 0, Y =< 2.' . PHP_EOL
+            $categorizacion_meses_trabajo = 'experiencia_ninguna(X) :- meses_trabajo(X,Y),  Y >= 0, Y =< 2.' . PHP_EOL
                         . 'experiencia_junior(X) :- meses_trabajo(X,Y), Y > 2, Y =< 5.' . PHP_EOL
                         . 'experiencia_senior(X) :- meses_trabajo(X,Y), Y > 5, Y =< 8.' . PHP_EOL
                         . 'experiencia_master(X) :- meses_trabajo(X,Y), Y > 8, Y =< 11.' . PHP_EOL
                         . 'experiencia_profesional(X) :- meses_trabajo(X,Y), Y > 11.' . PHP_EOL;
-            $categorizacion_distancia = 'distancia_ninguna(X) :- distancia(X,Y), Y = sin_ubicaciones.' . PHP_EOL
-                        . 'distancia_pendiente(X) :- distancia(X,Y), Y = pendiente.' . PHP_EOL
+            $categorizacion_distancia = 'distancia_ninguna(X) :- distancia(X,Y), Y = -1.' . PHP_EOL
+                        . 'distancia_pendiente(X) :- distancia(X,Y), Y = -2.' . PHP_EOL
                         . 'distancia_muycorta(X) :- distancia(X,Y), Y >= 0, Y =< 2.' . PHP_EOL
                         . 'distancia_corta(X) :- distancia(X,Y), Y > 2, Y =< 10.' . PHP_EOL
                         . 'distancia_mediana(X) :- distancia(X,Y), Y > 10, Y =< 20.' . PHP_EOL
@@ -203,21 +202,58 @@ class SistemaExpertoController extends Controller
                         . 'tiempo_ots_medio(X) :- tiempo_ots(X,Y), Y > 60, Y =< 180.' . PHP_EOL
                         . 'tiempo_ots_largo(X) :- tiempo_ots(X,Y), Y > 180, Y =< 300.' . PHP_EOL   
                         . 'tiempo_ots_muylargo(X) :- tiempo_ots(X,Y), Y > 300.' . PHP_EOL;   
-            $reglas = 'mas_optimo(X):- carga_trabajo_ninguna(X),
-                                       (experiencia_profesional(X);experiencia_master(X);experiencia_senior(X);experiencia_junior(X);experiencia_ninguna(X)),
-                                       distancia_ninguna(X),
-                                       tiempo_ots_ninguno(X),
-                                       (fallo(bajo);fallo(medio);fallo(alto);fallo(instalacion)).' . PHP_EOL
-                        . 'optimo(X):- (carga_trabajo_ninguna(X); carga_trabajo_leve(X)),
-                                       (experiencia_profesional(X);experiencia_master(X) ),
-                                       (distancia_pendiente(X); distancia_muycorta(X)),
-                                       (tiempo_ots_ninguno(X); tiempo_ots_muycorto(X)).' . PHP_EOL
-                        . 'medianamente_optimo(X):- carga_trabajo_normal(X),
-                                                    (distancia_corta(X); distancia_mediana(X)),
-                                                    (tiempo_ots_corto(X); tiempo_ots_medio(X)).' . PHP_EOL
-                        . 'menos_optimo(X):- carga_trabajo_fuerte(X),
-                                             (distancia_muylarga(X);distancia_larga(X)),
-                                             (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).' . PHP_EOL;
+            $reglas = 'optimo1(X):- carga_trabajo_ninguna(X),distancia_ninguna(X).' . PHP_EOL
+                        . 'optimo2(X):- carga_trabajo_leve(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       (tiempo_ots_muycorto(X);tiempo_ots_corto(X)).' . PHP_EOL
+                        . 'optimo3(X):- carga_trabajo_leve(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       tiempo_ots_medio(X).' . PHP_EOL
+                        . 'optimo4(X):- carga_trabajo_leve(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       (tiempo_ots_muycorto(X);tiempo_ots_corto(X)).' . PHP_EOL
+                        . 'optimo5(X):- carga_trabajo_leve(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       tiempo_ots_medio(X).' . PHP_EOL
+                        . 'optimo6(X):- carga_trabajo_normal(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       tiempo_ots_medio(X).' . PHP_EOL
+                        . 'optimo7(X):- carga_trabajo_normal(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).' . PHP_EOL
+                        . 'optimo8(X):- carga_trabajo_normal(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       tiempo_ots_medio(X).' . PHP_EOL
+                        . 'optimo9(X):- carga_trabajo_normal(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).' . PHP_EOL
+                        . 'optimo10(X):- carga_trabajo_fuerte(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       tiempo_ots_medio(X).' . PHP_EOL
+                        . 'optimo11(X):- carga_trabajo_fuerte(X),
+                                       (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).' . PHP_EOL
+                        . 'optimo12(X):- carga_trabajo_fuerte(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       tiempo_ots_medio(X).' . PHP_EOL
+                        . 'optimo13(X):- carga_trabajo_fuerte(X),
+                                       (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
+                                       (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).' . PHP_EOL;
+            $escribeOptimos = 'escribeOptimos([]):- write("").' . PHP_EOL
+                        . 'escribeOptimos([Primera|Personas]):- num_ot(Primera, NO),meses_trabajo(Primera, MT),distancia(Primera, D),tiempo_ots(Primera, TOTS),write(Primera),write(","),write(NO),write(","),write(MT),write(","),write(D),write(","),write(TOTS), nl,escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_1 = 'consulta_1:- findall(X, optimo1(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_2 = 'consulta_2:- findall(X, optimo2(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_3 = 'consulta_3:- findall(X, optimo3(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_4 = 'consulta_4:- findall(X, optimo4(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_5 = 'consulta_5:- findall(X, optimo5(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_6 = 'consulta_6:- findall(X, optimo6(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_7 = 'consulta_7:- findall(X, optimo7(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_8 = 'consulta_8:- findall(X, optimo8(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_9 = 'consulta_9:- findall(X, optimo9(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_10 = 'consulta_10:- findall(X, optimo10(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_11 = 'consulta_11:- findall(X, optimo11(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_12 = 'consulta_12:- findall(X, optimo12(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_13 = 'consulta_13:- findall(X, optimo13(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
 
             //Almacenando todos los hechos y reglas en una sola variable 
             $sistema_experto = [
@@ -231,16 +267,132 @@ class SistemaExpertoController extends Controller
                                 $categorizacion_meses_trabajo,
                                 $categorizacion_distancia,
                                 $categorizacion_tiempo_ots,
-                                $reglas
+                                $reglas, 
+                                $escribeOptimos,
+                                $consulta_1,
+                                $consulta_2,
+                                $consulta_3,
+                                $consulta_4,
+                                $consulta_5,
+                                $consulta_6,
+                                $consulta_7,
+                                $consulta_8,
+                                $consulta_9,
+                                $consulta_10,
+                                $consulta_11,
+                                $consulta_12,
+                                $consulta_13
                                 ];
             // Generando el archivo .pl con todos los hechos y reglas
             file_put_contents('sistema_experto.pl', $sistema_experto);
 
+            $consulta_1_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_1." -t halt.', $output_1);
+            $consulta_2_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_2." -t halt.', $output_2);
+            $consulta_3_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_3." -t halt.', $output_3);
+            $consulta_4_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_4." -t halt.', $output_4);
+            $consulta_5_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_5." -t halt.', $output_5);
+            $consulta_6_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_6." -t halt.', $output_6);
+            $consulta_7_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_7." -t halt.', $output_7);
+            $consulta_8_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_8." -t halt.', $output_8);
+            $consulta_9_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_9." -t halt.', $output_9);
+            $consulta_10_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_10." -t halt.', $output_10);
+            $consulta_11_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_11." -t halt.', $output_11);
+            $consulta_12_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_12." -t halt.', $output_12);
+            $consulta_13_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_13." -t halt.', $output_13);
+
+            $campos_optimos = collect(['id_tecnico', 'num_ot', 'num_mt', 'distancia', 'tiempo_ots']);
+            if (($consulta_1_exec == "")&&($consulta_2_exec == "")&&($consulta_3_exec == "")
+                &&($consulta_4_exec == "")&&($consulta_5_exec == "")&&($consulta_6_exec == "")
+                &&($consulta_7_exec == "")&&($consulta_8_exec == "")&&($consulta_9_exec == "")
+                &&($consulta_10_exec == "")&&($consulta_11_exec == "")&&($consulta_12_exec == "")
+                &&($consulta_13_exec == "")) {
+                $respuesta[] = "";
+            } elseif($consulta_1_exec != "") {
+                    foreach ($output_1 as $line) {
+                        $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                        $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                        $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                    }
+            } elseif($consulta_2_exec != "") {
+                foreach ($output_2 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_3_exec != "") {
+                foreach ($output_3 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_4_exec != "") {
+                foreach ($output_4 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_5_exec != "") {
+                foreach ($output_5 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_6_exec != "") {
+                foreach ($output_6 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_7_exec != "") {
+                foreach ($output_7 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_8_exec != "") {
+                foreach ($output_8 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_9_exec != "") {
+                foreach ($output_9 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_10_exec != "") {
+                foreach ($output_10 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_11_exec != "") {
+                foreach ($output_11 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_12_exec != "") {
+                foreach ($output_12 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } elseif($consulta_13_exec != "") {
+                foreach ($output_13 as $line) {
+                    $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                    $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                }
+            } 
+            
+            
+            
             //Exportando a excel
             //$export = $this->export_excel($datos_aexcel);
 
-
-        return $sistema_experto;
+        return $respuesta;
     }
       
     protected function distanceCalculation($point1_lat, $point1_long, $point2_lat, $point2_long, $unit = 'km', $decimals = 2) {

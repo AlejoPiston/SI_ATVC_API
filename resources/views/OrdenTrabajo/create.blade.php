@@ -174,6 +174,8 @@
                               <span class="btn-inner--text">Emplear SE</span>
                       </span>
                 </button>
+               
+
                 </div>
                 <div class="col">
                     <select onchange="activar_btn_Guardar()" name="IdEmpleado" id="IdEmpleado" 
@@ -186,7 +188,12 @@
             
                     </select>
                 </div>
+                
             </div>
+            <div id="optimos"></div>
+
+            <div id="tabla"></div>
+            
               
           </div>
           <button id="btn_Guardar" type="submit" class="btn btn-primary" disabled>

@@ -182,6 +182,9 @@
                     </select>
                 </div>
             </div>
+            <div id="optimos"></div>
+
+            <div id="tabla"></div>
               
           </div>
           <input type="hidden" name="Direccion" id="Direccion">

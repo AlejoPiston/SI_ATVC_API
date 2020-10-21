@@ -48,8 +48,6 @@ Route::middleware('auth')->group(function () {
          
          Route::post('/orden_trabajos', 'OrdenTrabajoController@storeweb');
 
-         Route::get('/orden_trabajos/{orden_trabajos}/edit', 'OrdenTrabajoController@edit');
-
          Route::get('/orden_trabajos/ver/{orden_trabajo}', 'OrdenTrabajoController@showweb');
 
          Route::get('/orden_trabajos/create', 'OrdenTrabajoController@create');
@@ -94,6 +92,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/instalaciones/{orden_trabajo}/solucionar', 'InstalacionController@postSolucionar');
         Route::get('/instalaciones/{orden_trabajo}/finalizar', 'InstalacionController@showFinalizarForm');
         Route::post('/instalaciones/{orden_trabajo}/finalizar', 'InstalacionController@postFinalizar');
+
+        //Perfil
+        Route::get('/perfil/{id_user}', 'HomeController@perfil');
+        Route::get('/perfil/{id_user}/edit', 'HomeController@edit');
+        Route::put('/perfil/{id_user}', 'HomeController@update');
+
+
 
 
 

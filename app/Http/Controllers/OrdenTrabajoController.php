@@ -8,6 +8,7 @@ use App\Ficha;
 use App\User;
 use App\UbicacionOrdenTrabajo;
 use Illuminate\Http\Request;
+//use Carbon\Carbon;
 
 class OrdenTrabajoController extends Controller
 {
@@ -294,6 +295,8 @@ class OrdenTrabajoController extends Controller
     public function postSolucionar(OrdenTrabajo $ordenTrabajo)
     {
         $ordenTrabajo->Activa = 'en progreso';
+        //$date = Carbon::now();
+        //$ordenTrabajo->FechaHoraArrivo = $date->toDateTimeString();
         $saved = $ordenTrabajo->save();
 
         if ($saved)

@@ -115,7 +115,11 @@
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <span class="text-success mr-2">Estado:</span>
-                <span class="text-nowrap">{{ $user->Estado }}</span>
+                @if ($user->Estado == '1')
+                <span class="text-nowrap">Activo</span>
+              @elseif($user->Estado == '0')
+                <span class="text-nowrap">Inactivo</span>
+              @endif
               </p>
             </div>
           </div>

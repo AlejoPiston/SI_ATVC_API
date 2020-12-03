@@ -2,11 +2,11 @@ var vMarker
         var map
             map = new google.maps.Map(document.getElementById('map_canvas'), {
                 zoom: 14,
-                center: new google.maps.LatLng(19.4326296, -99.1331785),
+                center: new google.maps.LatLng(-0.9340311, -78.6145758),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             vMarker = new google.maps.Marker({
-                position: new google.maps.LatLng(19.4326296, -99.1331785),
+                position: new google.maps.LatLng(-0.9340311, -78.6145758),
                 draggable: true
             });
             google.maps.event.addListener(vMarker, 'dragend', function (evt) {

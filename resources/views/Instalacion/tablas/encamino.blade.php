@@ -7,10 +7,10 @@
         <tr>
           <th scope="col">Cliente</th>
           <th scope="col">Referencia</th>
-          <th scope="col">Estado</th>
+          
           <th scope="col">Fecha</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">Resultado</th>
+          
+         
           <th scope="col">Técnico</th>
           <th scope="col">Opciones</th>
         </tr>
@@ -26,18 +26,11 @@
         <td>
           {{ $ordentrabajo->Referencia }}
         </td>
-        <td>
-          {{ $ordentrabajo->Activa }}
-        </td>
+       
         <td>
             {{ $ordentrabajo->Fecha }}
         </td>
-        <td>
-            {{ $ordentrabajo->Tipo }}
-        </td>
-        <td>
-            {{ $ordentrabajo->Resultado }}
-        </td>
+        
         <td>
             {{ $ordentrabajo->empleadoordentrabajo->name }} {{ $ordentrabajo->empleadoordentrabajo->Apellidos }} 
         </td>

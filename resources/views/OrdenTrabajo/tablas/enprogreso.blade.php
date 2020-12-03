@@ -6,13 +6,9 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">Cliente</th>
-        <th scope="col">Estado</th>
         <th scope="col">Fecha</th>
         <th scope="col">Daño</th>
-        <th scope="col">Resultado</th>
         <th scope="col">Técnico</th>
-        <th scope="col">Fecha/Hora Arrivo</th>
-        <th scope="col">Fecha/Hora Salida</th>
         <th scope="col">Opciones</th>
       </tr>
     </thead>
@@ -25,25 +21,13 @@
             {{ $ordentrabajo->fichaordentrabajo->Nombres }} {{ $ordentrabajo->fichaordentrabajo->Apellidos }}
         </th>
         <td>
-          {{ $ordentrabajo->Activa }}
-        </td>
-        <td>
             {{ $ordentrabajo->Fecha }}
         </td>
         <td>
             {{ $ordentrabajo->Dano }}
         </td>
         <td>
-            {{ $ordentrabajo->Resultado }}
-        </td>
-        <td>
             {{ $ordentrabajo->empleadoordentrabajo->name }} {{ $ordentrabajo->empleadoordentrabajo->Apellidos }} 
-        </td>
-        <td>
-            {{ $ordentrabajo->FechaHoraArrivo }}
-        </td>
-        <td>
-            {{ $ordentrabajo->FechaHoraSalida }}
         </td>
         <td>
           <a href="{{ url('/orden_trabajos/ver/'.$ordentrabajo->Id) }}" 

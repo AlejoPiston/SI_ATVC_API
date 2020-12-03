@@ -34,7 +34,9 @@ class ReporteController extends Controller
     }
     public function mapMarker(){
         
-        $locations = UbicacionOrdenTrabajo::all();
+        $locations = UbicacionOrdenTrabajo::orderBy('id', 'DESC')
+                    ->where('Latitud', '!=', 'pendiente')
+                    ->get()->unique('IdOrdenTrabajo'); 
         $map_markes = array ();
         foreach ($locations as $key => $location) { 
             $map_markes[] = (object)array(

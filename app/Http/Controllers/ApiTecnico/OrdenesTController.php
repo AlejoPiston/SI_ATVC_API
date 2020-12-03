@@ -155,6 +155,10 @@ class OrdenesTController extends Controller
         $ubicacion->IdOrdenTrabajo = $ordentrabajo->Id;
         $ubicacion->save();
         $ordentrabajo->Activa = $request->Activa;
+
+        //$date = Carbon::now();
+        //$ordentrabajo->FechaHoraArrivo = $date;
+
         $ordentrabajo->Resultado = $request->Resultado;
         $ordentrabajo->save();
         return $ordentrabajo;

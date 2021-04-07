@@ -21,6 +21,7 @@ class OrdenTrabajo extends Model
                             "Tipo",
                             "IdVendedor",
                             "Resultado", 
+                            "Descripcion", 
                             "Activa",
                             "FechaHoraArrivo", 
                             "FechaHoraSalida",
@@ -65,5 +66,10 @@ class OrdenTrabajo extends Model
     {
         return $date->format('d/m/Y g:i:s A');
     }
+
+    protected $casts = [
+        'FechaHoraArrivo' => 'datetime',
+        'FechaHoraSalida' => 'datetime',
+    ];
 
 }

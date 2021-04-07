@@ -38,7 +38,7 @@
     <div class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0">Órdenes de Trabajo</h3>
+          <h3 class="mb-0">Órdenes de trabajo de tipo FALLO</h3>
         </div>
         @if ($Tipo == 'administrador' || $Tipo == 'cliente')
           <div class="col text-right">

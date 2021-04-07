@@ -8,7 +8,7 @@ use App\Ficha;
 use App\User;
 use App\UbicacionOrdenTrabajo;
 use Illuminate\Http\Request;
-//use Carbon\Carbon;
+use Carbon\Carbon;
 
 class OrdenTrabajoController extends Controller
 {
@@ -110,6 +110,7 @@ class OrdenTrabajoController extends Controller
         //
         $rules = [
             'Dano' => 'required',
+            'Descripcion' => 'required',
             'IdFicha' => 'required',
             'Fecha' => 'required',
             'IdEmpleado' => 'required'
@@ -124,6 +125,7 @@ class OrdenTrabajoController extends Controller
             $ordenTrabajo = OrdenTrabajo::create(
                 $request->only('Fecha', 
                                'Dano', 
+                               'Descripcion',
                                'FechaHoraArrivo', 
                                'FechaHoraSalida', 
                                'IdFicha',
@@ -150,6 +152,7 @@ class OrdenTrabajoController extends Controller
             $ordenTrabajo = OrdenTrabajo::create(
                 $request->only('Fecha', 
                                'Dano', 
+                               'Descripcion',
                                'FechaHoraArrivo', 
                                'FechaHoraSalida', 
                                'IdFicha',
@@ -229,16 +232,22 @@ class OrdenTrabajoController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\OrdenTrabajo  $ordenTrabajo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(OrdenTrabajo $ordenTrabajo)
+    public function destroy($id)
     {
-        $ordenTrabajo->delete();
+        $ordent = OrdenTrabajo::findOrFail($id);
+        if($ordent->Activa == 'cancelada' || $ordent->Activa == 'atendida'){
 
+            $ordentsUbicacion = UbicacionOrdenTrabajo::where('IdOrdenTrabajo', $ordent->Id)->get()->toArray();
+            $eliminados_ordentsUbicacion = UbicacionOrdenTrabajo::destroy($ordentsUbicacion);
+
+            $ordentsCancelada = CancelacionOrdenTrabajo::where('IdOrdenTrabajo', $ordent->Id)->get()->toArray();
+            $eliminados_ordentsCancelada = CancelacionOrdenTrabajo::destroy($ordentsCancelada);
+            
+        }
+        $ordent->delete();
+        
+       $notificacion = 'La orden de trabajo se ha eliminado correctamente';
+       return back()->with(compact('notificacion'));
     }
 
     public function showCancelForm(OrdenTrabajo $ordenTrabajo)
@@ -295,8 +304,8 @@ class OrdenTrabajoController extends Controller
     public function postSolucionar(OrdenTrabajo $ordenTrabajo)
     {
         $ordenTrabajo->Activa = 'en progreso';
-        //$date = Carbon::now();
-        //$ordenTrabajo->FechaHoraArrivo = $date->toDateTimeString();
+        $date = Carbon::now();
+        $ordenTrabajo->FechaHoraArrivo = $date->toDateTimeString();
         $saved = $ordenTrabajo->save();
 
         if ($saved)
@@ -328,6 +337,8 @@ class OrdenTrabajoController extends Controller
             $ordenTrabajo->Resultado = $request->input('Resultado');
 
         $ordenTrabajo->Activa = 'atendida';
+        $date2 = Carbon::now();
+        $ordenTrabajo->FechaHoraSalida = $date2->toDateTimeString();
         $saved = $ordenTrabajo->save();
 
         if ($saved)

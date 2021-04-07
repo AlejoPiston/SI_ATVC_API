@@ -26,18 +26,31 @@
     </div>
     <div class="card-body">
         <ul>
+           <li>
+                <strong>Cliente:</strong> {{ $ordenTrabajo->fichaordentrabajo->Nombres }} {{ $ordenTrabajo->fichaordentrabajo->Apellidos }}
+            </li>
             <li>
                 <strong>Fecha:</strong> {{ $ordenTrabajo->Fecha}}
             </li>
-            <li>
-                <strong>Resultado:</strong> {{ $ordenTrabajo->Resultado}}
-            </li>
+            
             <li>
                 <strong>Daño:</strong> {{ $ordenTrabajo->Dano}}
             </li>
             <li>
+              <strong>Descripción:</strong> {{ $ordenTrabajo->Descripcion}}
+          </li>
+            <li>
                 <strong>Técnico:</strong> {{ $ordenTrabajo->empleadoordentrabajo->name }} {{ $ordenTrabajo->empleadoordentrabajo->Apellidos }}
             </li>
+            <li>
+              <strong>Resultado:</strong> {{ $ordenTrabajo->Resultado}}
+          </li>
+            <li>
+              <strong>Fecha/Hora Arrivo:</strong> {{ $ordenTrabajo->FechaHoraArrivo}}
+          </li>
+          <li>
+              <strong>Fecha/Hora Salida:</strong> {{ $ordenTrabajo->FechaHoraSalida}}
+          </li>
             <li>
                 <strong>Estado:</strong> 
                 @if ($ordenTrabajo->Activa == 'cancelada')

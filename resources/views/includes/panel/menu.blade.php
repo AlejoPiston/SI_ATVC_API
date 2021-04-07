@@ -35,7 +35,7 @@
 <li class="nav-item">
     <a class="@yield('nav-link OT')" href="{{ url('/orden_trabajos') }}">
     <i class="ni ni-delivery-fast text-green"></i>
-    <span class="nav-link-text">Órdenes de trabajo</span>
+    <span class="nav-link-text">Fallos</span>
     </a>
 </li>
 <li class="nav-item">

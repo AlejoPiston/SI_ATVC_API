@@ -91,7 +91,7 @@
               </a>
               <a href="{{ url('/administradores/'.$administrador->id.'/edit') }}" 
                 class="btn btn-sm btn-secundary" data-toggle="tooltip" data-placement="top" 
-                title="Editar datos del administrador">
+                title="Editar administrador">
                 <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
                 <span class="btn-inner--text">Editar</span>
               </a>

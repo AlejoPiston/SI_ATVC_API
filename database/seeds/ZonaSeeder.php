@@ -12,7 +12,7 @@ class ZonaSeeder extends Seeder
      */
     public function run()
     {
-        //
+        /*
         Zona::create([
             'Nombre' => 'F',
             'Descripcion' => 'Desde Pastocalle hasta Sigchos',
@@ -37,5 +37,6 @@ class ZonaSeeder extends Seeder
             'Nombre' => 'A',
             'Descripcion' => 'Desde Salcedo hasta el sur de Latacunga',
             ]);
+            */
     }
 }

@@ -12,6 +12,7 @@ class ServicioSeeder extends Seeder
      */
     public function run()
     {
+        /*
         Servicio::create([
             'Nombre' => 'Televisión Premiun',
             'Descripcion' => '100 Canales',
@@ -47,6 +48,7 @@ class ServicioSeeder extends Seeder
             'AplicaIva' => 1,
             'AplicaIce' => 0,
             'Estado' => 1,
-            ]); 
+            ]);
+            */ 
     }
 }

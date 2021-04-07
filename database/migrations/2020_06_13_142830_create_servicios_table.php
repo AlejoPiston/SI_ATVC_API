@@ -16,7 +16,7 @@ class CreateServiciosTable extends Migration
         Schema::create('Servicio', function (Blueprint $table) {
             $table->id('Id');
             $table->string('Nombre', 255);
-            $table->string('Descripcion', 255);
+            $table->string('Descripcion', 255)->nullable();
             $table->double('ValorInscripcion', 5, 2);
             $table->double('ValorMensualidad', 5, 2);
             $table->boolean('AplicaIva');

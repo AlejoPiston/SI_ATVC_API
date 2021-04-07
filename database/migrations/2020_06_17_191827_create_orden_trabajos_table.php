@@ -22,9 +22,10 @@ class CreateOrdenTrabajosTable extends Migration
             $table->string('Activa')->nullable(); 
             //Tipo de una orde de trabajo [fallo, instalacion]
             $table->string('Tipo')->nullable(); 
+            $table->string('Descripcion', 255)->nullable();
 
-            $table->date('FechaHoraArrivo')->nullable();
-            $table->date('FechaHoraSalida')->nullable();
+            $table->datetime('FechaHoraArrivo')->nullable();
+            $table->datetime('FechaHoraSalida')->nullable();
             //Campos para instalaciones 
             $table->string('NombreCliente', 255)->nullable();
             $table->string('Referencia', 255)->nullable();

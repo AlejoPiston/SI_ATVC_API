@@ -9,6 +9,8 @@ use App\UbicacionOrdenTrabajo;
 use App\Ficha;
 use App\User; 
 use App\CancelacionOrdenTrabajo;
+use Carbon\Carbon;
+
 
 
 class InstalacionController extends Controller
@@ -239,6 +241,8 @@ class InstalacionController extends Controller
     public function postSolucionar(OrdenTrabajo $ordenTrabajo)
     {
         $ordenTrabajo->Activa = 'en progreso';
+        $date = Carbon::now();
+        $ordenTrabajo->FechaHoraArrivo = $date->toDateTimeString();
         $saved = $ordenTrabajo->save();
 
         if ($saved)
@@ -263,6 +267,8 @@ class InstalacionController extends Controller
             $ordenTrabajo->Resultado = $request->input('Resultado');
 
         $ordenTrabajo->Activa = 'atendida';
+        $date2 = Carbon::now();
+        $ordenTrabajo->FechaHoraSalida = $date2->toDateTimeString();
         $saved = $ordenTrabajo->save();
 
         if ($saved)

@@ -41,12 +41,19 @@
           <li>
             <strong>Telefono:</strong> {{ $ordenTrabajo->Telefono}}
         </li>
-            <li>
-                <strong>Resultado:</strong> {{ $ordenTrabajo->Resultado}}
-            </li>
+            
             <li>
                 <strong>Técnico:</strong> {{ $ordenTrabajo->empleadoordentrabajo->name }} {{ $ordenTrabajo->empleadoordentrabajo->Apellidos }}
             </li>
+            <li>
+              <strong>Resultado:</strong> {{ $ordenTrabajo->Resultado}}
+          </li>
+            <li>
+              <strong>Fecha/Hora Arrivo:</strong> {{ $ordenTrabajo->FechaHoraArrivo}}
+          </li>
+          <li>
+              <strong>Fecha/Hora Salida:</strong> {{ $ordenTrabajo->FechaHoraSalida}}
+          </li>
             <li>
                 <strong>Estado:</strong> 
                 @if ($ordenTrabajo->Activa == 'cancelada')

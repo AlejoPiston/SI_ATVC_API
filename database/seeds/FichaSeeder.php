@@ -12,6 +12,7 @@ class FichaSeeder extends Seeder
      */
     public function run()
     {
+        /*
         Ficha::create([
             'Nombres' => 'Rosa Maria de Jesus',
             'Apellidos' => 'Almeida Naranjo',   
@@ -218,6 +219,6 @@ Ficha::create([
         'IdServicio' => 3,
         ]);
 
-           
+     */      
     }
 }

@@ -16,7 +16,7 @@
 
 @section('styles')
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="{{ asset('/css/bootstrap-select.min.css') }}">
 <style>
   .sinborde {
     border: 0;
@@ -86,7 +86,7 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">Nueva orden de trabajo</h3>
+              <h3 class="mb-0">Nuevo fallo</h3>
             </div>
             <div class="col text-right">
             <a href="{{ url('orden_trabajos') }}" class="btn btn-sm btn-default">
@@ -152,6 +152,13 @@
               </select>
               
             </div>
+
+
+            <div class="form-group">
+              <label for="Descripcion">Descripción:</label>
+          <input onkeyup="activar_btn_SE()" type="text" name="Descripcion" id="Descripcion" class="form-control" value="{{ old('Descripcion') }}" required>
+          </div>
+
             <div class="form-group">
               <label for="Fecha">Fecha</label>
               <div class="input-group">
@@ -174,7 +181,40 @@
                               <span class="btn-inner--text">Emplear SE</span>
                       </span>
                 </button>
+
+                <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                  <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-content">
+                          
+
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detalle de desición del Asesor Inteligente</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col">
+                              <div class="card card-stats">
+                                <!-- Card body -->
+                                <div id="tabla3"></div>
+
+
+                              </div>
+                            </div>
+                            <div id="tabla2"></div>
+ 
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+                          </div>
+                    
+                          
+                      </div>
+                  </div>
+              </div>
                
+
 
                 </div>
                 <div class="col">
@@ -215,7 +255,7 @@
 @section('scripts')
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="{{ asset('/js/bootstrap-select.min.js') }}"></script>
 
 <script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('/js/ordentrabajo/create.js') }}"></script>

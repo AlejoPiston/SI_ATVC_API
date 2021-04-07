@@ -14,6 +14,8 @@ class Ficha extends Model
                             "Apellidos", 
                             "CedulaRuc", 
                             "DireccionDomicilio",
+                            "Latitud",
+                            "Longitud",
                             "TelefonoDomicilio", 
                             "DireccionCobro",
                             "TelefonoCobro", 
@@ -49,4 +51,8 @@ class Ficha extends Model
     public function usuarioficha(){
         return $this->belongsTo('App\User', 'IdUsuario');
     }
+
+    protected $casts = [
+        'FechaInscripcion' => 'date',
+    ];
 }

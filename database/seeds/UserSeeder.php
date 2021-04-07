@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'name' => 'Luis Nelson',
             'email' => 'luisc@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('t1234'), // password
+            'password' => bcrypt('t1234'), // password Alexander
             'Apellidos' => 'Cruz Chuquitarco',
             'Cedula' => '0502667603', 
             'Direccion' => 'Quito', 
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
             'name' => 'Luis Alfredo',
             'email' => 'luisf@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('1234lr'), // password
+            'password' => bcrypt('t1234'), // password Yo
             'Apellidos' => 'Ferigra Anangono',
             'Cedula' => '1002553731', 
             'Direccion' => 'Quito', 
@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
             'name' => 'Mario Eduardo',
             'email' => 'mariom@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('t1234'), // password
+            'password' => bcrypt('t1234'), // password Ing. Ruben
             'Apellidos' => 'Mena Jacome',
             'Cedula' => '0502116353', 
             'Direccion' => 'Quito', 

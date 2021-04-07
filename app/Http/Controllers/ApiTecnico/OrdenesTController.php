@@ -156,8 +156,17 @@ class OrdenesTController extends Controller
         $ubicacion->save();
         $ordentrabajo->Activa = $request->Activa;
 
-        //$date = Carbon::now();
-        //$ordentrabajo->FechaHoraArrivo = $date;
+          //$date = Carbon::now();
+          
+          if(($request->FechaHoraSalida == '')&&($request->FechaHoraArrivo != '')){
+            $ordentrabajo->FechaHoraArrivo = $request->FechaHoraArrivo;
+            $ordentrabajo->FechaHoraSalida = $request->FechaHoraSalida;
+          }elseif(($request->FechaHoraSalida != '')&&($request->FechaHoraArrivo != '')){
+            $datearribo = \DateTime::createFromFormat("d/m/Y g:i:s A", $request->FechaHoraArrivo)->format("d-m-Y H:i:s");
+            $ordentrabajo->FechaHoraArrivo = $datearribo;
+            $ordentrabajo->FechaHoraSalida = $request->FechaHoraSalida;
+          }
+          
 
         $ordentrabajo->Resultado = $request->Resultado;
         $ordentrabajo->save();

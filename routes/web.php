@@ -73,6 +73,13 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/orden_trabajos/{id}/ficha', 'OrdenTrabajoController@getficha');
         Route::get('/orden_trabajos/tecnico/se', 'SistemaExpertoController@gettecnico');
+        
+        Route::get('/orden_trabajos/detalle/asesor', 'SistemaExpertoController@generarword');
+
+
+        //Eliminar
+        Route::delete('/orden_trabajos/{id}', 'OrdenTrabajoController@destroy');
+
 
 
         // Instalaciones

@@ -7,6 +7,8 @@ use App\UbicacionOrdenTrabajo;
 use App\OrdenTrabajo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
+
 
 use Illuminate\Http\Request;
 
@@ -19,21 +21,28 @@ class SistemaExpertoController extends Controller
             //Datos de entrada
             $date = $request->input('date');
             if ($request->has('dano')){
+                $tipo_orden_trabajo = 'fallo';
                 $daño = $request->input('dano');
+                $daño_des = $request->input('danoDes');
                 //Tipo de Daño
                 if ($daño == 'Lentitud') {
                     $tipo_daño = 'bajo';
+                    $tiempo_daño = 30;
                 }elseif ($daño == 'Intermitencia' || $daño == 'Cambio de cable' || $daño == 'Canales') {
                     $tipo_daño = 'medio';
-
+                    $tiempo_daño = 60;
                 }else { 
                     $tipo_daño = 'alto';
+                    $tiempo_daño = 80;
                 }
                 //Almacenando datos en variables con lenguaje prolog
                 $se_daño = 'fallo('.$tipo_daño.').' . PHP_EOL;
             }else{
                 //Almacenando datos en variables con lenguaje prolog
-                $se_daño = 'fallo(instalacion).' . PHP_EOL;
+                $tipo_daño = 'instalacion';
+                $tiempo_daño = 40;
+                $tipo_orden_trabajo = 'instalacion';
+                $se_daño = 'fallo('.$tipo_daño.').' . PHP_EOL;
             }
             if ($request->has('ficha')){
                 $idficha = $request->input('ficha');
@@ -55,11 +64,36 @@ class SistemaExpertoController extends Controller
                 //Latidud y longitud de la ficha; estos campos deben estar llenos obligatoriamente
                 $latitud_cli = $ficha->Latitud;
                 $longitud_cli = $ficha->Longitud; 
+
+                $Cliente = ''.$ficha->Nombres.' '.$ficha->Apellidos.'';
+                $Cliente_direc = $ficha->DireccionDomicilio;
+                $Cliente_tele = $ficha->TelefonoDomicilio;
+                $Cliente_lat = $ficha->Latitud;
+                $Cliente_long = $ficha->Longitud;
             }else{
                 $latitud_cli = $request->input('Latitud');
                 $longitud_cli = $request->input('Longitud');
+                $daño = '';
+                $daño_des = '';
+                $Cliente = $request->input('NombreCliente');
+                $Cliente_direc = $request->input('Direccion');
+                $Cliente_tele = $request->input('Telefono');
+                $Cliente_lat = $request->input('Latitud');
+                $Cliente_long = $request->input('Longitud');
+
             }
-            
+            $respuesta3[] = ['fechaOrdenTrabajo' => $date, 
+                            'tipoOrdenTrabajo' =>  $tipo_orden_trabajo,
+                            'Daño' => $daño,
+                            'Daño_des' => $daño_des,
+                            'nivelOrdenTrabajo' => $tipo_daño,
+                            'tiempo_nivelOT' => $tiempo_daño,
+                            'Cliente' => $Cliente,
+                            'Cliente_direccion' => $Cliente_direc,
+                            'Cliente_telefono' => $Cliente_tele,
+                            'Cliente_latitud' => $Cliente_lat,
+                            'Cliente_longitud' => $Cliente_long
+                            ];
             //Técnicos
             $tecnicos = User::tecnicos()->get();
             //Ordenes de Trabajo
@@ -165,8 +199,8 @@ class SistemaExpertoController extends Controller
                     $se_distancia_tecnicos[$contTecnicos] = 'distancia('.$tecnico->id.','.$distancia[$contTecnicos].').' . PHP_EOL;
                     $se_tiempo_ots_tecnicos[$contTecnicos] = 'tiempo_ots('.$tecnico->id.','.$añade_tiempo_minutos[$contTecnicos].').' . PHP_EOL;
                     
-                    //Almacenando datos en una variable para enviar a excel
-                    $datos_aexcel[$contTecnicos] = ['IdTecnico' => $tecnico->id, 
+                    //Almacenando datos en una variable para obtener detalles de la desición del Asesor Inteligente
+                    $reporte_desicion_AsesorInteligente[$contTecnicos] = ['IdTecnico' => $tecnico->id, 
                                                     'Nombre' => ''.$tecnico->name.' '.$tecnico->Apellidos.'',
                                                     'Num_OT' => $num_ordenestrabajo[$contTecnicos],
                                                     'Meses_Tra' => $meses_ordenestrabajo[$contTecnicos],
@@ -183,25 +217,47 @@ class SistemaExpertoController extends Controller
             $categorizacion_num_ot = 'carga_trabajo_ninguna(X) :- num_ot(X,Y), Y = 0.' . PHP_EOL
                         . 'carga_trabajo_leve(X) :- num_ot(X,Y), Y > 0, Y =< 2.' . PHP_EOL
                         . 'carga_trabajo_normal(X) :- num_ot(X,Y), Y > 2, Y =< 5.' . PHP_EOL
-                        . 'carga_trabajo_fuerte(X) :- num_ot(X,Y), Y > 5, Y =< 20.' . PHP_EOL;
+                        . 'carga_trabajo_fuerte(X) :- num_ot(X,Y), Y > 5, Y =< 20.' . PHP_EOL
+                        . 'carga_trabajo(X,ninguna) :- carga_trabajo_ninguna(X).' . PHP_EOL
+                        . 'carga_trabajo(X,leve) :- carga_trabajo_leve(X).' . PHP_EOL
+                        . 'carga_trabajo(X,normal) :- carga_trabajo_normal(X).' . PHP_EOL
+                        . 'carga_trabajo(X,fuerte) :- carga_trabajo_fuerte(X).' . PHP_EOL;
             $categorizacion_meses_trabajo = 'experiencia_ninguna(X) :- meses_trabajo(X,Y),  Y >= 0, Y =< 2.' . PHP_EOL
                         . 'experiencia_junior(X) :- meses_trabajo(X,Y), Y > 2, Y =< 5.' . PHP_EOL
                         . 'experiencia_senior(X) :- meses_trabajo(X,Y), Y > 5, Y =< 8.' . PHP_EOL
                         . 'experiencia_master(X) :- meses_trabajo(X,Y), Y > 8, Y =< 11.' . PHP_EOL
-                        . 'experiencia_profesional(X) :- meses_trabajo(X,Y), Y > 11.' . PHP_EOL;
+                        . 'experiencia_profesional(X) :- meses_trabajo(X,Y), Y > 11.' . PHP_EOL
+                        . 'experiencia(X,ninguna) :- experiencia_ninguna(X).' . PHP_EOL
+                        . 'experiencia(X,junior) :- experiencia_junior(X).' . PHP_EOL
+                        . 'experiencia(X,senior) :- experiencia_senior(X).' . PHP_EOL
+                        . 'experiencia(X,master) :- experiencia_master(X).' . PHP_EOL
+                        . 'experiencia(X,profesional) :- experiencia_profesional(X).' . PHP_EOL;
             $categorizacion_distancia = 'distancia_ninguna(X) :- distancia(X,Y), Y = -1.' . PHP_EOL
                         . 'distancia_pendiente(X) :- distancia(X,Y), Y = -2.' . PHP_EOL
                         . 'distancia_muycorta(X) :- distancia(X,Y), Y >= 0, Y =< 2.' . PHP_EOL
                         . 'distancia_corta(X) :- distancia(X,Y), Y > 2, Y =< 10.' . PHP_EOL
                         . 'distancia_mediana(X) :- distancia(X,Y), Y > 10, Y =< 20.' . PHP_EOL
                         . 'distancia_larga(X) :- distancia(X,Y), Y > 20, Y =< 35.' . PHP_EOL
-                        . 'distancia_muylarga(X) :- distancia(X,Y), Y > 35.' . PHP_EOL;     
+                        . 'distancia_muylarga(X) :- distancia(X,Y), Y > 35.' . PHP_EOL       
+                        . 'distancia_estado(X,ninguna) :- distancia_ninguna(X).' . PHP_EOL     
+                        . 'distancia_estado(X,pendiente) :- distancia_pendiente(X).' . PHP_EOL     
+                        . 'distancia_estado(X,muy_corta) :- distancia_muycorta(X).' . PHP_EOL     
+                        . 'distancia_estado(X,corta) :- distancia_corta(X).' . PHP_EOL     
+                        . 'distancia_estado(X,mediana) :- distancia_mediana(X).' . PHP_EOL     
+                        . 'distancia_estado(X,larga) :- distancia_larga(X).' . PHP_EOL     
+                        . 'distancia_estado(X,muy_larga) :- distancia_muylarga(X).' . PHP_EOL;     
             $categorizacion_tiempo_ots = 'tiempo_ots_ninguno(X) :- tiempo_ots(X,Y), Y = 0.' . PHP_EOL
                         . 'tiempo_ots_muycorto(X) :- tiempo_ots(X,Y), Y > 0, Y =< 30.' . PHP_EOL
                         . 'tiempo_ots_corto(X) :- tiempo_ots(X,Y), Y > 30, Y =< 60.' . PHP_EOL
                         . 'tiempo_ots_medio(X) :- tiempo_ots(X,Y), Y > 60, Y =< 180.' . PHP_EOL
                         . 'tiempo_ots_largo(X) :- tiempo_ots(X,Y), Y > 180, Y =< 300.' . PHP_EOL   
-                        . 'tiempo_ots_muylargo(X) :- tiempo_ots(X,Y), Y > 300.' . PHP_EOL;   
+                        . 'tiempo_ots_muylargo(X) :- tiempo_ots(X,Y), Y > 300.' . PHP_EOL   
+                        . 'tiempo_ots_estado(X,ninguno) :- tiempo_ots_ninguno(X).' . PHP_EOL   
+                        . 'tiempo_ots_estado(X,muy_corto) :- tiempo_ots_muycorto(X).' . PHP_EOL   
+                        . 'tiempo_ots_estado(X,corto) :- tiempo_ots_corto(X).' . PHP_EOL   
+                        . 'tiempo_ots_estado(X,medio) :- tiempo_ots_medio(X).' . PHP_EOL   
+                        . 'tiempo_ots_estado(X,largo) :- tiempo_ots_largo(X).' . PHP_EOL   
+                        . 'tiempo_ots_estado(X,muy_largo) :- tiempo_ots_muylargo(X).' . PHP_EOL;   
             $reglas = 'optimo1(X):- carga_trabajo_ninguna(X),distancia_ninguna(X).' . PHP_EOL
                         . 'optimo2(X):- carga_trabajo_leve(X),
                                        (distancia_pendiente(X);distancia_muycorta(X);distancia_corta(X)),
@@ -240,7 +296,23 @@ class SistemaExpertoController extends Controller
                                        (distancia_mediana(X);distancia_larga(X);distancia_muylarga(X)),
                                        (tiempo_ots_largo(X);tiempo_ots_muylargo(X)).' . PHP_EOL;
             $escribeOptimos = 'escribeOptimos([]):- write("").' . PHP_EOL
-                        . 'escribeOptimos([Primera|Personas]):- num_ot(Primera, NO),meses_trabajo(Primera, MT),distancia(Primera, D),tiempo_ots(Primera, TOTS),write(Primera),write(","),write(NO),write(","),write(MT),write(","),write(D),write(","),write(TOTS), nl,escribeOptimos(Personas).' . PHP_EOL;
+                        . 'escribeOptimos([Primera|Personas]):- num_ot(Primera, NO),
+                        carga_trabajo(Primera, CT),
+                        meses_trabajo(Primera, MT),
+                        experiencia(Primera, EX),
+                        distancia(Primera, D),
+                        distancia_estado(Primera, DE),
+                        tiempo_ots(Primera, TOTS),
+                        tiempo_ots_estado(Primera, TOTSE),
+                        write(Primera),write(","),
+                        write(NO),write(","),
+                        write(CT),write(","),
+                        write(MT),write(","),
+                        write(EX),write(","),
+                        write(D),write(","),
+                        write(DE),write(","),
+                        write(TOTS),write(","),
+                        write(TOTSE), nl,escribeOptimos(Personas).' . PHP_EOL;
             $consulta_1 = 'consulta_1:- findall(X, optimo1(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
             $consulta_2 = 'consulta_2:- findall(X, optimo2(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
             $consulta_3 = 'consulta_3:- findall(X, optimo3(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
@@ -254,6 +326,7 @@ class SistemaExpertoController extends Controller
             $consulta_11 = 'consulta_11:- findall(X, optimo11(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
             $consulta_12 = 'consulta_12:- findall(X, optimo12(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
             $consulta_13 = 'consulta_13:- findall(X, optimo13(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
+            $consulta_general = 'consulta_general:- findall(X, id_tecnico(X), Personas),escribeOptimos(Personas).' . PHP_EOL;
 
             //Almacenando todos los hechos y reglas en una sola variable 
             $sistema_experto = [
@@ -281,7 +354,8 @@ class SistemaExpertoController extends Controller
                                 $consulta_10,
                                 $consulta_11,
                                 $consulta_12,
-                                $consulta_13
+                                $consulta_13,
+                                $consulta_general
                                 ];
             // Generando el archivo .pl con todos los hechos y reglas
             file_put_contents('sistema_experto.pl', $sistema_experto);
@@ -299,8 +373,18 @@ class SistemaExpertoController extends Controller
             $consulta_11_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_11." -t halt.', $output_11);
             $consulta_12_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_12." -t halt.', $output_12);
             $consulta_13_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_13." -t halt.', $output_13);
+            $consulta_general_exec = exec('swipl -s C:\laragon\www\SI_ATVC_API\public\sistema_experto.pl -g "consulta_general." -t halt.', $output_general);
 
-            $campos_optimos = collect(['id_tecnico', 'num_ot', 'num_mt', 'distancia', 'tiempo_ots']);
+
+            $campos_optimos = collect(['id_tecnico', 
+                                        'num_ot', 
+                                        'carga_tra', 
+                                        'num_mt', 
+                                        'experiencia', 
+                                        'distancia', 
+                                        'distancia_nivel', 
+                                        'tiempo_ots', 
+                                        'tiempo_ots_nivel']);
             if (($consulta_1_exec == "")&&($consulta_2_exec == "")&&($consulta_3_exec == "")
                 &&($consulta_4_exec == "")&&($consulta_5_exec == "")&&($consulta_6_exec == "")
                 &&($consulta_7_exec == "")&&($consulta_8_exec == "")&&($consulta_9_exec == "")
@@ -311,88 +395,100 @@ class SistemaExpertoController extends Controller
                     foreach ($output_1 as $line) {
                         $json_optimos = $campos_optimos->combine(explode(',', $line));  
                         $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                        $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
+                        $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                        'elegido' => 'Si']);                              
                     }
             } elseif($consulta_2_exec != "") {
                 foreach ($output_2 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_3_exec != "") {
                 foreach ($output_3 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_4_exec != "") {
                 foreach ($output_4 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_5_exec != "") {
                 foreach ($output_5 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_6_exec != "") {
                 foreach ($output_6 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_7_exec != "") {
                 foreach ($output_7 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_8_exec != "") {
                 foreach ($output_8 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_9_exec != "") {
                 foreach ($output_9 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_10_exec != "") {
                 foreach ($output_10 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_11_exec != "") {
                 foreach ($output_11 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_12_exec != "") {
                 foreach ($output_12 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } elseif($consulta_13_exec != "") {
                 foreach ($output_13 as $line) {
                     $json_optimos = $campos_optimos->combine(explode(',', $line));  
                     $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
-                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos]);                              
-                }
+                    $respuesta[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                    'elegido' => 'Si']);                }
             } 
             
-            
-            
-            //Exportando a excel
-            //$export = $this->export_excel($datos_aexcel);
+            foreach ($output_general as $line) {
+                $json_optimos = $campos_optimos->combine(explode(',', $line));  
+                $tec = User::tecnicos()->findOrFail($json_optimos['id_tecnico']);
+                $respuesta2[] = $json_optimos->merge(['Nombre' => ''.$tec->name.' '.$tec->Apellidos,
+                'elegido' => 'No']);          
+              }
 
-        return $respuesta;
+              $datos = Arr::collapse([$respuesta, $respuesta2]);
+              $datos_2 =Arr::sort(collect($datos)->unique('id_tecnico')->groupBy('id_tecnico')->flatten(1)->toArray());
+              
+              foreach ($datos_2 as $orden_datos2) {
+                $respuesta_total[] = $orden_datos2;           
+              }
+
+              
+    
+        return [$respuesta, $respuesta_total, $respuesta3];
     }
       
     protected function distanceCalculation($point1_lat, $point1_long, $point2_lat, $point2_long, $unit = 'km', $decimals = 2) {
@@ -412,32 +508,51 @@ class SistemaExpertoController extends Controller
         }
         return round($distance, $decimals);
     }
-
-    protected function export_excel($datos) {
-
-        $fecha_actual = Carbon::now();
-        $filename = 'SistemaExperto_' . $fecha_actual . '.xls'; 
-        
-        header('Content-Type: application/vnd.ms-excel');
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-
-        
-        $isPrintHeader = false;
-
-        foreach ($datos as $row) {
-
-            if (! $isPrintHeader ) {
-
-                echo implode("\t", array_keys($row)) . "\n";
-                $isPrintHeader = true;
-
+    public function generarword(Request $request){
+        $Datos_generales = json_decode($request->input('data'));
+        //dd($Datos_generales[1]);
+        try {
+            //code...
+            if($Datos_generales[2][0]->tipoOrdenTrabajo=='instalación'){
+                $tipo = 'INSTALACIÓN';
+                $nivel = $Datos_generales[2][0]->nivelOrdenTrabajo;
+                $template = new \PhpOffice\PhpWord\TemplateProcessor('template_detalle_se_instalacion.docx');
+            }elseif($Datos_generales[2][0]->tipoOrdenTrabajo=='fallo'){
+                $tipo = 'FALLO';
+                $nivel = $Datos_generales[2][0]->nivelOrdenTrabajo;
+                $template = new \PhpOffice\PhpWord\TemplateProcessor('template_detalle_se_fallo.docx');
             }
+            
+            $template->setValue('tipo',$tipo);
+            $template->setValue('daño',$Datos_generales[2][0]->Daño);
+            $template->setValue('descripción',$Datos_generales[2][0]->Daño_des);
+            $template->setValue('nivel',$nivel);
+            $template->setValue('nivel_t',$Datos_generales[2][0]->tiempo_nivelOT);
+            $template->setValue('cliente',$Datos_generales[2][0]->Cliente);
+            $template->setValue('fecha',$Datos_generales[2][0]->fechaOrdenTrabajo);
+            $template->setValue('dirección',$Datos_generales[2][0]->Cliente_direccion);
+            $template->setValue('teléfono',$Datos_generales[2][0]->Cliente_telefono);
+            $template->setValue('latitud',$Datos_generales[2][0]->Cliente_latitud);
+            $template->setValue('longitud',$Datos_generales[2][0]->Cliente_longitud);
 
-            echo implode("\t", array_values($row)) . "\n";
+            $template->cloneRowAndSetValues('id_tecnico', $Datos_generales[1]);
 
+            $tempFile = tempnam(sys_get_temp_dir(),'PHPWord');
+            $template->saveAs($tempFile);
+
+            $header = [
+                  "Content-Type: application/octet-stream",
+            ];
+
+            $fech = Carbon::now()->toDateTimeString();
+
+            return response()->download($tempFile,
+             'ReporteDesición_AsesorInteligente_'.$Datos_generales[2][0]->Cliente.'_'.$fech.'.docx', $header)->deleteFileAfterSend($shouldDelete = true);
+        
+        } catch (\PhpOffice\PhpWord\Exception\Exception $e) {
+            //throw $th;
+            return back($e->getCode());
         }
-
-        exit();
-
     }
+
 }
